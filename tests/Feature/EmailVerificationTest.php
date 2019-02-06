@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Auth\Notifications\VerifyEmail;
+use App\User;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Notification;
-use App\User;
 
 class EmailVerificationTest extends TestCase
 {
@@ -16,22 +16,19 @@ class EmailVerificationTest extends TestCase
     use WithFaker;
 
     /** @test */
-    public function email_is_sent_after_user_registers()
+    public function an_email_is_sent_to_the_user_after_registration()
     {
         Notification::fake();
 
-        $password_testing = 'secret';
-        $name_testing = $this->faker->name;
-
         $this->post('/register', [
-            'username'             => $this->faker->userName,
-            'name'                 => $name_testing,
-            'email'                => $this->faker->email,
-            'password'             => $password_testing,
-            'password_confirmation' => $password_testing
+            'username' => $this->faker->userName,
+            'name' => 'Test',
+            'email' => $this->faker->email,
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
         ]);
 
-        $user = User::where('name', $name_testing)->first();
+        $user = User::where('name', 'Test')->first();
 
         Notification::assertSentTo(
             $user, VerifyEmail::class
