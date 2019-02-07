@@ -20,14 +20,13 @@ class EmailVerificationTest extends TestCase
         Notification::fake();
 
         $this->post('/register', [
-            'username' => $this->faker->userName,
-            'name' => 'Test',
+            'username' => 'testuser123',
             'email' => $this->faker->email,
             'password' => 'secret',
             'password_confirmation' => 'secret'
         ]);
 
-        $user = User::whereName('Test')->first();
+        $user = User::whereUsername('testuser123')->first();
 
         Notification::assertSentTo(
             $user, VerifyEmail::class
