@@ -36,12 +36,14 @@ class RemindersController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
+        $attributes = request()->validate([
             'title' => 'required',
+            'description' => 'nullable',
             'notification_date' => 'required',
+            'file_attachment' => 'nullable',
         ]);
 
-        Reminder::create($request->all());
+        auth()->user()->reminders()->create($attributes);
 
         return response()->json('The reminder was created successfully!', ResponseStatusCodes::HTTP_CREATED);
     }

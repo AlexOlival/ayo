@@ -12,7 +12,7 @@ class Reminder extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'notification_date', 'file_attached',
+        'title', 'description', 'notification_date', 'file_attachment', 'owner_id',
     ];
 
     /**
@@ -27,5 +27,17 @@ class Reminder extends Model
      *
      * @var array
      */
-    protected $casts = [];
+    protected $casts = [
+        'notification_date' => 'datetime',
+    ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'owner_id');
+    }
+
+    public function guests()
+    {
+        return $this->belongsToMany(User::class, 'reminder_guests');
+    }
 }
