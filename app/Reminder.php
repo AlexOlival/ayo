@@ -12,7 +12,7 @@ class Reminder extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'description', 'notification_date', 'file_attachment', 'owner_id',
+        'title', 'description', 'notification_date',
     ];
 
     /**

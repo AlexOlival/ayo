@@ -19,7 +19,6 @@ class CreateRemindersTable extends Migration
             $table->string('title');
             $table->text('description')->nullable();
             $table->dateTime('notification_date');
-            $table->string('file_attachment')->nullable();
             $table->timestamps();
 
             $table->foreign('owner_id')->references('id')->on('users')->onDelete('cascade');

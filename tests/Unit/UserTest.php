@@ -12,7 +12,7 @@ class UserTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_user_has_reminders()
+    public function a_user_can_have_reminders()
     {
         $user = factory(User::class)->create();
 
@@ -20,7 +20,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function a_user_has_guest_reminders()
+    public function a_user_can_have_guest_reminders()
     {
         $user = factory(User::class)->create();
 

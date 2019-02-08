@@ -2,10 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Reminder;
 use App\User;
-use Illuminate\Database\Eloquent\Collection;
+use App\Reminder;
 use Tests\TestCase;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReminderTest extends TestCase

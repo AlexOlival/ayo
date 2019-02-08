@@ -37,10 +37,9 @@ class RemindersController extends Controller
     public function store(Request $request)
     {
         $attributes = request()->validate([
-            'title' => 'required',
-            'description' => 'nullable',
-            'notification_date' => 'required',
-            'file_attachment' => 'nullable',
+            'title' => 'required|string|max:31',
+            'description' => 'nullable|string|max:255',
+            'notification_date' => 'required|date|after:'.now(),
         ]);
 
         auth()->user()->reminders()->create($attributes);

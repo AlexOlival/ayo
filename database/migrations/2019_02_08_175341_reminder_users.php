@@ -15,12 +15,12 @@ class ReminderUsers extends Migration
     {
         Schema::create('reminder_guests', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
             $table->unsignedInteger('reminder_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('reminder_id')->references('id')->on('reminders')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

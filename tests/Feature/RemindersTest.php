@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\User;
 use App\Reminder;
-use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use \Symfony\Component\HttpFoundation\Response;
@@ -30,10 +29,9 @@ class RemindersTest extends TestCase
         $this->actingAs(factory(User::class)->create());
 
         $attributes = [
-            'title' => $this->faker->sentence,
-            'description' => $this->faker->text,
-            'notification_date' => Carbon::now()->addDay()->toDateString(),
-            'file_attachment' => '\temp',
+            'title' => $this->faker->sentence(4),
+            'description' => $this->faker->text(50),
+            'notification_date' => now()->addDay()->toDateString(),
         ];
 
         $this->post('/reminders', $attributes)->assertStatus(Response::HTTP_CREATED);
