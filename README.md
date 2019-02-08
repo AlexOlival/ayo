@@ -16,6 +16,7 @@ The app will be built using MySQL 5.7, Laravel 5.7 (possibly 5.8), Vue 2.6 (poss
 - Run `yarn` to install JavaScript dependencies
 - Copy .env.example to .env and set your local variables (database, mailtrap, etc.)
 - Run `php artisan key:generate`
+- Optionally run `yarn dev` to compile the front-end assets.
 - That's it!
 
 If you're on a mac, feel free to use [Valet](https://laravel.com/docs/5.7/valet) as it is a slightly easier way to get setup - however it will be on you to
@@ -34,7 +35,7 @@ But for now:
 ## Quality Tooling
 If you're on PhpStorm, you should install the Php Inspections (EA Extended) - it's a great static analysis tool.
 The PHP_CodeSniffer is great to warn you about PSR-2 violations, and it can integrate with your editor of choice.
-Also, the Laravel Framework plugin can be helpful.
+Also, the Laravel Framework plugin for PhpStorm can be helpful.
 
 ## MVP
 Once we have a first working proof of concept, we can merge to `master` and tag a beta release!
