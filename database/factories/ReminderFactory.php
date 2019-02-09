@@ -1,7 +1,6 @@
 <?php
 
 use App\User;
-use Carbon\Carbon;
 use Faker\Generator as Faker;
 
 $factory->define(App\Reminder::class, function (Faker $faker) {
