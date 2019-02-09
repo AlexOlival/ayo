@@ -1,4 +1,4 @@
-# ayo! - the friendly reminder app
+# ayo - the friendly reminder app
 
 ## Overview
 The goal of this app is to be an easy, snappy and fun reminder app that actually works as the user expects it too.
