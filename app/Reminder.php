@@ -16,13 +16,6 @@ class Reminder extends Model
     ];
 
     /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -31,11 +24,31 @@ class Reminder extends Model
         'notification_date' => 'datetime',
     ];
 
+    /**
+     * The path to the reminder.
+     *
+     * @return string
+     */
+    public function path()
+    {
+        return "/reminders/$this->id";
+    }
+
+    /**
+     * The owner of the reminder.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
     }
 
+    /**
+     * The guests of the reminder.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function guests()
     {
         return $this->belongsToMany(User::class, 'reminder_guests');

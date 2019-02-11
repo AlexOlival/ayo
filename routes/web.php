@@ -21,4 +21,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reminders', 'RemindersController@store');
+    Route::patch('/reminders/{reminder}', 'RemindersController@update');
 });

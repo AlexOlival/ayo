@@ -37,11 +37,21 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * The user's reminders.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function reminders()
     {
         return $this->hasMany(Reminder::class, 'owner_id');
     }
 
+    /**
+     * The reminders in which the user is a guest.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function guestReminders()
     {
         return $this->hasMany(Reminder::class, 'owner_id');

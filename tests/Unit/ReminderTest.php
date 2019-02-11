@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\User;
 use App\Reminder;
 use Tests\TestCase;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ReminderTest extends TestCase
@@ -13,7 +12,7 @@ class ReminderTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_reminder_has_only_one_owner()
+    public function it_belongs_to_an_owner()
     {
         $reminder = factory(Reminder::class)->create();
 
@@ -21,10 +20,10 @@ class ReminderTest extends TestCase
     }
 
     /** @test */
-    public function a_reminder_has_many_guests()
+    public function it_has_a_path()
     {
         $reminder = factory(Reminder::class)->create();
 
-        $this->assertInstanceOf(Collection::class, $reminder->guests);
+        $this->assertEquals('/reminders/1', $reminder->path());
     }
 }

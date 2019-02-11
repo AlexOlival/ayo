@@ -3,92 +3,47 @@
 namespace App\Http\Controllers;
 
 use App\Reminder;
-use Illuminate\Http\Request;
 use \Symfony\Component\HttpFoundation\Response as ResponseStatusCodes;
 
 class RemindersController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Create a new reminder in the database.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function store()
     {
         $attributes = request()->validate([
-            'title' => 'required|string|max:31',
-            'description' => 'nullable|string|max:255',
+            'title' => 'required|string|max:50',
+            'description' => 'nullable|string|max:300',
             'notification_date' => 'required|date|after:'.now(),
         ]);
 
         auth()->user()->reminders()->create($attributes);
 
-        return response()->json('The reminder was created successfully!', ResponseStatusCodes::HTTP_CREATED);
+        return response()->json('created', ResponseStatusCodes::HTTP_CREATED);
     }
 
     /**
-     * Display the specified resource.
+     * Update a reminder.
      *
-     * @param  \App\Reminder  $reminder
-     * @return \Illuminate\Http\Response
+     * @param Reminder $reminder
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Reminder $reminder)
+    public function update(Reminder $reminder)
     {
-        //
-    }
+        $this->authorize('update', $reminder);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Reminder  $reminder
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Reminder $reminder)
-    {
-        //
-    }
+        $attributes = request()->validate([
+            'title' => 'sometimes|required|string|max:50',
+            'description' => 'sometimes|nullable|string|max:300',
+            'notification_date' => 'sometimes|required|date|after:'.now(),
+        ]);
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Reminder  $reminder
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Reminder $reminder)
-    {
-        //
-    }
+        $reminder->update($attributes);
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Reminder  $reminder
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Reminder $reminder)
-    {
-        //
+        return response()->json('updated', ResponseStatusCodes::HTTP_OK);
     }
 }
