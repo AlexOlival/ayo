@@ -3,7 +3,7 @@
 </p>
 
 ## Overview
-The goal of ayo is to be an easy, snappy and fun reminder app that actually works as the user expects it too.
+Ayo is an easy, snappy and fun reminder app that actually works as the user expects it too.
 It's also meant to be a way for us to sharpen our software crafting, UI and UX skills.
 The app will be fully open sourced once we have an MVP, and development will go from there.
 
