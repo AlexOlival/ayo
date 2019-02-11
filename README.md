@@ -1,4 +1,6 @@
-# ayo - the friendly reminder app
+<p align="center">
+    <img title="ayo" width="20%" src="https://i.imgur.com/So0rxLO.png" />
+</p>
 
 ## Overview
 The goal of this app is to be an easy, snappy and fun reminder app that actually works as the user expects it too.
