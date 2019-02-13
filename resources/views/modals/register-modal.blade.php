@@ -1,0 +1,1 @@
+<register-modal></register-modal>
