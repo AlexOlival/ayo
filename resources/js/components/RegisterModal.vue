@@ -26,10 +26,10 @@
             </div>
 
             <div>
-                <label for="passwordConfirmation">Password Confirmation</label>
+                <label for="password_confirmation">Password Confirmation</label>
 
                 <div>
-                    <input id="passwordConfirmation" type="password" name="passwordConfirmation" v-model="form.password_confirmation">
+                    <input id="password_confirmation" type="password" name="password_confirmation" v-model="form.password_confirmation">
                 </div>
             </div>
 
@@ -65,7 +65,6 @@
 
                 axios.post('/register', this.form)
                     .then(() => {
-                        // redirect
                         location.assign('/home');
                     })
                     .catch(() => {

@@ -56,7 +56,6 @@
 
                 axios.post('/login', this.form)
                     .then(() => {
-                        // redirect
                         location.assign('/home');
                     })
                     .catch(() => {
