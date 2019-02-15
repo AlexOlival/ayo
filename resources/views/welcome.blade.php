@@ -1,23 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="flex py-10 px-16 h-screen">
-        <div class="bg-white rounded-lg shadow w-1/4 flex-col py-20 px-16 h-full">
-            <div class="mt-32">
-                <img src="/img/ayo-04.svg" alt="Ayo" class="w-32">
+    <div class="flex py-10 px-16 h-screen lg:justify-start sm:justify-center">
+        <div class="homepage-card lg:min-w-96 sm:min-w-1/2">
+            <div>
+                <img class="lg:w-32 sm:w-24" src="/img/ayo-04.svg" alt="Ayo">
             </div>
 
-            <div class="mt-16 text-xl tracking-normal leading-normal" style="color: #979797;">
+            <div class="homepage-card-text lg:text-xl sm:text-base lg:mt-16 sm:mt-8">
                 <p>Ayo helps you organize your time with mindful reminders, it's really simple.</p>
                 <p>You gotta try it dawg!</p>
             </div>
 
-            <div class="flex-col pt-16">
-                <button class="w-full button-pink" @click="$modal.show('register-modal')">
+            <div class="flex-col lg:pt-16 sm:pt-8">
+                <button class="w-full button-pink lg:py-5 sm:py-3" @click="$modal.show('register-modal')">
                     Get Started
                 </button>
 
-                <button class="w-full button-white mt-6" @click="$modal.show('login-modal')">
+                <button class="w-full button-white mt-6 lg:py-5 sm:py-3" @click="$modal.show('login-modal')">
                     Login
                 </button>
             </div>

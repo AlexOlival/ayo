@@ -1,3 +1,14 @@
 .homepage-background {
-  background-image: url('../img/background-01.jpg');
+    background-image: url('../img/background-01.jpg');
+    @apply .bg-no-repeat .bg-cover;
+    font-family: "Work Sans", sans-serif;
+}
+
+.homepage-card {
+    @apply .flex .flex-col .justify-center .h-full .bg-white .rounded-lg .shadow .w-1/4 .py-20 .px-16;
+}
+
+.homepage-card-text {
+    @apply .text-xl .tracking-normal .leading-normal .mt-16;
+    color: #979797;
 }
