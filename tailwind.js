@@ -44,14 +44,19 @@ let defaultConfig = require('tailwindcss/defaultConfig')()
 */
 
 let colors = {
+
+  //Project palette
   'peachy-pink': '#ff8a80',
-  'warm-grey': '#707070',
+  'peachy-pink-dark': '#C85A54',
+
   'leaf': '#689f38',
-  'white-two': '#f5f5f5',
+  'leaf-dark': '#387002',
+
+  'black': '#22292F',
+  'white': '#FFFFFF',
 
   'transparent': 'transparent',
 
-  'black': '#212121',
   'grey-darkest': '#3d4852',
   'grey-darker': '#606f7b',
   'grey-dark': '#8795a1',
@@ -59,7 +64,6 @@ let colors = {
   'grey-light': '#dae1e7',
   'grey-lighter': '#f1f5f8',
   'grey-lightest': '#f8fafc',
-  'white': '#fafafa',
 
   'red-darkest': '#3b0d0c',
   'red-darker': '#621b18',
