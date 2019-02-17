@@ -21,8 +21,7 @@
     <div id="app">
 
         @auth
-        @include('partials.navbar')
-        @endauth
+    @include('partials.navbar') @endauth
 
         <div class="flex flex-row justify-center w-screen">
             <main class="max-w-5xl w-screen">
@@ -31,9 +30,8 @@
         </div>
 
         @guest
-        @include('modals.login-modal')
-        @include('modals.register-modal')
-        @endguest
+    @include('modals.login-modal')
+    @include('modals.register-modal') @endguest
 
     </div>
 </body>

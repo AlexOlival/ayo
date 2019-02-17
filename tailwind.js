@@ -47,13 +47,13 @@ let colors = {
 
   //Project palette
   'peachy-pink': '#ff8a80',
-  'peachy-pink-dark': '#C85A54',
+  'peachy-pink-dark': '#c85a54',
 
   'leaf': '#689f38',
   'leaf-dark': '#387002',
 
-  'black': '#22292F',
-  'white': '#FFFFFF',
+  'black': '#22292f',
+  'white': '#ffffff',
 
   'transparent': 'transparent',
 
