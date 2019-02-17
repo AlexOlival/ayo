@@ -17,7 +17,7 @@ class RemindersTest extends TestCase
     {
         $attributes = factory(Reminder::class)->raw();
 
-        $this->post('/reminders', $attributes)->assertRedirect('login');
+        $this->post('/reminders', $attributes)->assertRedirect('/');
     }
 
     /** @test */
