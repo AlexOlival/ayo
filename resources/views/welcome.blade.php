@@ -15,7 +15,7 @@
                 Get Started
             </button>
 
-            <button class="w-full button button-white mt-6 lg:py-5 sm:py-3" @click="$modal.show('login-modal')">
+            <button class="w-full button button-white lg:py-5 mt-3 sm:py-3" @click="$modal.show('login-modal')">
                 Login
             </button>
         </div>

@@ -1,8 +1,13 @@
 .button:focus {
   @apply .outline-none
 }
+
+.button{
+  @apply .rounded-full
+}
+
 .button-pink {
-  @apply .bg-peachy-pink .rounded-lg .text-white .font-bold .py-5 
+  @apply .bg-peachy-pink .text-white .font-bold .py-5
 }
 
 .button-pink:hover {
@@ -10,7 +15,7 @@
 }
 
 .button-white {
-  @apply .bg-grey-lighter .rounded-lg .font-bold .text-black .py-5
+  @apply .bg-grey-lighter .font-bold .text-black .py-5
 }
 
 .button-white:hover {
