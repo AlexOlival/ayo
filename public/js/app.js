@@ -1819,7 +1819,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.post('/login', this.form).then(function () {
-        // redirect
         location.assign('/home');
       }).catch(function () {
         _this.loading = false;
@@ -1905,7 +1904,6 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.post('/register', this.form).then(function () {
-        // redirect
         location.assign('/home');
       }).catch(function () {
         _this.loading = false;
@@ -32785,7 +32783,7 @@ var render = function() {
         ]),
         _vm._v(" "),
         _c("div", [
-          _c("label", { attrs: { for: "passwordConfirmation" } }, [
+          _c("label", { attrs: { for: "password_confirmation" } }, [
             _vm._v("Password Confirmation")
           ]),
           _vm._v(" "),
@@ -32800,9 +32798,9 @@ var render = function() {
                 }
               ],
               attrs: {
-                id: "passwordConfirmation",
+                id: "password_confirmation",
                 type: "password",
-                name: "passwordConfirmation"
+                name: "password_confirmation"
               },
               domProps: { value: _vm.form.password_confirmation },
               on: {

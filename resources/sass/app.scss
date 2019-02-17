@@ -1,14 +1,5 @@
-
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
-// Variables
-@import 'variables';
-
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
 
 /**
  * This injects Tailwind's base styles, which is a combination of
@@ -72,3 +63,7 @@
  * @import "utilities/background-patterns";
  * @import "utilities/skew-transforms";
  */
+
+@import "homepage";
+
+@import "components";
