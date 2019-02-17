@@ -7,7 +7,7 @@
 }
 
 .button-pink {
-  @apply .bg-peachy-pink .text-white .font-bold .py-5
+  @apply .bg-peachy-pink .text-white .font-bold .p-4
 }
 
 .button-pink:hover {
@@ -15,10 +15,21 @@
 }
 
 .button-white {
-  @apply .bg-grey-lighter .font-bold .text-black .py-5
+  @apply .bg-grey-lighter .font-bold .text-black .p-4
 }
 
 .button-white:hover {
   @apply .bg-grey
 }
 
+.input{
+  @apply .bg-grey-lighter .rounded-full .p-2
+}
+
+.input:focus{
+  @apply .outline-none .border-grey .border-2
+}
+
+.label{
+  @apply .font-semibold .text-sm .text-grey-dark
+}
