@@ -7,7 +7,9 @@
                 class="flex flex-col px-6 py-6"
                 method="POST"
                 @submit.prevent="register"
-                @keydown="feedback = ''"
+                @keydown="clear($event.target.name)"
+                novalidate
+                v-if="!registered"
         >
             <div class="text-left text-5xl font-black text-black">Welcome!</div>
             <div class="text-left text-xs text-grey-dark mb-6">
@@ -15,10 +17,14 @@
             </div>
 
             <div>
-                <label class="label" for="username">Username</label>
+                <div class="flex justify-between">
+                    <label class="label" for="username">Username</label>
+                    <span v-if="errors.hasOwnProperty('username')" v-text="errors.username[0]" class="text-sm text-peachy-pink"></span>
+                </div>
                 <div>
                     <input
                             class="input mb-4 mt-2 w-full"
+                            :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('username') }"
                             id="username"
                             type="text"
                             name="username"
@@ -29,17 +35,31 @@
             </div>
 
             <div>
-                <label class="label" for="email">E-mail</label>
+                <div class="flex justify-between">
+                    <label class="label" for="email">E-mail</label>
+                    <span v-if="errors.hasOwnProperty('email')" v-text="errors.email[0]" class="text-sm text-peachy-pink"></span>
+                </div>
                 <div>
-                    <input class="input mb-4 mt-2  w-full" id="email" type="email" name="email" v-model="form.email">
+                    <input
+                            class="input mb-4 mt-2 w-full"
+                            :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('email') }"
+                            id="email"
+                            type="email"
+                            name="email"
+                            v-model="form.email"
+                    >
                 </div>
             </div>
 
             <div>
-                <label class="label" for="password">Password</label>
+                <div class="flex justify-between">
+                    <label class="label" for="password">Password</label>
+                    <span v-if="errors.hasOwnProperty('password')" v-text="errors.password[0]" class="text-sm text-peachy-pink"></span>
+                </div>
                 <div>
                     <input
                             class="input mb-4 mt-2 w-full"
+                            :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('password') }"
                             id="password"
                             type="password"
                             name="password"
@@ -61,14 +81,14 @@
                 </div>
             </div>
 
-            <div>
-                <p v-text="feedback"></p>
-            </div>
-
             <div class="flex flex-row-reverse">
-                <button class="button button-pink w-1/3 mt-2" type="submit" :disabled="loading">Join us</button>
+                <button class="button button-pink w-1/3 mt-2" type="submit" :disabled="submitDisabled">Join us</button>
             </div>
         </form>
+
+        <div v-else>
+            Cenas
+        </div>
     </modal>
 </template>
 
@@ -83,8 +103,15 @@
                     password_confirmation: ''
                 },
                 loading: false,
-                feedback: ''
+                errors: '',
+                registered: false
             };
+        },
+
+        computed: {
+            submitDisabled() {
+                return this.loading || Object.keys(this.errors).length > 0;
+            }
         },
 
         methods: {
@@ -94,12 +121,18 @@
                 axios
                     .post('/register', this.form)
                     .then(() => {
-                        location.assign('/home');
+                        console.log("SUCCESS")
+                        this.registered = true;
                     })
-                    .catch(() => {
+                    .catch((errors) => {
+                        console.log("FAIL")
                         this.loading = false;
-                        this.feedback = 'Something went wrong, please try again.';
+                        this.errors = errors.response.data.errors;
                     });
+            },
+
+            clear(field) {
+                if (this.errors.hasOwnProperty(field)) Vue.delete(this.errors, field);
             }
         }
     };
