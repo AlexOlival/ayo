@@ -1,5 +1,5 @@
 <template>
-    <modal height="auto" :adaptive="true" name="register-modal">
+    <modal :classes="'rounded-lg bg-white max-w-1/2'" height="auto" :adaptive="true" name="register-modal">
         <div class="flex justify-end">
             <img class="p-2 cursor-pointer" src="/img/ic-close.svg" @click="$modal.hide('register-modal')"/>
         </div>
