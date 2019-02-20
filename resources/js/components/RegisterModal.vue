@@ -88,9 +88,9 @@
             </form>
 
             <div v-else class="flex flex-col items-center justify-center p-6">
-                <img class="w-32" src="/img/email-icon.svg" alt="Ayo">
-                <h2 class="text-center">Verify your account</h2>
-                <p class="text-xl text-center">A confirmation email was sent to your email address.</p>
+                <h2 class="text-center text-black">Verify your account</h2>
+                <p class="text-xl text-center text-black my-4">A confirmation email was sent to your email address.</p>
+                <img class="w-12 m-4" src="/img/email-icon.svg" alt="Ayo">
             </div>
         </transition>
     </modal>
