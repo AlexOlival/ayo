@@ -14,26 +14,18 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Work+Sans" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body class="{{ Route::currentRouteName() === 'welcome' ? 'homepage-background' : '' }}">
     <div id="app">
 
-        @auth
-            @include('partials.navbar')
-        @endauth
-
         <div class="flex flex-row justify-center w-screen">
             <main class="max-w-5xl w-screen">
                 @yield('content')
             </main>
         </div>
-
-        @guest
-            @include('modals.login-modal')
-            @include('modals.register-modal')
-        @endguest
 
     </div>
 </body>
