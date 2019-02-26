@@ -21,6 +21,8 @@
 <body class="{{ Route::currentRouteName() === 'welcome' ? 'homepage-background' : '' }}">
     <div id="app">
 
+        @includeWhen(Route::currentRouteName() !== 'welcome', 'partials.navbar')
+
         <div class="flex flex-row justify-center w-screen">
             <main class="max-w-5xl w-screen">
                 @yield('content')
