@@ -24,7 +24,7 @@
         @includeWhen(Route::currentRouteName() !== 'welcome', 'partials.navbar')
 
         <div class="flex flex-row justify-center w-screen">
-            <main class="max-w-5xl w-screen">
+            <main class="max-w-5xl w-screen container mx-auto">
                 @yield('content')
             </main>
         </div>
