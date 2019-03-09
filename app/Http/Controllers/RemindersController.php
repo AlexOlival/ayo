@@ -18,9 +18,14 @@ class RemindersController extends Controller
             'title' => 'required|string|max:50',
             'description' => 'nullable|string|max:300',
             'notification_date' => 'required|date|after:'.now(),
+            'guests' => 'sometimes|array',
         ]);
 
-        auth()->user()->reminders()->create($attributes);
+        $reminder = auth()->user()->reminders()->create(array_except($attributes, 'guests'));
+
+        if (request()->has('guests')) {
+            $reminder->invited()->attach(array_values(request()->get('guests')));
+        }
 
         return response()->json('created', ResponseStatusCodes::HTTP_CREATED);
     }
@@ -40,9 +45,18 @@ class RemindersController extends Controller
             'title' => 'sometimes|required|string|max:50',
             'description' => 'sometimes|nullable|string|max:300',
             'notification_date' => 'sometimes|required|date|after:'.now(),
+            'guests' => 'sometimes|array',
         ]);
 
-        $reminder->update($attributes);
+        $reminder->update(array_except($attributes, 'guests'));
+
+        if (request()->has('guests')) {
+            $existingGuestIds = $reminder->guests->pluck('id')->merge($reminder->invited->pluck('id'));
+
+            $newGuestIds = collect(array_values(request()->get('guests')))->diff($existingGuestIds);
+
+            $reminder->invited()->attach($newGuestIds);
+        }
 
         return response()->json('updated', ResponseStatusCodes::HTTP_OK);
     }
