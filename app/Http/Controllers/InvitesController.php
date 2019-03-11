@@ -11,6 +11,6 @@ class InvitesController extends Controller
      */
     public function index()
     {
-        return auth()->user()->invites;
+        return auth()->user()->invites()->with('guests')->get();
     }
 }

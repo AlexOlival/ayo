@@ -24,7 +24,9 @@ class RemindersController extends Controller
         $reminder = auth()->user()->reminders()->create(array_except($attributes, 'guests'));
 
         if (request()->has('guests')) {
-            $reminder->invited()->attach(array_values(request()->get('guests')));
+            $guestUserIds = array_values(request()->get('guests'));
+
+            $reminder->inviteNewUsers($guestUserIds);
         }
 
         return response()->json('created', ResponseStatusCodes::HTTP_CREATED);
@@ -51,11 +53,9 @@ class RemindersController extends Controller
         $reminder->update(array_except($attributes, 'guests'));
 
         if (request()->has('guests')) {
-            $existingGuestIds = $reminder->guests->pluck('id')->merge($reminder->invited->pluck('id'));
+            $guestUserIds = array_values(request()->get('guests'));
 
-            $newGuestIds = collect(array_values(request()->get('guests')))->diff($existingGuestIds);
-
-            $reminder->invited()->attach($newGuestIds);
+            $reminder->inviteNewUsers($guestUserIds);
         }
 
         return response()->json('updated', ResponseStatusCodes::HTTP_OK);
