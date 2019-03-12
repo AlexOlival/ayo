@@ -56,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Reminder::class, 'reminder_guests')
             ->using(ReminderGuest::class)
-            ->wherePivot('status', Reminder::PENDING)
+            ->wherePivot('status', ReminderGuest::PENDING)
             ->withPivot('user_id', 'reminder_id', 'status', 'created_at');
     }
 
@@ -68,7 +68,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function guestReminders()
     {
         return $this->belongsToMany(Reminder::class, 'reminder_guests')
-            ->wherePivot('status', Reminder::ACCEPTED)
+            ->wherePivot('status', ReminderGuest::ACCEPTED)
             ->withPivot('user_id', 'reminder_id', 'status');
     }
 }

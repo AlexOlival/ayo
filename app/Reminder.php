@@ -6,12 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reminder extends Model
 {
-    public const REFUSED = 0;
-
-    public const PENDING = 1;
-
-    public const ACCEPTED = 2;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -58,7 +52,7 @@ class Reminder extends Model
     public function invited()
     {
         return $this->belongsToMany(User::class, 'reminder_guests')
-            ->wherePivot('status', self::PENDING)
+            ->wherePivot('status', ReminderGuest::PENDING)
             ->withPivot('user_id', 'reminder_id', 'status');
     }
 
@@ -70,7 +64,7 @@ class Reminder extends Model
     public function guests()
     {
         return $this->belongsToMany(User::class, 'reminder_guests')
-            ->wherePivot('status', self::ACCEPTED)
+            ->wherePivot('status', ReminderGuest::ACCEPTED)
             ->withPivot('user_id', 'reminder_id', 'status');
     }
 
