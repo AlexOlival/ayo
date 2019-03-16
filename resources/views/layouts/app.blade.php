@@ -13,6 +13,8 @@
     <meta name="msapplication-TileColor" content="#da532c"><title>{{ config('app.name', 'Ayo') }}</title>
     <meta name="theme-color" content="#ff8a80">
 
+    <title>{{ config('app.name', 'Ayo') }}</title>
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
