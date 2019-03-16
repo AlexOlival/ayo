@@ -48,12 +48,27 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * The reminders to which the user is invited.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function invites()
+    {
+        return $this->belongsToMany(Reminder::class, 'reminder_guests')
+            ->using(ReminderGuest::class)
+            ->wherePivot('status', ReminderGuest::PENDING)
+            ->withPivot('user_id', 'reminder_id', 'status', 'created_at');
+    }
+
+    /**
      * The reminders in which the user is a guest.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function guestReminders()
     {
-        return $this->hasMany(Reminder::class, 'owner_id');
+        return $this->belongsToMany(Reminder::class, 'reminder_guests')
+            ->wherePivot('status', ReminderGuest::ACCEPTED)
+            ->withPivot('user_id', 'reminder_id', 'status');
     }
 }

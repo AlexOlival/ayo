@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ReminderUsers extends Migration
+class CreateReminderGuestsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -17,6 +17,7 @@ class ReminderUsers extends Migration
             $table->increments('id');
             $table->unsignedInteger('reminder_id');
             $table->unsignedInteger('user_id');
+            $table->integer('status')->default(1);
             $table->timestamps();
 
             $table->foreign('reminder_id')->references('id')->on('reminders')->onDelete('cascade');
