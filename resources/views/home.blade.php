@@ -12,7 +12,7 @@
                 <span class="ml-2">New reminder</span>
             </button>
         </header>
-        <invite-list></invite-list>
+        @includeWhen($userHasInvites, 'invites.index')
         <section></section>
     </div>
 @endsection
