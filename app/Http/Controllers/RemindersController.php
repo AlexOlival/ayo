@@ -26,7 +26,7 @@ class RemindersController extends Controller
         if (request()->has('guests')) {
             $guestUserIds = array_values(request()->get('guests'));
 
-            $reminder->inviteNewUsers($guestUserIds);
+            $reminder->inviteUsers($guestUserIds);
         }
 
         return response()->json('created', ResponseStatusCodes::HTTP_CREATED);
@@ -55,7 +55,7 @@ class RemindersController extends Controller
         if (request()->has('guests')) {
             $guestUserIds = array_values(request()->get('guests'));
 
-            $reminder->inviteNewUsers($guestUserIds);
+            $reminder->inviteUsers($guestUserIds);
         }
 
         return response()->json('updated', ResponseStatusCodes::HTTP_OK);
