@@ -13,7 +13,13 @@
             </button>
         </header>
         @includeWhen($userHasInvites, 'invites.index')
-        <section></section>
+        <section>
+            @if($userHasReminders)
+                <reminder-list></reminder-list>
+            @else
+                <h5>No upcoming reminders, create one! (inserir bUtãum?)</h5>
+            @endif
+        </section>
     </div>
 
     @include('modals.create-reminder-modal')

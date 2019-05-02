@@ -20,6 +20,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reminders', 'RemindersController@store');
     Route::patch('/reminders/{reminder}', 'RemindersController@update');
+    Route::get('/reminders', 'RemindersController@index');
 
     Route::get('/invites', 'InvitesController@index');
 });

@@ -7,6 +7,11 @@ use \Symfony\Component\HttpFoundation\Response as ResponseStatusCodes;
 
 class RemindersController extends Controller
 {
+    public function index()
+    {
+        return auth()->user()->reminders()->get();
+    }
+
     /**
      * Create a new reminder in the database.
      *
