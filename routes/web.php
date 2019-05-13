@@ -22,4 +22,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/reminders/{reminder}', 'RemindersController@update');
 
     Route::get('/invites', 'InvitesController@index');
+
+    Route::get('/search-users', 'SearchUsersController');
 });
