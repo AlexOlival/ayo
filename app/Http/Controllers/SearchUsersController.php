@@ -12,7 +12,7 @@ class SearchUsersController extends Controller
             return response()->json('No results found.', 404);
         }
 
-        $results = User::search(request()->get('q'));
+        $results = User::search(request()->get('q'))->get();
 
         if ($results->isEmpty()) {
             return response()->json('No results found.', 404);

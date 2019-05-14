@@ -29,28 +29,22 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function a_user_may_search_for_other_users_but_cannot_find_itself()
+    public function a_user_may_search_for_other_users_but_may_not_find_itself()
     {
         $alex = factory(User::class)->create(['username' => 'alex']);
-
         $this->signIn($alex);
 
-        $john = factory(User::class)->create(['username' => 'john']);
-        $jack = factory(User::class)->create(['username' => 'jack']);
+        factory(User::class)->create(['username' => 'john']);
+        factory(User::class)->create(['username' => 'jack']);
 
-        $this->get("/search-users?q=''")
-            ->assertStatus(Response::HTTP_NOT_FOUND);
+        $results = $alex->search('x')->get();
+        $this->assertEmpty($results);
 
-        $response = $this->get('/search-users?q=j')
-            ->assertStatus(Response::HTTP_OK);
-
-        $results = $response->original;
-
+        $results = $alex->search('j')->get();
         $this->assertCount(2, $results);
-        $this->assertTrue($results->contains($john));
-        $this->assertTrue($results->contains($jack));
+        $this->assertFalse($results->contains($alex));
 
-        $this->get('/search-users?q=a')
-            ->assertStatus(Response::HTTP_NOT_FOUND);
+        $results = $alex->search('a')->get();
+        $this->assertEmpty($results);
     }
 }

@@ -13,27 +13,6 @@
                 Fields marked with an asterisk (*) are required.
             </div>
             <div>
-                <div>
-                    <div class="flex justify-between">
-                        <label class="label" for="ajax">People</label>
-                    </div>
-                    <div>
-                        <v-select class="mb-4 mt-2 w-full"
-                            multiple
-                            label="username"
-                            :filterable="false"
-                            @search="onSearch"
-                            :options="users"
-                            :reduce="user => user.id"
-                            v-model="form.guests">
-                                <template slot="no-options">
-                                    <div class="text-grey-dark">
-                                        start typing a username...
-                                    </div>
-                                </template>
-                        </v-select>
-                    </div>
-                </div>
                 <div class="flex flex-row justify-between">
                     <div class="w-full pr-2">
                         <div class="flex justify-between">
@@ -71,7 +50,6 @@
                         </div>
                     </div>
                 </div>
-
                 <div>
                     <div class="flex justify-between">
                         <label class="label" for="description">Description</label>
@@ -90,6 +68,28 @@
                         </textarea>
                     </div>
                 </div>
+                <div>
+                    <div class="flex justify-between">
+                        <label class="label" for="people">Invite people to be reminded</label>
+                    </div>
+                    <div>
+                        <v-select class="mb-4 mt-2 w-full"
+                                  multiple
+                                  id="people"
+                                  label="username"
+                                  :filterable="false"
+                                  @search="onSearch"
+                                  :options="users"
+                                  :reduce="user => user.id"
+                                  v-model="form.guests">
+                            <template slot="no-options">
+                                <div class="text-grey-dark">
+                                    start typing a username...
+                                </div>
+                            </template>
+                        </v-select>
+                    </div>
+                </div>
             </div>
             <div class="flex flex-row-reverse">
                 <button class="button button-pink w-1/3 mt-2" type="submit" :disabled="submitting">Create</button>
@@ -101,7 +101,6 @@
 <script>
     import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.css';
-    import { debounce } from 'lodash';
 
     export default {
         components: {flatPickr},
@@ -149,7 +148,7 @@
                         vm.users = response.data;
                         loading(false);
                     })
-                    .catch((errors) => {
+                    .catch(() => {
                         loading(false);
                     })
             }, 350),
@@ -184,5 +183,10 @@
         box-shadow: none;
         color: #fff;
         border-color: #ff8a80;
+    }
+
+    .v-select .vs__dropdown-option {
+        background: #ff8a80;
+        color: #fff;
     }
 </style>
