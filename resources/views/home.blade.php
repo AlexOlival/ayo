@@ -13,14 +13,22 @@
             </button>
         </header>
         @includeWhen($userHasInvites, 'invites.index')
-        <section>
-            @if($userHasReminders)
-                <reminder-list></reminder-list>
-            @else
-                <h5>No upcoming reminders, create one! (inserir bUtãum?)</h5>
-            @endif
-        </section>
+        @if($userHasReminders)
+{{--            Create flags for each--}}
+            @includeWhen($userHasReminders, 'reminders.upcoming')
+            @includeWhen($userHasReminders, 'reminders.nextWeek')
+            @includeWhen($userHasReminders, 'reminders.month')
+            @includeWhen($userHasReminders, 'reminders.later')
+        @else
+            <h5>No upcoming reminders, create one! (inserir bUtãum?)</h5>
+        @endif
     </div>
 
     @include('modals.create-reminder-modal')
 @endsection
+<script>
+    import ReminderList from "../js/components/ReminderList";
+    export default {
+        components: {ReminderList}
+    }
+</script>

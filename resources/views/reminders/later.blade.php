@@ -1,0 +1,1 @@
+<reminder-list period="{{ \App\Constants\ReminderPeriod::LATER }}"></reminder-list>

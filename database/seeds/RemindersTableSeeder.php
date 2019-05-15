@@ -4,7 +4,7 @@ use App\Reminder;
 use App\User;
 use Illuminate\Database\Seeder;
 
-class UsersTableSeeder extends Seeder
+class RemindersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,8 +13,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class, 10)->create()->each(function ($user) {
-            $user->reminders()->save(factory(Reminder::class)->make());
+        factory(Reminder::class, 10)->create()->each(function ($reminder) {
+            $reminder->guests()->attach(User::all()->random(2), ['status' => 2]);
         });
     }
 }

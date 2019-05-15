@@ -1,7 +1,7 @@
 <template>
     <div class="px-2 w-full lg:w-1/4 md:w-1/2 sm:w-1/2">
         <div class="flex flex-col border-2 border-peachy-pink rounded-lg p-4 mb-4">
-            <div class="flex justify-between items-center">
+            <div class="flex justify-between items-start">
                 <p class="mr-8 text-lg" v-text="reminder.title"></p>
                 <img src="favicon.ico" alt="">
             </div>

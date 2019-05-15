@@ -3,19 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Reminder;
+use Illuminate\Http\JsonResponse;
+use App\Http\Responses\ReminderList;
+use Illuminate\Auth\Access\AuthorizationException;
 use \Symfony\Component\HttpFoundation\Response as ResponseStatusCodes;
 
 class RemindersController extends Controller
 {
+    /**
+     * Display a listing of the reminders for a user.
+     *
+     * @return ReminderList
+     */
     public function index()
     {
-        return auth()->user()->reminders()->get();
+        return new ReminderList(request('period'));
     }
 
     /**
      * Create a new reminder in the database.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store()
     {
@@ -41,8 +49,8 @@ class RemindersController extends Controller
      * Update a reminder.
      *
      * @param Reminder $reminder
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function update(Reminder $reminder)
     {

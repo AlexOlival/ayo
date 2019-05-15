@@ -1,7 +1,7 @@
 <template>
     <section>
         <header class="flex justify-between px-10 items-center mb-2">
-            <h2 class="font-semibold inline text-grey-dark py-4">Upcoming</h2>
+            <h2 class="font-semibold inline text-grey-dark py-4">{{ period }}</h2>
             <a href="#"
                class="text-sm text-peachy-pink no-underline"
                v-if="numberOfReminders > 4"
@@ -18,6 +18,15 @@
 <script>
     import Reminder from "./Reminder";
     export default {
+        props: {
+            period: {
+                type: String,
+                required: true,
+                validator: function (value) {
+                    return ['upcoming', 'nextWeek', 'month', 'later'].indexOf(value) !== -1
+                }
+            }
+        },
         components: {Reminder},
         data() {
             return {
@@ -26,7 +35,7 @@
             }
         },
         mounted() {
-            axios.get('/reminders')
+            axios.get('/reminders?period=' + this.period)
                 .then((response) => {
                     this.reminders = response.data;
                     this.numberOfReminders = response.data.length;

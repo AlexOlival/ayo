@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Constants\ReminderPeriod;
 use App\Reminder;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -96,5 +97,61 @@ class RemindersTest extends TestCase
 
         $this->patch("/reminders/$reminder->id", ['title' => ''])
             ->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function a_user_can_see_upcoming_reminders()
+    {
+        $this->signIn();
+
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addDay(),
+            'owner_id' => auth()->user()->id]);
+
+        $result = $this->get("/reminders?period=".ReminderPeriod::UPCOMING)
+            ->assertStatus(Response::HTTP_OK);
+
+        $this->assertSame($reminder->id, $result->original->first()->id);
+    }
+
+    /** @test */
+    public function a_user_can_see_next_week_reminders()
+    {
+        $this->signIn();
+
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(),
+            'owner_id' => auth()->user()->id]);
+
+        $result = $this->get("/reminders?period=".ReminderPeriod::NEXT_WEEK)
+            ->assertStatus(Response::HTTP_OK);
+
+        $this->assertSame($reminder->id, $result->original->first()->id);
+    }
+
+    /** @test */
+    public function a_user_can_see_this_month_reminders()
+    {
+        $this->signIn();
+
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(2),
+            'owner_id' => auth()->user()->id]);
+
+        $result = $this->get("/reminders?period=".ReminderPeriod::MONTH)
+            ->assertStatus(Response::HTTP_OK);
+
+        $this->assertSame($reminder->id, $result->original->first()->id);
+    }
+
+    /** @test */
+    public function a_user_can_see_much_later_reminders()
+    {
+        $this->signIn();
+
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonth(3),
+            'owner_id' => auth()->user()->id]);
+
+        $result = $this->get("/reminders?period=".ReminderPeriod::LATER)
+            ->assertStatus(Response::HTTP_OK);
+
+        $this->assertSame($reminder->id, $result->original->first()->id);
     }
 }
