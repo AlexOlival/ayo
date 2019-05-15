@@ -87,7 +87,7 @@ class Reminder extends Model
      *
      * @param $guestUserIds
      */
-    public function inviteNewUsers(array $guestUserIds)
+    public function inviteUsers(array $guestUserIds)
     {
         $existingGuestUserIds = $this->getAllInvitedGuests()->pluck('id');
 
