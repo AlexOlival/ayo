@@ -23,4 +23,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/reminders', 'RemindersController@index');
 
     Route::get('/invites', 'InvitesController@index');
+
+    Route::get('/search-users', 'SearchUsersController');
 });

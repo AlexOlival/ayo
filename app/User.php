@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -36,6 +37,21 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Search for users, excluding the authenticated user itself
+     *
+     * @param Builder $query
+     * @param string $username
+     * @return Builder
+     */
+    public function scopeSearch(Builder $query, string $username)
+    {
+        return $query
+            ->select('id', 'username')
+            ->whereNotIn('id', [auth()->id()])
+            ->where('username', 'LIKE', "{$username}%");
+    }
 
     /**
      * The user's reminders.

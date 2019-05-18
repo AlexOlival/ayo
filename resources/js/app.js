@@ -7,9 +7,11 @@
 
 require('./bootstrap');
 import VModal from 'vue-js-modal';
+import vSelect from 'vue-select'
 
 window.Vue = require('vue');
 Vue.use(VModal);
+Vue.component('v-select', vSelect)
 
 /**
  * The following block of code may be used to automatically register your
