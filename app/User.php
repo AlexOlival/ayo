@@ -2,8 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,7 +40,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The user's reminders.
      *
-     * @return HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function reminders()
     {
@@ -52,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The reminders to which the user is invited.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function invites()
     {
@@ -65,7 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * The reminders in which the user is a guest.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function guestReminders()
     {
