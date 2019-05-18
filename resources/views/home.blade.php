@@ -14,13 +14,12 @@
         </header>
         @includeWhen($userHasInvites, 'invites.index')
         @if($userHasReminders)
-{{--            Create flags for each--}}
-            @includeWhen($userHasReminders, 'reminders.upcoming')
-            @includeWhen($userHasReminders, 'reminders.nextWeek')
-            @includeWhen($userHasReminders, 'reminders.month')
-            @includeWhen($userHasReminders, 'reminders.later')
+            @includeWhen($userHasUpcomingReminders, 'reminders.upcoming')
+            @includeWhen($userHasNextWeekReminders, 'reminders.nextWeek')
+            @includeWhen($userHasMonthReminders, 'reminders.month')
+            @includeWhen($userHasLaterReminders, 'reminders.later')
         @else
-            <h5>No upcoming reminders, create one! (inserir bUtãum?)</h5>
+            <h4>No upcoming reminders, create one! (inserir bUtãum?)</h4>
         @endif
     </div>
 

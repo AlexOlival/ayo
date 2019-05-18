@@ -42,7 +42,7 @@ class ReminderList implements Responsable
                 $remindersAsGuest = auth()->user()->guestReminders()->muchLater()->get();
                 break;
             default:
-                throw new RuntimeException("Unknown parameter '$this->period'");
+                throw new RuntimeException("Unknown period '$this->period'");
         }
 
         return $remindersOwned->merge($remindersAsGuest);
