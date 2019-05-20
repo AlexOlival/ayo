@@ -1,7 +1,7 @@
 <template>
     <section>
-        <header class="flex justify-between px-10 items-center mb-2">
-            <h2 class="font-semibold inline text-grey-dark py-4">{{ period }}</h2>
+        <header class="flex justify-between px-5 items-center">
+            <h2 class="font-semibold inline text-grey-dark py-4">{{ period | capitalize }}</h2>
             <a href="#"
                class="text-sm text-peachy-pink no-underline"
                v-if="numberOfReminders > 4"
@@ -41,5 +41,13 @@
                     this.numberOfReminders = response.data.length;
                 });
         },
+
+        filters: {
+            capitalize(value) {
+                if (!value) return '';
+                value = value.toString();
+                return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+        }
     }
 </script>
