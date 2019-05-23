@@ -13,21 +13,9 @@
             </button>
         </header>
         @includeWhen($userHasInvites, 'invites.index')
-        @if($userHasReminders)
-            @includeWhen($userHasUpcomingReminders, 'reminders.upcoming')
-            @includeWhen($userHasNextWeekReminders, 'reminders.nextWeek')
-            @includeWhen($userHasMonthReminders, 'reminders.month')
-            @includeWhen($userHasLaterReminders, 'reminders.later')
-        @else
-            <h4>No upcoming reminders, create one! (inserir bUtãum?)</h4>
-        @endif
+
+        @includeWhen($userHasReminders, 'reminders.index')
     </div>
 
     @include('modals.create-reminder-modal')
 @endsection
-<script>
-    import ReminderList from "../js/components/ReminderList";
-    export default {
-        components: {ReminderList}
-    }
-</script>

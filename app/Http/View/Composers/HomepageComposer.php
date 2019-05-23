@@ -14,16 +14,9 @@ class HomepageComposer
      */
     public function compose(View $view)
     {
-        $view->with('userHasInvites', auth()->user()->invites()->exists())
-            ->with('userHasReminders', auth()->user()->reminders()->exists()
-                || auth()->user()->guestReminders()->exists())
-            ->with('userHasUpcomingReminders', auth()->user()->reminders()->upcoming()->exists()
-                || auth()->user()->guestReminders()->upcoming()->exists())
-            ->with('userHasNextWeekReminders', auth()->user()->reminders()->nextWeek()->exists()
-                || auth()->user()->guestReminders()->nextWeek()->exists())
-            ->with('userHasMonthReminders', auth()->user()->reminders()->month()->exists()
-                || auth()->user()->guestReminders()->month()->exists())
-            ->with('userHasLaterReminders', auth()->user()->reminders()->muchLater()->exists()
-                || auth()->user()->guestReminders()->muchLater()->exists());
+        $user = auth()->user();
+
+        $view->with('userHasInvites', $user->invites()->exists())
+            ->with('userHasReminders', $user->reminders()->exists() || $user->guestReminders()->exists());
     }
 }

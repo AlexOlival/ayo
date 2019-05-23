@@ -2,11 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 
 class Reminder extends Model
 {
@@ -41,7 +39,7 @@ class Reminder extends Model
     /**
      * The owner of the reminder.
      *
-     * @return BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function owner()
     {
@@ -51,7 +49,7 @@ class Reminder extends Model
     /**
      * The invited users of the reminder.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function invited()
     {
@@ -63,7 +61,7 @@ class Reminder extends Model
     /**
      * The guests of the reminder.
      *
-     * @return BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function guests()
     {
@@ -110,6 +108,7 @@ class Reminder extends Model
     {
         $now = now();
         $endOfWeek = now()->endOfWeek();
+
         return $query
             ->whereBetween('notification_date', [$now, $endOfWeek]);
     }
@@ -122,8 +121,9 @@ class Reminder extends Model
      */
     public function scopeNextWeek(Builder $query)
     {
-        $startNextWeek = now()->addWeek(1)->startOfWeek();
-        $endNextWeek = now()->addWeek(1)->endOfWeek();
+        $startNextWeek = now()->addWeek()->startOfWeek();
+        $endNextWeek = now()->addWeek()->endOfWeek();
+
         return $query
             ->whereBetween('notification_date', [$startNextWeek, $endNextWeek]);
     }
@@ -136,8 +136,9 @@ class Reminder extends Model
      */
     public function scopeMonth(Builder $query)
     {
-        $startDate = now()->addWeek(1)->endOfWeek();
+        $startDate = now()->addWeek()->endOfWeek();
         $endDate = now()->endOfMonth();
+
         return $query
             ->whereBetween('notification_date', [$startDate, $endDate]);
     }

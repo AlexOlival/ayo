@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Constants;
-
 
 class ReminderPeriod
 {
@@ -10,5 +8,4 @@ class ReminderPeriod
     public const NEXT_WEEK = 'nextWeek';
     public const MONTH = 'month';
     public const LATER = 'later';
-
 }

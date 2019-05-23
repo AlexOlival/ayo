@@ -4,9 +4,9 @@
             <h2 class="font-semibold inline text-grey-dark py-4">{{ period | capitalize }}</h2>
             <a href="#"
                class="text-sm text-peachy-pink no-underline"
-               v-if="numberOfReminders > 4"
+               v-if="reminderCount > 4"
             >
-                See all ({{ numberOfReminders }})
+                See all ({{ reminderCount }})
             </a>
         </header>
         <section class="flex flex-wrap px-5 -mx-2 items-center">
@@ -18,6 +18,7 @@
 <script>
     import Reminder from "./Reminder";
     export default {
+        components: {Reminder},
         props: {
             period: {
                 type: String,
@@ -25,23 +26,16 @@
                 validator: function (value) {
                     return ['upcoming', 'nextWeek', 'month', 'later'].indexOf(value) !== -1
                 }
+            },
+            reminders: {
+                type: Object,
+                required: true
+            },
+            reminderCount: {
+                type: Number,
+                required: true
             }
         },
-        components: {Reminder},
-        data() {
-            return {
-                reminders: null,
-                numberOfReminders: 0,
-            }
-        },
-        mounted() {
-            axios.get('/reminders?period=' + this.period)
-                .then((response) => {
-                    this.reminders = response.data;
-                    this.numberOfReminders = response.data.length;
-                });
-        },
-
         filters: {
             capitalize(value) {
                 if (!value) return '';
