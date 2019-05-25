@@ -107,10 +107,14 @@ class RemindersTest extends TestCase
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addDay(),
             'owner_id' => auth()->user()->id]);
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::UPCOMING)
+        $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertSame($reminder->id, $result->original->first()->id);
+        $result->assertViewHas('upcomingReminders');
+        $result->assertViewHas('upcomingReminderCount');
+
+        $this->assertTrue($result->viewData('upcomingReminders')->contains($reminder));
+        $this->assertEquals(1, $result->viewData('upcomingReminderCount'));
     }
 
     /** @test */
@@ -121,10 +125,14 @@ class RemindersTest extends TestCase
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(),
             'owner_id' => auth()->user()->id]);
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::NEXT_WEEK)
+        $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertSame($reminder->id, $result->original->first()->id);
+        $result->assertViewHas('nextWeekReminders');
+        $result->assertViewHas('nextWeekReminderCount');
+
+        $this->assertTrue($result->viewData('nextWeekReminders')->contains($reminder));
+        $this->assertEquals(1, $result->viewData('nextWeekReminderCount'));
     }
 
     /** @test */
@@ -135,10 +143,14 @@ class RemindersTest extends TestCase
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(2),
             'owner_id' => auth()->user()->id]);
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::MONTH)
+        $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertSame($reminder->id, $result->original->first()->id);
+        $result->assertViewHas('monthReminders');
+        $result->assertViewHas('monthReminderCount');
+
+        $this->assertTrue($result->viewData('monthReminders')->contains($reminder));
+        $this->assertEquals(1, $result->viewData('monthReminderCount'));
     }
 
     /** @test */
@@ -149,10 +161,14 @@ class RemindersTest extends TestCase
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonth(3),
             'owner_id' => auth()->user()->id]);
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::LATER)
+        $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertSame($reminder->id, $result->original->first()->id);
+        $result->assertViewHas('laterReminders');
+        $result->assertViewHas('laterReminderCount');
+
+        $this->assertTrue($result->viewData('laterReminders')->contains($reminder));
+        $this->assertEquals(1, $result->viewData('laterReminderCount'));
     }
 
     /** @test */
@@ -163,20 +179,17 @@ class RemindersTest extends TestCase
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addDay(),
             'owner_id' => auth()->user()->id]);
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::NEXT_WEEK)
+        $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertNotContains($reminder, $result->original);
+        $this->assertFalse($result->viewData('nextWeekReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('nextWeekReminderCount'));
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::MONTH)
-            ->assertStatus(Response::HTTP_OK);
+        $this->assertFalse($result->viewData('monthReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('monthReminderCount'));
 
-        $this->assertNotContains($reminder, $result->original);
-
-        $result = $this->get("/reminders?period=".ReminderPeriod::LATER)
-            ->assertStatus(Response::HTTP_OK);
-
-        $this->assertNotContains($reminder, $result->original);
+        $this->assertFalse($result->viewData('laterReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('laterReminderCount'));
     }
 
     /** @test */
@@ -187,20 +200,17 @@ class RemindersTest extends TestCase
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(),
             'owner_id' => auth()->user()->id]);
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::UPCOMING)
+        $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertNotContains($reminder, $result->original);
+        $this->assertFalse($result->viewData('upcomingReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('upcomingReminderCount'));
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::MONTH)
-            ->assertStatus(Response::HTTP_OK);
+        $this->assertFalse($result->viewData('monthReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('monthReminderCount'));
 
-        $this->assertNotContains($reminder, $result->original);
-
-        $result = $this->get("/reminders?period=".ReminderPeriod::LATER)
-            ->assertStatus(Response::HTTP_OK);
-
-        $this->assertNotContains($reminder, $result->original);
+        $this->assertFalse($result->viewData('laterReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('laterReminderCount'));
     }
 
     /** @test */
@@ -211,20 +221,17 @@ class RemindersTest extends TestCase
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(2),
             'owner_id' => auth()->user()->id]);
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::UPCOMING)
+        $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertNotContains($reminder, $result->original);
+        $this->assertFalse($result->viewData('upcomingReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('upcomingReminderCount'));
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::NEXT_WEEK)
-            ->assertStatus(Response::HTTP_OK);
+        $this->assertFalse($result->viewData('nextWeekReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('nextWeekReminderCount'));
 
-        $this->assertNotContains($reminder, $result->original);
-
-        $result = $this->get("/reminders?period=".ReminderPeriod::LATER)
-            ->assertStatus(Response::HTTP_OK);
-
-        $this->assertNotContains($reminder, $result->original);
+        $this->assertFalse($result->viewData('laterReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('laterReminderCount'));
     }
 
     /** @test */
@@ -235,19 +242,16 @@ class RemindersTest extends TestCase
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonth(3),
             'owner_id' => auth()->user()->id]);
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::UPCOMING)
+        $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertNotContains($reminder, $result->original);
+        $this->assertFalse($result->viewData('upcomingReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('upcomingReminderCount'));
 
-        $result = $this->get("/reminders?period=".ReminderPeriod::NEXT_WEEK)
-            ->assertStatus(Response::HTTP_OK);
+        $this->assertFalse($result->viewData('nextWeekReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('nextWeekReminderCount'));
 
-        $this->assertNotContains($reminder, $result->original);
-
-        $result = $this->get("/reminders?period=".ReminderPeriod::MONTH)
-            ->assertStatus(Response::HTTP_OK);
-
-        $this->assertNotContains($reminder, $result->original);
+        $this->assertFalse($result->viewData('monthReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('monthReminderCount'));
     }
 }

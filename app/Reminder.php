@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Constants\ReminderStatus;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -54,7 +55,7 @@ class Reminder extends Model
     public function invited()
     {
         return $this->belongsToMany(User::class, 'reminder_guests')
-            ->wherePivot('status', ReminderGuest::PENDING)
+            ->wherePivot('status', ReminderStatus::PENDING)
             ->withPivot('user_id', 'reminder_id', 'status');
     }
 
@@ -66,7 +67,7 @@ class Reminder extends Model
     public function guests()
     {
         return $this->belongsToMany(User::class, 'reminder_guests')
-            ->wherePivot('status', ReminderGuest::ACCEPTED)
+            ->wherePivot('status', ReminderStatus::ACCEPTED)
             ->withPivot('user_id', 'reminder_id', 'status');
     }
 

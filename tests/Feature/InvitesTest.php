@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\User;
 use App\Reminder;
 use Tests\TestCase;
-use App\ReminderGuest;
+use App\Constants\ReminderStatus;
 use Illuminate\Foundation\Testing\WithFaker;
 use \Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -165,7 +165,7 @@ class InvitesTest extends TestCase
             [
                 'reminder_id' => $reminder->id,
                 'user_id' => $guest->id,
-                'status' => ReminderGuest::PENDING,
+                'status' => ReminderStatus::PENDING,
             ]
         );
 
