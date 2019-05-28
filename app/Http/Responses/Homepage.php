@@ -7,6 +7,8 @@ use Illuminate\Contracts\Support\Responsable;
 
 class Homepage implements Responsable
 {
+    private $reminders;
+
     /**
      * Create an HTTP response that represents the object.
      *
@@ -17,65 +19,28 @@ class Homepage implements Responsable
     {
         $remindersOwned = $request->user()->reminders;
         $remindersWhereGuest = $request->user()->guestReminders;
-        $reminders = $remindersOwned->merge($remindersWhereGuest);
+        $this->reminders = $remindersOwned->merge($remindersWhereGuest);
 
-        $upcomingReminderCount = $reminders
-            ->filter(function ($reminder) {
-                return $reminder->notification_date > now() && $reminder->notification_date <= now()->endOfWeek();
-            })
-            ->count();
-        $upcomingReminders = $reminders
-            ->filter(function ($reminder) {
-                return $reminder->notification_date > now() && $reminder->notification_date <= now()->endOfWeek();
-            })
-            ->take(4);
+        $upcomingReminderCount = $this->getRemindersCount(now(), now()->endOfWeek());
+        $upcomingReminders = $this->getRemindersFromRange(now(), now()->endOfWeek());
 
         $startOfNextWeek = now()->addWeek()->startOfWeek();
         $endOfNextWeek = now()->addWeek()->endOfWeek();
 
-        $nextWeekReminderCount = $reminders
-            ->filter(function ($reminder) use ($startOfNextWeek, $endOfNextWeek) {
-                return $reminder->notification_date > $startOfNextWeek
-                    && $reminder->notification_date <= $endOfNextWeek;
-            })->count();
-        $nextWeekReminders = $reminders
-            ->filter(function ($reminder) use ($startOfNextWeek, $endOfNextWeek) {
-                return $reminder->notification_date > $startOfNextWeek
-                    && $reminder->notification_date <= $endOfNextWeek;
-            })
-            ->take(4);
+        $nextWeekReminderCount = $this->getRemindersCount($startOfNextWeek, $endOfNextWeek);
+        $nextWeekReminders = $this->getRemindersFromRange($startOfNextWeek, $endOfNextWeek);
 
         $startTime = now()->addWeek()->endOfWeek();
         $endOfMonth = now()->endOfMonth();
 
-        $monthReminderCount = $reminders
-            ->filter(function ($reminder) use ($startTime, $endOfMonth) {
-                return $reminder->notification_date > $startTime
-                    && $reminder->notification_date <= $endOfMonth;
-            })
-            ->count();
-        $monthReminders = $reminders
-            ->filter(function ($reminder) use ($startTime, $endOfMonth) {
-                return $reminder->notification_date > $startTime
-                    && $reminder->notification_date <= $endOfMonth;
-            })
-            ->take(4);
+        $monthReminderCount = $this->getRemindersCount($startTime, $endOfMonth);
+        $monthReminders = $this->getRemindersFromRange($startTime, $endOfMonth);
 
         $endOfMonth = now()->endOfMonth();
         $endDate = now()->addCentury();
 
-        $laterReminderCount = $reminders
-            ->filter(function ($reminder) use ($endOfMonth, $endDate) {
-                return $reminder->notification_date > $endOfMonth
-                    && $reminder->notification_date <= $endDate;
-            })
-            ->count();
-        $laterReminders = $reminders
-            ->filter(function ($reminder) use ($endOfMonth, $endDate) {
-                return $reminder->notification_date > $endOfMonth
-                    && $reminder->notification_date <= $endDate;
-            })
-            ->take(4);
+        $laterReminderCount = $this->getRemindersCount($endOfMonth, $endDate);
+        $laterReminders = $this->getRemindersFromRange($endOfMonth, $endDate);
 
         return view(
             'home',
@@ -90,5 +55,23 @@ class Homepage implements Responsable
                 'laterReminderCount'
             )
         );
+    }
+
+    private function getRemindersFromRange($start, $end)
+    {
+        return $this->reminders
+            ->filter(function ($reminder) use ($start, $end) {
+                return $reminder->notification_date > $start && $reminder->notification_date <= $end;
+            })
+            ->take(4);
+    }
+
+    private function getRemindersCount($start, $end)
+    {
+        return $this->reminders
+            ->filter(function ($reminder) use ($start, $end) {
+                return $reminder->notification_date > $start && $reminder->notification_date <= $end;
+            })
+            ->count();
     }
 }

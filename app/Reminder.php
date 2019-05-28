@@ -24,7 +24,7 @@ class Reminder extends Model
      * @var array
      */
     protected $casts = [
-        'notification_date' => 'datetime',
+        'notification_date' => 'datetime:Y-m-d H:i',
     ];
 
     /**
