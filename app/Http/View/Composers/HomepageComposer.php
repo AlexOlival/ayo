@@ -14,6 +14,9 @@ class HomepageComposer
      */
     public function compose(View $view)
     {
-        $view->with('userHasInvites', auth()->user()->invites()->exists());
+        $user = auth()->user();
+
+        $view->with('userHasInvites', $user->invites()->exists())
+            ->with('userHasReminders', $user->reminders()->exists() || $user->guestReminders()->exists());
     }
 }

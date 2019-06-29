@@ -13,7 +13,8 @@
             </button>
         </header>
         @includeWhen($userHasInvites, 'invites.index')
-        <section></section>
+
+        @includeWhen($userHasReminders, 'reminders.index')
     </div>
 
     @include('modals.create-reminder-modal')

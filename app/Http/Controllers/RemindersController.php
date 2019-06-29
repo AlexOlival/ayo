@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Reminder;
-use \Symfony\Component\HttpFoundation\Response as ResponseStatusCodes;
+use Illuminate\Http\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class RemindersController extends Controller
 {
     /**
      * Create a new reminder in the database.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
     public function store()
     {
@@ -29,15 +31,15 @@ class RemindersController extends Controller
             $reminder->inviteUsers($guestUserIds);
         }
 
-        return response()->json('created', ResponseStatusCodes::HTTP_CREATED);
+        return response()->json('created', Response::HTTP_CREATED);
     }
 
     /**
      * Update a reminder.
      *
      * @param Reminder $reminder
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function update(Reminder $reminder)
     {
@@ -58,6 +60,6 @@ class RemindersController extends Controller
             $reminder->inviteUsers($guestUserIds);
         }
 
-        return response()->json('updated', ResponseStatusCodes::HTTP_OK);
+        return response()->json('updated', Response::HTTP_OK);
     }
 }
