@@ -2,7 +2,10 @@
 
 namespace App;
 
+use App\Constants\ReminderStatus;
+use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Reminder extends Model
 {
@@ -21,7 +24,7 @@ class Reminder extends Model
      * @var array
      */
     protected $casts = [
-        'notification_date' => 'datetime',
+        'notification_date' => 'datetime:Y-m-d H:i',
     ];
 
     /**
@@ -52,7 +55,7 @@ class Reminder extends Model
     public function invited()
     {
         return $this->belongsToMany(User::class, 'reminder_guests')
-            ->wherePivot('status', ReminderGuest::PENDING)
+            ->wherePivot('status', ReminderStatus::PENDING)
             ->withPivot('user_id', 'reminder_id', 'status');
     }
 
@@ -64,14 +67,14 @@ class Reminder extends Model
     public function guests()
     {
         return $this->belongsToMany(User::class, 'reminder_guests')
-            ->wherePivot('status', ReminderGuest::ACCEPTED)
+            ->wherePivot('status', ReminderStatus::ACCEPTED)
             ->withPivot('user_id', 'reminder_id', 'status');
     }
 
     /**
      * All guests and invited users of the reminder.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @return Collection
      */
     public function getAllInvitedGuests()
     {
@@ -94,5 +97,64 @@ class Reminder extends Model
         $newGuestIds = collect($guestUserIds)->diff($existingGuestUserIds);
 
         $this->invited()->attach($newGuestIds);
+    }
+
+    /**
+     * Get upcoming reminders, aka the current week's reminders
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeUpcoming(Builder $query)
+    {
+        $now = now();
+        $endOfWeek = now()->endOfWeek();
+
+        return $query
+            ->whereBetween('notification_date', [$now, $endOfWeek]);
+    }
+
+    /**
+     * Get next week's reminders
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeNextWeek(Builder $query)
+    {
+        $startNextWeek = now()->addWeek()->startOfWeek();
+        $endNextWeek = now()->addWeek()->endOfWeek();
+
+        return $query
+            ->whereBetween('notification_date', [$startNextWeek, $endNextWeek]);
+    }
+
+    /**
+     * Get this month's reminders
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeMonth(Builder $query)
+    {
+        $startDate = now()->addWeek()->endOfWeek();
+        $endDate = now()->endOfMonth();
+
+        return $query
+            ->whereBetween('notification_date', [$startDate, $endDate]);
+    }
+
+    /**
+     * Get all other reminders
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeMuchLater(Builder $query)
+    {
+        $startDate = now()->endOfMonth();
+        $endDate = now()->addCenturies(5);
+        return $query
+            ->whereBetween('notification_date', [$startDate, $endDate]);
     }
 }

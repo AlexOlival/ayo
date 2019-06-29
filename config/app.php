@@ -176,6 +176,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ViewServiceProvider::class,
 
+        /*
+         * DebugBar
+         */
+        Barryvdh\Debugbar\ServiceProvider::class,
     ],
 
     /*

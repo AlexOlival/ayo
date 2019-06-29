@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Constants\ReminderStatus;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -72,7 +73,7 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Reminder::class, 'reminder_guests')
             ->using(ReminderGuest::class)
-            ->wherePivot('status', ReminderGuest::PENDING)
+            ->wherePivot('status', ReminderStatus::PENDING)
             ->withPivot('user_id', 'reminder_id', 'status', 'created_at');
     }
 
@@ -84,7 +85,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function guestReminders()
     {
         return $this->belongsToMany(Reminder::class, 'reminder_guests')
-            ->wherePivot('status', ReminderGuest::ACCEPTED)
+            ->wherePivot('status', ReminderStatus::ACCEPTED)
             ->withPivot('user_id', 'reminder_id', 'status');
     }
 }
