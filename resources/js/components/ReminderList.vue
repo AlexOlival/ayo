@@ -10,7 +10,7 @@
             </a>
         </header>
         <section class="flex flex-wrap px-5 -mx-2 items-center">
-            <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder"></reminder>
+            <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
         </section>
     </section>
 </template>
@@ -41,6 +41,11 @@
                 if (!value) return '';
                 value = value.toString();
                 return value.charAt(0).toUpperCase() + value.slice(1);
+            }
+        },
+        methods: {
+            openDetailModal(reminder) {
+                this.$modal.show('show-reminder-modal', {reminder: reminder})
             }
         }
     }

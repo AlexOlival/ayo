@@ -28,6 +28,23 @@ class Reminder extends Model
     ];
 
     /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['human_readable_notification_date'];
+
+    /**
+     * Get the reminder's notification date in human readable format.
+     *
+     * @return string
+     */
+    public function getHumanReadableNotificationDateAttribute()
+    {
+        return 'In two days';
+    }
+
+    /**
      * The path to the reminder.
      *
      * @return string
@@ -69,34 +86,6 @@ class Reminder extends Model
         return $this->belongsToMany(User::class, 'reminder_guests')
             ->wherePivot('status', ReminderStatus::ACCEPTED)
             ->withPivot('user_id', 'reminder_id', 'status');
-    }
-
-    /**
-     * All guests and invited users of the reminder.
-     *
-     * @return Collection
-     */
-    public function getAllInvitedGuests()
-    {
-        $guests = $this->guests;
-
-        $invitedUsers = $this->invited;
-
-        return $guests->merge($invitedUsers);
-    }
-
-    /**
-     * Add new users to the reminder invite list.
-     *
-     * @param $guestUserIds
-     */
-    public function inviteUsers(array $guestUserIds)
-    {
-        $existingGuestUserIds = $this->getAllInvitedGuests()->pluck('id');
-
-        $newGuestIds = collect($guestUserIds)->diff($existingGuestUserIds);
-
-        $this->invited()->attach($newGuestIds);
     }
 
     /**
@@ -156,5 +145,33 @@ class Reminder extends Model
         $endDate = now()->addCenturies(5);
         return $query
             ->whereBetween('notification_date', [$startDate, $endDate]);
+    }
+
+    /**
+     * All guests and invited users of the reminder.
+     *
+     * @return Collection
+     */
+    public function getAllInvitedGuests()
+    {
+        $guests = $this->guests;
+
+        $invitedUsers = $this->invited;
+
+        return $guests->merge($invitedUsers);
+    }
+
+    /**
+     * Add new users to the reminder invite list.
+     *
+     * @param $guestUserIds
+     */
+    public function inviteUsers(array $guestUserIds)
+    {
+        $existingGuestUserIds = $this->getAllInvitedGuests()->pluck('id');
+
+        $newGuestIds = collect($guestUserIds)->diff($existingGuestUserIds);
+
+        $this->invited()->attach($newGuestIds);
     }
 }
