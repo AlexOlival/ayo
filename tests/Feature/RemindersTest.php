@@ -122,7 +122,7 @@ class RemindersTest extends TestCase
     {
         $this->signIn();
 
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(),
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek()->addDay(),
             'owner_id' => auth()->user()->id]);
 
         $result = $this->get('home')
