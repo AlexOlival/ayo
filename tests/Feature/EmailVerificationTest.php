@@ -22,14 +22,15 @@ class EmailVerificationTest extends TestCase
         $this->post('/register', [
             'username' => 'testuser123',
             'email' => $this->faker->email,
-            'password' => 'secret',
-            'password_confirmation' => 'secret'
+            'password' => 'secret123',
+            'password_confirmation' => 'secret123'
         ]);
 
         $user = User::whereUsername('testuser123')->first();
 
         Notification::assertSentTo(
-            $user, VerifyEmail::class
+            $user,
+            VerifyEmail::class
         );
     }
 }

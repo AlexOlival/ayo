@@ -487,6 +487,12 @@ textarea::-webkit-input-placeholder {
   opacity: .5;
 }
 
+input::-moz-placeholder,
+textarea::-moz-placeholder {
+  color: inherit;
+  opacity: .5;
+}
+
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {
   color: inherit;
@@ -6568,25 +6574,21 @@ html {
 
 @-webkit-keyframes vSelectSpinner {
   0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
 @keyframes vSelectSpinner {
   0% {
-    -webkit-transform: rotate(0deg);
-            transform: rotate(0deg);
+    transform: rotate(0deg);
   }
 
   100% {
-    -webkit-transform: rotate(360deg);
-            transform: rotate(360deg);
+    transform: rotate(360deg);
   }
 }
 
@@ -6705,17 +6707,13 @@ html {
 
 .vs__open-indicator {
   fill: rgba(60, 60, 60, .5);
-  -webkit-transform: scale(1);
-          transform: scale(1);
-  transition: -webkit-transform 150ms cubic-bezier(1, -0.115, .975, .855);
+  transform: scale(1);
   transition: transform 150ms cubic-bezier(1, -0.115, .975, .855);
-  transition: transform 150ms cubic-bezier(1, -0.115, .975, .855), -webkit-transform 150ms cubic-bezier(1, -0.115, .975, .855);
   transition-timing-function: cubic-bezier(1, -0.115, .975, .855);
 }
 
 .vs--open .vs__open-indicator {
-  -webkit-transform: rotate(180deg) scale(1);
-          transform: rotate(180deg) scale(1);
+  transform: rotate(180deg) scale(1);
 }
 
 .vs--loading .vs__open-indicator {
@@ -6859,6 +6857,10 @@ html {
   color: inherit;
 }
 
+.vs__search::-moz-placeholder {
+  color: inherit;
+}
+
 .vs__search:-ms-input-placeholder {
   color: inherit;
 }
@@ -6899,8 +6901,7 @@ html {
   border-right: .9em solid rgba(100, 100, 100, .1);
   border-bottom: .9em solid rgba(100, 100, 100, .1);
   border-left: .9em solid rgba(60, 60, 60, .45);
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
+  transform: translateZ(0);
   -webkit-animation: vSelectSpinner 1.1s infinite linear;
           animation: vSelectSpinner 1.1s infinite linear;
   transition: opacity .1s;

@@ -18,4 +18,5 @@
     </div>
 
     @include('modals.create-reminder-modal')
+    @include('modals.show-reminder-modal')
 @endsection

@@ -186,7 +186,7 @@
     }
 
     .v-select .vs__dropdown-option {
-        background: #ff8a80;
-        color: #fff;
+        background: #fff;
+        color: #ff8a80;
     }
 </style>
