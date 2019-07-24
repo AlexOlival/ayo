@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Constants\ReminderStatus;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -41,7 +42,7 @@ class Reminder extends Model
      */
     public function getHumanReadableNotificationDateAttribute()
     {
-        return 'In two days';
+        return $this->notification_date->diffForHumans(now(), ['syntax' => CarbonInterface::DIFF_RELATIVE_TO_NOW]);
     }
 
     /**

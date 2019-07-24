@@ -9,7 +9,7 @@
                 See all ({{ reminderCount }})
             </a>
         </header>
-        <section class="flex flex-wrap px-5 -mx-2 items-center">
+        <section class="flex flex-wrap px-5 items-center">
             <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
         </section>
     </section>
