@@ -5,12 +5,11 @@
             <p class="ml-3 text-black">{{ user.username }}</p>
         </div>
 
-        <div class="flex items-center cursor-pointer">
-            <button class="button button-logout" @click="logout">Logout</button>
-        </div>
-
-        <form method="POST" action="/logout" class="hidden" id="logout-form">
+        <form method="POST" action="/logout" id="logout-form">
             <input type="hidden" name="_token" :value="this.token">
+            <div class="flex items-center cursor-pointer">
+                <button class="button button-logout" type="submit">Logout</button>
+            </div>
         </form>
     </div>
 </template>
@@ -28,16 +27,6 @@
                 menuVisible: false,
                 token: document.head.querySelector('meta[name="csrf-token"]').getAttribute('content')
             }
-        },<!--        <div slot="dropdown" class="bg-white shadow rounded border overflow-hidden absolute mt-8" v-show="menuVisible" v-cloak>-->
-<!--            <a href="#" class="no-underline block px-8 py-2 border-b bg-white hover:text-white hover:bg-peachy-pink whitespace-no-wrap" @click="logout">Logout</a>-->
-<!--        </div>-->
-        methods: {
-            toggleMenu() {
-                this.menuVisible = !this.menuVisible;
-            },
-            logout() {
-                document.getElementById('logout-form').submit();
-            }
-        }
+        },
     }
 </script>
