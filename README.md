@@ -7,6 +7,11 @@ Ayo is an easy, snappy and fun reminder app.
 It's  meant to be a way for us to sharpen our software crafting, UI and UX skills.
 The app is fully open source.
 
+## Maintainers
+- Alexandre Olival [@AlexOlival]( https://github.com/AlexOlival )
+- Guilherme Almeida [@colgatekoala]( https://github.com/colgatekoala )
+- João Cruz [@JoaoFSCruz]( https://github.com/JoaoFSCruz )
+
 ## Technologies
 The app is built using MySQL 5.7, Laravel 5.8, Vue 2 and Tailwind 0.7.4.
 
