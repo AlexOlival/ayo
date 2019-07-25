@@ -1,7 +1,7 @@
 <template>
     <section>
         <header class="flex justify-between px-5 items-center">
-            <h2 class="font-semibold inline text-grey-dark py-4">{{ period | capitalize }}</h2>
+            <h2 class="font-semibold inline text-grey-dark py-4">{{ getPeriodName(period) }}</h2>
             <a href="#"
                class="text-sm text-peachy-pink no-underline"
                v-if="reminderCount > 4"
@@ -9,7 +9,7 @@
                 See all ({{ reminderCount }})
             </a>
         </header>
-        <section class="flex flex-wrap px-5 items-center">
+        <section class="flex flex-wrap px-5 items-center flex-col sm:flex-row md:flex-row lg:flex-row">
             <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
         </section>
     </section>
@@ -36,16 +36,28 @@
                 required: true
             }
         },
-        filters: {
-            capitalize(value) {
-                if (!value) return '';
-                value = value.toString();
-                return value.charAt(0).toUpperCase() + value.slice(1);
-            }
-        },
         methods: {
             openDetailModal(reminder) {
                 this.$modal.show('show-reminder-modal', {reminder: reminder})
+            },
+            getPeriodName(period) {
+                switch (period) {
+                    case 'upcoming':
+                        return 'Upcoming';
+
+                    case 'nextWeek':
+                        return 'Next Week';
+
+                    case 'nextMonth':
+                        return 'Next Month';
+
+                    case 'later':
+                        return 'Much Later...';
+
+                    default:
+                        console.error(`Unknown period ${period}`);
+                        break;
+                }
             }
         }
     }
