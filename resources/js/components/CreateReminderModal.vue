@@ -20,7 +20,6 @@
                             <span v-if="errors.hasOwnProperty('title')" v-text="errors.title[0]"
                                 class="text-sm text-peachy-pink"></span>
                         </div>
-
                         <div>
                             <input
                                     class="input mb-4 mt-2 w-full"
@@ -186,7 +185,7 @@
     }
 
     .v-select .vs__dropdown-option {
-        background: #ff8a80;
-        color: #fff;
+        background: #fff;
+        color: #ff8a80;
     }
 </style>

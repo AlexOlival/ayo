@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Reminder;
+use Illuminate\Support\Arr;
 use Illuminate\Http\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -52,7 +53,7 @@ class RemindersController extends Controller
             'guests' => 'sometimes|array',
         ]);
 
-        $reminder->update(array_except($attributes, 'guests'));
+        $reminder->update(Arr::except($attributes, 'guests'));
 
         if (request()->has('guests')) {
             $guestUserIds = array_values(request()->get('guests'));
