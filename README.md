@@ -42,7 +42,7 @@ Also, the Laravel Framework plugin for PhpStorm can be helpful.
 Once we have a first working proof of concept, we can merge to `master` and tag a beta release!
 
 ## Future Prospects
-Open an API and maybe create an Android and iOS mobile client!
-Also, we would like to actually deploy this application to production.
+Open an API and create an Android and iOS mobile client.
+Also, we would like to actually deploy this application to production - even if for a little while.
 
-Regardless, the goal is to have fun, learn, improve and have something to show for :)
+Regardless, the goal is to have fun, learn, improve and us have something to show for :)
