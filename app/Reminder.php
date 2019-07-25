@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\Constants\ReminderStatus;
 use Carbon\CarbonInterface;
+use App\Constants\ReminderStatus;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
