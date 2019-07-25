@@ -23,8 +23,12 @@
   @apply .bg-grey-lighter .font-bold .text-black .p-4;
 }
 
-.button-white:hover {
-  @apply .bg-grey;
+.button-white:hover, .button-logout:hover {
+  @apply .bg-grey
+}
+
+.button-logout {
+  @apply .bg-grey-lighter .font-light .text-black .px-4 .py-2 .ml-2
 }
 
 .input {
