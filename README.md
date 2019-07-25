@@ -2,6 +2,8 @@
     <img title="ayo" width="20%" src="https://i.imgur.com/So0rxLO.png" />
 </p>
 
+![screenshot](https://i.imgur.com/0vIQBjE.jpg)
+
 ## Overview
 Ayo is an easy, snappy and fun reminder app.
 It's  meant to be a way for us to sharpen our software crafting, UI and UX skills.
