@@ -3,12 +3,12 @@
 </p>
 
 ## Overview
-Ayo is an easy, snappy and fun reminder app that actually works as the user expects it too.
-It's also meant to be a way for us to sharpen our software crafting, UI and UX skills.
-The app will be fully open sourced once we have an MVP, and development will go from there.
+Ayo is an easy, snappy and fun reminder app.
+It's  meant to be a way for us to sharpen our software crafting, UI and UX skills.
+The app is fully open source.
 
 ## Technologies
-The app will be built using MySQL 5.7, Laravel 5.7 (possibly 5.8), Vue 2.6 (possibly 3) and Tailwind.
+The app is built using MySQL 5.7, Laravel 5.8, Vue 2 and Tailwind 0.7.4.
 
 ## Getting Started
 - Clone the repository to your local machine
@@ -25,14 +25,13 @@ If you're on a mac, feel free to use [Valet](https://laravel.com/docs/5.7/valet)
 install other dependencies like Redis and MySQL.
 
 ## Contributing
-We're all on the same page here - but later on we should expand this as an actual contributing guide.
-But for now:
+(This is a rough outline while we don't have a proper contribution guide)
 - Try to keep features separate on their own branch.
 - Branch from `develop` and then make a Pull Request back to it.
 - Explain your changes in your PR description.
 - Add at least one reviewer so we can all discuss and approve (PRs cannot be merged without at least one approval).
 - [Follow PSR-2.](https://www.php-fig.org/psr/psr-2/)
-- And finally: *WRITE TESTS!* We're aiming for a fairly big coverage.
+- And finally: *WRITE TESTS!* We're aiming for a fairly big coverage. PRs of new features without tests won't be accepted.
 
 ## Quality Tooling
 If you're on PhpStorm, you should install the Php Inspections (EA Extended) - it's a great static analysis tool.
@@ -44,6 +43,6 @@ Once we have a first working proof of concept, we can merge to `master` and tag 
 
 ## Future Prospects
 Open an API and maybe create an Android and iOS mobile client!
-Also, I'd like to actually deploy this application to production.
+Also, we would like to actually deploy this application to production.
 
 Regardless, the goal is to have fun, learn, improve and have something to show for :)
