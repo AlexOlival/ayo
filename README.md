@@ -19,7 +19,7 @@ The app is built using MySQL 5.7, Laravel 5.8, Vue 2 and Tailwind 0.7.4.
 
 ## Getting Started
 - Clone the repository to your local machine
-- Configure Homestead (check the [Laravel documentation](https://laravel.com/docs/5.7/homestead))
+- Configure Homestead (check the [Laravel documentation](https://laravel.com/docs/5.8/homestead))
 - Check if you can deploy the application locally
 - Run `composer install` to install PHP dependencies
 - Run `yarn` to install JavaScript dependencies
@@ -28,7 +28,7 @@ The app is built using MySQL 5.7, Laravel 5.8, Vue 2 and Tailwind 0.7.4.
 - Optionally run `yarn dev` to compile the front-end assets.
 - That's it!
 
-If you're on a mac, feel free to use [Valet](https://laravel.com/docs/5.7/valet) as it is a slightly easier way to get setup - however it will be on you to
+If you're on a mac, feel free to use [Valet](https://laravel.com/docs/5.8/valet) as it is a slightly easier way to get setup - however it will be on you to
 install other dependencies like Redis and MySQL.
 
 ## Contributing
