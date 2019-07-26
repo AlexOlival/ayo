@@ -48,8 +48,8 @@
                     case 'nextWeek':
                         return 'Next Week';
 
-                    case 'nextMonth':
-                        return 'Next Month';
+                    case 'month':
+                        return 'This Month';
 
                     case 'later':
                         return 'Much Later...';
