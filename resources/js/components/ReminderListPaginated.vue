@@ -2,12 +2,6 @@
     <section>
         <header class="flex justify-between px-5 items-center">
             <h2 class="font-semibold inline text-grey-dark py-4">{{ getPeriodName(period) }}</h2>
-            <a :href="`/expanded-reminders?period=${period}`"
-               class="text-sm text-peachy-pink no-underline"
-               v-if="reminderCount > 4"
-            >
-                See all ({{ reminderCount }})
-            </a>
         </header>
         <section class="flex flex-wrap px-5 items-center flex-col sm:flex-row md:flex-row lg:flex-row">
             <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
@@ -28,11 +22,7 @@
                 }
             },
             reminders: {
-                type: Object,
-                required: true
-            },
-            reminderCount: {
-                type: Number,
+                type: Array,
                 required: true
             }
         },
