@@ -52,7 +52,7 @@
                         return 'This Month';
 
                     case 'later':
-                        return 'Much Later...';
+                        return 'Later';
 
                     default:
                         console.error(`Unknown period ${period}`);
