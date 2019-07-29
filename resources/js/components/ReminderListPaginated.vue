@@ -3,9 +3,15 @@
         <header class="flex justify-between px-5 items-center">
             <h2 class="font-semibold inline text-grey-dark py-4">{{ getPeriodName(period) }}</h2>
         </header>
-        <section class="flex flex-wrap px-5 items-center flex-col sm:flex-row md:flex-row lg:flex-row">
-            <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
-        </section>
+        <paginate
+            class="flex flex-wrap px-5 items-center flex-col sm:flex-row md:flex-row lg:flex-row"
+            name="items"
+            :list="reminderList"
+            :per="8"
+        >
+            <reminder v-for="reminder in paginated('items')" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
+        </paginate>
+        <paginate-links for="items" :show-step-links="true"></paginate-links>
     </section>
 </template>
 
@@ -24,6 +30,12 @@
             reminders: {
                 type: Array,
                 required: true
+            }
+        },
+        data() {
+            return {
+                reminderList: this.reminders,
+                paginate: ['items']
             }
         },
         methods: {
@@ -52,3 +64,53 @@
         }
     }
 </script>
+<style>
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        display: inline-block;
+        margin: 0 10px;
+    }
+
+    .paginate-list {
+        width: 159px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .paginate-list li {
+        display: block;
+    }
+
+    .paginate-list li::before {
+        content: '⚬ ';
+        font-weight: bold;
+        color: slategray;
+    }
+
+    .paginate-links.items {
+        user-select: none;
+    }
+
+    .paginate-links.items a {
+        cursor: pointer;
+    }
+
+    .paginate-links.items .active a {
+        font-weight: bold;
+    }
+
+    .paginate-links.items .next::before {
+        content: ' | ';
+        margin-right: 13px;
+        color: #ddd;
+    }
+
+    .paginate-links.items .disabled a {
+        color: #ccc;
+        cursor: no-drop;
+    }
+</style>
