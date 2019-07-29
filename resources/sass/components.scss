@@ -15,8 +15,7 @@
 }
 
 .button-pink:disabled {
-  @apply .bg-grey;
-  cursor: default;
+  @apply .bg-grey .cursor-default;
 }
 
 .button-white {
