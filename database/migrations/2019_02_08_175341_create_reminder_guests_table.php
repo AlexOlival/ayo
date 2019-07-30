@@ -14,9 +14,9 @@ class CreateReminderGuestsTable extends Migration
     public function up()
     {
         Schema::create('reminder_guests', function (Blueprint $table) {
-            $table->increments('id');
-            $table->unsignedInteger('reminder_id');
-            $table->unsignedInteger('user_id');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('reminder_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('status')->default(1);
             $table->timestamps();
 
