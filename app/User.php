@@ -2,10 +2,13 @@
 
 namespace App;
 
+use App\Constants\ReminderPeriod;
 use App\Constants\ReminderStatus;
+use Illuminate\Support\Collection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Exceptions\UnknownReminderPeriodException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable implements MustVerifyEmail
@@ -88,5 +91,36 @@ class User extends Authenticatable implements MustVerifyEmail
             ->wherePivot('status', ReminderStatus::ACCEPTED)
             ->withPivot('user_id', 'reminder_id', 'status')
             ->with('guests');
+    }
+
+    /**
+     * Get all owned and guest reminders of a given period
+     *
+     * @param string $period
+     * @return Collection
+     * @throws UnknownReminderPeriodException
+     */
+    public function getAllRemindersFromPeriod(string $period)
+    {
+        switch ($period) {
+            case ReminderPeriod::UPCOMING:
+                return $this->reminders()->upcoming()->get()
+                    ->merge($this->guestReminders()->upcoming()->get());
+
+            case ReminderPeriod::NEXT_WEEK:
+                return $this->reminders()->nextWeek()->get()
+                    ->merge($this->guestReminders()->nextWeek()->get());
+
+            case ReminderPeriod::MONTH:
+                return $this->reminders()->month()->get()
+                    ->merge($this->guestReminders()->month()->get());
+
+            case ReminderPeriod::LATER:
+                return $this->reminders()->muchLater()->get()
+                    ->merge($this->guestReminders()->muchLater()->get());
+
+            default:
+                throw new UnknownReminderPeriodException("The reminder period $period does not exist");
+        }
     }
 }

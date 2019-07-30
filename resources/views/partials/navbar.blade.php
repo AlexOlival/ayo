@@ -1,7 +1,9 @@
 <nav class="shadow w-screen">
     <div class="container mx-auto flex flex-row items-center justify-between p-5">
         <div class="mt-1">
-            <img class="w-16 text-black" src="/img/ayo-04.svg" alt="Ayo">
+            <a href="{{ route('home') }}">
+                <img class="w-16 text-black" src="/img/ayo-04.svg" alt="Ayo">
+            </a>
         </div>
         <navbar-menu :user="{{ Auth::user() }}"></navbar-menu>
     </div>

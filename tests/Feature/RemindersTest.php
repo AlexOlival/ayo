@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Reminder;
 use Tests\TestCase;
-use App\Constants\ReminderPeriod;
 use Illuminate\Foundation\Testing\WithFaker;
 use \Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -140,7 +139,7 @@ class RemindersTest extends TestCase
     {
         $this->signIn();
 
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(2),
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2),
             'owner_id' => auth()->user()->id]);
 
         $result = $this->get('home')
@@ -158,7 +157,7 @@ class RemindersTest extends TestCase
     {
         $this->signIn();
 
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonth(3),
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonths(3),
             'owner_id' => auth()->user()->id]);
 
         $result = $this->get('home')
@@ -218,7 +217,7 @@ class RemindersTest extends TestCase
     {
         $this->signIn();
 
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(2),
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2),
             'owner_id' => auth()->user()->id]);
 
         $result = $this->get('home')
@@ -239,7 +238,7 @@ class RemindersTest extends TestCase
     {
         $this->signIn();
 
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonth(3),
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonths(3),
             'owner_id' => auth()->user()->id]);
 
         $result = $this->get('home')
@@ -253,5 +252,38 @@ class RemindersTest extends TestCase
 
         $this->assertFalse($result->viewData('monthReminders')->contains($reminder));
         $this->assertEquals(0, $result->viewData('monthReminderCount'));
+    }
+
+    /** @test */
+    public function a_user_can_not_see_their_paginated_reminders_if_there_are_less_than_four()
+    {
+        $this->signIn();
+
+        factory(Reminder::class)->create(
+            [
+                'notification_date' => now()->addMonths(3),
+                'owner_id' => auth()->user()->id
+            ]
+        );
+
+        $this->get('expanded-reminders?period=later')
+            ->assertRedirect('home');
+    }
+
+    /** @test */
+    public function a_user_can_see_their_paginated_reminders_if_there_are_more_than_four()
+    {
+        $this->signIn();
+
+        factory(Reminder::class, 10)->create(
+            [
+                'notification_date' => now()->addMonths(3),
+                'owner_id' => auth()->user()->id
+            ]
+        );
+
+        $this->get('expanded-reminders?period=later')
+            ->assertViewIs('reminders.paginated')
+            ->assertViewHas('reminders');
     }
 }

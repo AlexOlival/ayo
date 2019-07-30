@@ -2,7 +2,7 @@
     <section>
         <header class="flex justify-between px-5 items-center">
             <h2 class="font-semibold inline text-grey-dark py-4">{{ getPeriodName(period) }}</h2>
-            <a href="#"
+            <a :href="`/expanded-reminders?period=${period}`"
                class="text-sm text-peachy-pink no-underline"
                v-if="reminderCount > 4"
             >
@@ -52,7 +52,7 @@
                         return 'This Month';
 
                     case 'later':
-                        return 'Much Later...';
+                        return 'Later';
 
                     default:
                         console.error(`Unknown period ${period}`);

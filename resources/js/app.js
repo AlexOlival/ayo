@@ -7,11 +7,13 @@
 
 require('./bootstrap');
 import VModal from 'vue-js-modal';
-import vSelect from 'vue-select'
+import vSelect from 'vue-select';
+import VuePaginate from 'vue-paginate';
 
 window.Vue = require('vue');
 Vue.use(VModal);
-Vue.component('v-select', vSelect)
+Vue.component('v-select', vSelect);
+Vue.use(VuePaginate);
 
 /**
  * The following block of code may be used to automatically register your
@@ -21,8 +23,8 @@ Vue.component('v-select', vSelect)
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-const files = require.context('./', true, /\.vue$/i)
-files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+const files = require.context('./', true, /\.vue$/i);
+files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
