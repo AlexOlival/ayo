@@ -25,4 +25,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/invites', 'InvitesController@index');
 
     Route::get('/search-users', 'SearchUsersController');
+
+    Route::get('/profile', 'UsersController@show')->name('profile.show');
 });
