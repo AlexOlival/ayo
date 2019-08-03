@@ -29,4 +29,5 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/search-users', 'SearchUsersController');
 
     Route::get('/profile', 'UsersController@show')->name('profile.show');
+    Route::post('/users/{user}/avatars', 'UserAvatarsController@store')->name('avatar.store');
 });
