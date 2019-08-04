@@ -123,4 +123,14 @@ class User extends Authenticatable implements MustVerifyEmail
                 throw new UnknownReminderPeriodException("The reminder period $period does not exist");
         }
     }
+
+    /**
+     * Get the user's avatar path
+     *
+     * @return string
+     */
+    public function avatar()
+    {
+        return asset($this->avatar_path ?: 'avatars/default.svg');
+    }
 }

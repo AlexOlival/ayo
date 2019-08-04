@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -52,5 +53,17 @@ class UserAvatarTest extends TestCase
         $this->assertEquals('avatars/' . $file->hashName(), auth()->user()->avatar_path);
 
         Storage::disk('public')->assertExists('avatars/' . $file->hashName());
+    }
+
+    /** @test */
+    public function users_can_determine_their_avatar_path()
+    {
+        $user = factory(User::class)->create();
+
+        $this->assertEquals(asset('avatars/default.svg'), $user->avatar());
+
+        $user->avatar_path = 'avatars/me.jpg';
+
+        $this->assertEquals(asset('avatars/me.jpg'), $user->avatar());
     }
 }
