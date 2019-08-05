@@ -16,6 +16,6 @@ class UserAvatarsController extends Controller
             'avatar_path' => request()->file('avatar')->store('avatars', 'public')
         ]);
 
-        return response()->json('', Response::HTTP_OK);
+        return response()->json('', Response::HTTP_NO_CONTENT);
     }
 }

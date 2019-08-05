@@ -9,7 +9,7 @@
         <div class="flex flex-row items-center">
             <a class="no-underline" href="{{ route('profile.show') }}">
                 <div class="flex flex-row items-center cursor-pointer mr-3">
-                    <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->avatar() }}" alt="Avatar">
+                    <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->avatar_path }}" alt="Avatar">
                     <p class="ml-2 text-black">{{ auth()->user()->username }}</p>
                 </div>
             </a>

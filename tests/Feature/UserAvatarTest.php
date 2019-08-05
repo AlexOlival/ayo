@@ -48,7 +48,7 @@ class UserAvatarTest extends TestCase
 
         $this->postJson('/users/' . auth()->id() .'/avatars', ['avatar' => $file = UploadedFile::fake()
             ->image('avatar.jpg', 200, 200)])
-            ->assertStatus(Response::HTTP_OK);
+            ->assertStatus(Response::HTTP_NO_CONTENT);
 
         $this->assertEquals('avatars/' . $file->hashName(), auth()->user()->avatar_path);
 
@@ -60,10 +60,10 @@ class UserAvatarTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->assertEquals(asset('avatars/default.svg'), $user->avatar());
+        $this->assertEquals(asset('avatars/default.svg'), $user->avatar_path);
 
         $user->avatar_path = 'avatars/me.jpg';
 
-        $this->assertEquals(asset('avatars/me.jpg'), $user->avatar());
+        $this->assertEquals(asset('avatars/me.jpg'), $user->avatar_path);
     }
 }
