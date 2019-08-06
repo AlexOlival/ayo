@@ -66,4 +66,32 @@ class UserAvatarTest extends TestCase
 
         $this->assertEquals(asset('storage/avatars/me.jpg'), $user->avatar_path);
     }
+
+    /** @test */
+    public function an_avatar_is_replaced_when_a_user_uploads_a_new_one()
+    {
+        $this->signIn();
+
+        Storage::fake('public');
+
+        $this->postJson('/users/' . auth()->id() .'/avatars', ['avatar' => $oldAvatar = UploadedFile::fake()
+            ->image('avatar.jpg', 200, 200)])
+            ->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertEquals(asset('storage/avatars/' . $oldAvatar->hashName()), auth()->user()->avatar_path);
+
+        Storage::disk('public')->assertExists('avatars/' . $oldAvatar->hashName());
+
+        $this->postJson('/users/' . auth()->id() .'/avatars', ['avatar' => $newAvatar = UploadedFile::fake()
+            ->image('avatar.jpg', 200, 200)])
+            ->assertStatus(Response::HTTP_NO_CONTENT);
+
+        $this->assertNotEquals(asset('storage/avatars/' . $oldAvatar->hashName()), auth()->user()->avatar_path);
+
+        Storage::disk('public')->assertMissing('avatars/' . $oldAvatar->hashName());
+
+        $this->assertEquals(asset('storage/avatars/' . $newAvatar->hashName()), auth()->user()->avatar_path);
+
+        Storage::disk('public')->assertExists('avatars/' . $newAvatar->hashName());
+    }
 }
