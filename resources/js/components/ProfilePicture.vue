@@ -2,9 +2,9 @@
     <div class="flex flex-col items-center">
         <div class="group h-48 w-48 sm:h-96 sm:w-96 rounded-full border-4 sm:border-8 border-peachy-pink relative overflow-hidden cursor-pointer"
              @click="openUploadPrompt">
-            <img v-if="avatar" class="h-full w-full absolute z-10 group-hover:opacity-25" :src="avatar" alt="Avatar">
+            <img v-if="!isDefaultAvatar" class="h-full w-full absolute z-10 group-hover:opacity-25" :src="avatar" alt="Avatar">
             <div class="h-full w-full absolute bg-peachy-pink z-0"></div>
-            <div class="h-full w-full flex flex-col justify-center items-center absolute z-20" :class="avatar ? 'invisible group-hover:visible' : ''">
+            <div class="h-full w-full flex flex-col justify-center items-center absolute z-20" :class="!isDefaultAvatar ? 'invisible group-hover:visible' : ''">
                 <img class="h-10 w-10 sm:h-16 sm:w-16" src="/img/ic-add-photo.svg" alt="">
                 <p class="text-sm text-center sm:text-2xl text-white font-bold">Upload a new profile photo</p>
             </div>
@@ -22,6 +22,20 @@
 
 <script>
     export default {
+        props: {
+            user: {
+                type: Object,
+                required: true
+            }
+        },
+
+        computed: {
+            isDefaultAvatar() {
+                let test = this.avatar.split('/');
+                return test[test.length - 1] === 'default.svg';
+            }
+        },
+
         data() {
             return {
                 avatar: this.user.avatar_path

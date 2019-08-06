@@ -50,7 +50,7 @@ class UserAvatarTest extends TestCase
             ->image('avatar.jpg', 200, 200)])
             ->assertStatus(Response::HTTP_NO_CONTENT);
 
-        $this->assertEquals('avatars/' . $file->hashName(), auth()->user()->avatar_path);
+        $this->assertEquals(asset('storage/avatars/' . $file->hashName()), auth()->user()->avatar_path);
 
         Storage::disk('public')->assertExists('avatars/' . $file->hashName());
     }
@@ -60,10 +60,10 @@ class UserAvatarTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $this->assertEquals(asset('avatars/default.svg'), $user->avatar_path);
+        $this->assertEquals(asset('storage/avatars/default.svg'), $user->avatar_path);
 
         $user->avatar_path = 'avatars/me.jpg';
 
-        $this->assertEquals(asset('avatars/me.jpg'), $user->avatar_path);
+        $this->assertEquals(asset('storage/avatars/me.jpg'), $user->avatar_path);
     }
 }

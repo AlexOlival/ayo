@@ -15,8 +15,6 @@ Vue.use(VModal);
 Vue.component('v-select', vSelect);
 Vue.use(VuePaginate);
 
-Vue.prototype.user = JSON.parse(document.querySelector("meta[name='user']").getAttribute('content'));
-
 Vue.prototype.authorize = function (handler) {
     let user = this.user;
     return user ? handler(user) : false;

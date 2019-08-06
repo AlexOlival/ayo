@@ -50,7 +50,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getAvatarPathAttribute($avatar)
     {
-        return asset("storage/$avatar" ?: 'avatars/default.svg');
+        return asset($avatar ? "storage/$avatar" : '/storage/avatars/default.svg');
     }
 
     /**
