@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class UsersController extends Controller
 {
     /**
-     * Display the specified resource.
+     * Display the authenticated user profile.
      *
      * @return \Illuminate\Http\Response
      */
