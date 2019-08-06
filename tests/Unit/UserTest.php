@@ -5,7 +5,6 @@ namespace Tests\Unit;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase

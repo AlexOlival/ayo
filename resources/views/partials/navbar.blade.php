@@ -5,6 +5,21 @@
                 <img class="w-16 text-black" src="/img/ayo-04.svg" alt="Ayo">
             </a>
         </div>
-        <navbar-menu :user="{{ Auth::user() }}"></navbar-menu>
+
+        <div class="flex flex-row items-center">
+            <a class="no-underline" href="{{ route('profile.show') }}">
+                <div class="flex flex-row items-center cursor-pointer mr-3">
+                    <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->avatar_path }}" alt="Avatar">
+                    <p class="ml-2 text-black">{{ auth()->user()->username }}</p>
+                </div>
+            </a>
+
+            <form method="POST" action="/logout" id="logout-form">
+                @csrf
+                <div class="flex items-center cursor-pointer">
+                    <button class="button button-logout" type="submit">Logout</button>
+                </div>
+            </form>
+        </div>
     </div>
 </nav>

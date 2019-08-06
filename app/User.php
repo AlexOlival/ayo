@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password',
+        'username', 'email', 'password', 'avatar_path',
     ];
 
     /**
@@ -41,6 +41,17 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the user's avatar path
+     *
+     * @param $avatar
+     * @return string
+     */
+    public function getAvatarPathAttribute($avatar)
+    {
+        return asset($avatar ? "storage/$avatar" : '/storage/avatars/default.svg');
+    }
 
     /**
      * Search for users, excluding the authenticated user itself

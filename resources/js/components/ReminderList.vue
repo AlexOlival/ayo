@@ -28,7 +28,7 @@
                 }
             },
             reminders: {
-                type: Object,
+                type: Array,
                 required: true
             },
             reminderCount: {
