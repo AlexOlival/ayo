@@ -286,4 +286,24 @@ class RemindersTest extends TestCase
             ->assertViewIs('reminders.paginated')
             ->assertViewHas('reminders');
     }
+
+    /** @test */
+    public function reminders_of_users_are_deleted_if_they_delete_their_account()
+    {
+        $this->signIn();
+
+        $user = auth()->user();
+
+        $reminders = factory(Reminder::class, 5)->create(['owner_id' => $user->id]);
+
+        $reminders->each(function ($reminder) {
+            $this->assertDatabaseHas('reminders', ['id' => $reminder->id]);
+        });
+
+        $this->delete("/users/{$user->id}");
+
+        $reminders->each(function ($reminder) {
+            $this->assertDatabaseMissing('reminders', ['id' => $reminder->id]);
+        });
+    }
 }

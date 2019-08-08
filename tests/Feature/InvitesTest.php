@@ -173,4 +173,72 @@ class InvitesTest extends TestCase
 
         $this->assertCount(1, $guest->fresh()->invites);
     }
+
+    /** @test */
+    public function invites_of_users_are_deleted_if_a_guest_deletes_their_account()
+    {
+        $this->signIn();
+
+        $owner = auth()->user();
+
+        $guest = factory(User::class)->create();
+
+        $reminder = factory(Reminder::class)->create(['owner_id' => $owner->id]);
+
+        $reminder->inviteUsers([$guest->id]);
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'reminder_id' => $reminder->id,
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+
+        $this->delete("/users/{$guest->id}");
+
+        $this->assertDatabaseMissing(
+            'reminder_guests',
+            [
+                'reminder_id' => $reminder->id,
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+    }
+
+    /** @test */
+    public function invites_of_users_are_deleted_if_an_owner_deletes_their_account()
+    {
+        $this->signIn();
+
+        $owner = auth()->user();
+
+        $guest = factory(User::class)->create();
+
+        $reminder = factory(Reminder::class)->create(['owner_id' => $owner->id]);
+
+        $reminder->inviteUsers([$guest->id]);
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'reminder_id' => $reminder->id,
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+
+        $this->delete("/users/{$owner->id}");
+
+        $this->assertDatabaseMissing(
+            'reminder_guests',
+            [
+                'reminder_id' => $reminder->id,
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+    }
 }
