@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -24,6 +25,10 @@ class UsersController extends Controller
      */
     public function destroy()
     {
+        $avatar = auth()->user()->getOriginal('avatar_path');
+        if (Storage::disk('public')->exists($avatar)) {
+            Storage::disk('public')->delete($avatar);
+        }
         User::destroy(auth()->id());
 
         auth()->logout();

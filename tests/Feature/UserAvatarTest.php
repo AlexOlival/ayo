@@ -94,4 +94,21 @@ class UserAvatarTest extends TestCase
 
         Storage::disk('public')->assertExists('avatars/' . $newAvatar->hashName());
     }
+
+    /** @test */
+    public function avatars_are_deleted_when_users_delete_their_account()
+    {
+        $this->signIn();
+
+        Storage::fake('public');
+
+        $this->postJson('/users/' . auth()->id() .'/avatars', ['avatar' => $avatar = UploadedFile::fake()
+            ->image('avatar.jpg', 200, 200)]);
+
+        Storage::disk('public')->assertExists('avatars/' . $avatar->hashName());
+
+        $this->delete("/users/" . auth()->id());
+
+        Storage::disk('public')->assertMissing('avatars/' . $avatar->hashName());
+    }
 }

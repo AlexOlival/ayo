@@ -17,7 +17,7 @@
             <form method="POST" action="/logout" id="logout-form">
                 @csrf
                 <div class="flex items-center cursor-pointer">
-                    <button class="button button-logout" type="submit">Logout</button>
+                    <button class="button button-grey" type="submit">Logout</button>
                 </div>
             </form>
         </div>
