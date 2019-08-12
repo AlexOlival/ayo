@@ -25,10 +25,6 @@ class UsersController extends Controller
      */
     public function destroy()
     {
-        $avatar = auth()->user()->getOriginal('avatar_path');
-        if (Storage::disk('public')->exists($avatar)) {
-            Storage::disk('public')->delete($avatar);
-        }
         User::destroy(auth()->id());
 
         auth()->logout();
