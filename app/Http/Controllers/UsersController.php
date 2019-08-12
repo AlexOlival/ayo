@@ -21,11 +21,13 @@ class UsersController extends Controller
     /**
      * Delete the authenticated user
      *
+     * @param User $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Exception
      */
-    public function destroy()
+    public function destroy(User $user)
     {
-        User::destroy(auth()->id());
+        $user->delete();
 
         auth()->logout();
 

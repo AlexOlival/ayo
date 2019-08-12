@@ -8,6 +8,6 @@
         <a class="button button-grey no-underline mt-10" href="{{ route('home') }}">Back</a>
         <a class="button button-red no-underline mt-20" @click="$modal.show('delete-user-modal')">Delete Account</a>
 
-        <delete-user-modal :userId="{{ auth()->user() }}"></delete-user-modal>
+        <delete-user-modal :user-id="{{ auth()->id() }}"></delete-user-modal>
     </div>
 @endsection
