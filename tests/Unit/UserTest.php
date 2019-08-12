@@ -46,4 +46,21 @@ class UserTest extends TestCase
         $results = $alex->search('a')->get();
         $this->assertEmpty($results);
     }
+
+    /** @test */
+    public function users_can_delete_their_account()
+    {
+        $user = factory(User::class)->create();
+
+        $this->signIn($user);
+
+        $this->assertDatabaseHas('users', ['email' => $user->email]);
+        $this->assertTrue(auth()->check());
+
+        $this->delete("/users/{$user->id}")
+            ->assertRedirect(route('welcome'));
+
+        $this->assertDatabaseMissing('users', ['email' => $user->email]);
+        $this->assertFalse(auth()->check());
+    }
 }
