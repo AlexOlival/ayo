@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use App\User;
-use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
