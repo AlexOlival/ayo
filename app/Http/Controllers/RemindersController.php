@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\ReminderDeletedNotification;
 use App\Reminder;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpFoundation\Response;
 
 class RemindersController extends Controller
@@ -75,10 +77,12 @@ class RemindersController extends Controller
     public function delete(Reminder $reminder)
     {
         $this->authorize('delete', $reminder);
+
         try {
             DB::beginTransaction();
 
             $reminder->delete();
+            Notification::send($reminder->guests, new ReminderDeletedNotification($reminder));
 
             DB::commit();
         } catch (\Exception $exception) {

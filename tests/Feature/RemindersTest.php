@@ -2,11 +2,14 @@
 
 namespace Tests\Feature;
 
+use App\Notifications\ReminderDeletedNotification;
 use App\Reminder;
 use App\User;
 use Facades\Tests\Setup\ReminderFactory;
+use Facades\Tests\Setup\UserFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Notification;
 use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
@@ -300,5 +303,37 @@ class RemindersTest extends TestCase
 
         $this->delete("/reminders/$reminder->id")->assertStatus(Response::HTTP_OK);
         $this->assertDatabaseMissing('reminders', $reminder->only('id'));
+    }
+
+    /** @test */
+    public function unauthorized_cannot_delete_a_reminder()
+    {
+        $jane = UserFactory::create();
+        $john = UserFactory::withReminders(5)->create();
+
+        $this->signIn($jane);
+
+        $this->delete("/reminders/{$john->reminders->first()->id}")->assertStatus(Response::HTTP_FORBIDDEN);
+    }
+
+    /** @test */
+    public function an_email_is_sent_to_the_guests_of_the_deleted_reminder()
+    {
+        $this->withoutExceptionHandling();
+
+        Notification::fake();
+
+        $jane = UserFactory::create();
+        $doe = UserFactory::create();
+        $john = UserFactory::withReminders(1)->create();
+        $this->signIn($john);
+
+        $reminder = $john->reminders()->first();
+        $reminder->guests()->attach([$jane->id, $doe->id]);
+
+        Notification::assertNothingSent();
+
+        $this->delete("/reminders/{$reminder->id}");
+        Notification::assertSentTo($reminder->getAllInvitedGuests(), ReminderDeletedNotification::class);
     }
 }

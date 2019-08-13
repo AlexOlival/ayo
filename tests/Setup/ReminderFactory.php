@@ -7,21 +7,21 @@ use App\Reminder;
 class ReminderFactory
 {
     /**
-     * The number of guests for the family.
+     * The number of guests for the reminder.
      *
      * @var int
      */
     protected $numberOfGuests = 0;
 
     /**
-     * Set the number of members for the family.
+     * Set the number of guests for the reminder.
      *
-     * @param  int $count
+     * @param  int $numberOfGuests
      * @return $this
      */
-    public function withGuest($count = 1)
+    public function withGuest($numberOfGuests = 1)
     {
-        $this->numberOfGuests = $count;
+        $this->numberOfGuests = $numberOfGuests;
 
         return $this;
     }

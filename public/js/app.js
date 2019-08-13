@@ -2747,6 +2747,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2756,6 +2773,9 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     beforeOpen: function beforeOpen(event) {
       this.reminder = event.params.reminder;
+    },
+    deleteReminder: function deleteReminder() {
+      axios["delete"]("/reminders/".concat(this.reminder.id));
     }
   }
 });
@@ -27841,6 +27861,31 @@ var render = function() {
               _vm.reminder.guests.length !== 0
                 ? _c("div", [_vm._v("HAS GUESTS")])
                 : _vm._e()
+            ]),
+            _vm._v(" "),
+            _c("button", { on: { click: _vm.deleteReminder } }, [
+              _c(
+                "svg",
+                {
+                  attrs: {
+                    xmlns: "http://www.w3.org/2000/svg",
+                    width: "26",
+                    height: "26",
+                    viewBox: "0 0 24 24"
+                  }
+                },
+                [
+                  _c("path", { attrs: { fill: "none", d: "M0 0h24v24H0V0z" } }),
+                  _vm._v(" "),
+                  _c("path", {
+                    attrs: {
+                      fill: "#ff8a80",
+                      d:
+                        "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4 11H8c-.55 0-1-.45-1-1s.45-1 1-1h8c.55 0 1 .45 1 1s-.45 1-1 1z"
+                    }
+                  })
+                ]
+              )
             ])
           ])
         : _vm._e()
@@ -41501,14 +41546,15 @@ __webpack_require__.r(__webpack_exports__);
 /*!*******************************************************!*\
   !*** ./resources/js/components/ShowReminderModal.vue ***!
   \*******************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _ShowReminderModal_vue_vue_type_template_id_2928f0fa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShowReminderModal.vue?vue&type=template&id=2928f0fa& */ "./resources/js/components/ShowReminderModal.vue?vue&type=template&id=2928f0fa&");
 /* harmony import */ var _ShowReminderModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShowReminderModal.vue?vue&type=script&lang=js& */ "./resources/js/components/ShowReminderModal.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _ShowReminderModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _ShowReminderModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
@@ -41538,7 +41584,7 @@ component.options.__file = "resources/js/components/ShowReminderModal.vue"
 /*!********************************************************************************!*\
   !*** ./resources/js/components/ShowReminderModal.vue?vue&type=script&lang=js& ***!
   \********************************************************************************/
-/*! exports provided: default */
+/*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
