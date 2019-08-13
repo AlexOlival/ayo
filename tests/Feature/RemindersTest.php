@@ -3,10 +3,12 @@
 namespace Tests\Feature;
 
 use App\Reminder;
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use \Symfony\Component\HttpFoundation\Response;
+use App\User;
+use Facades\Tests\Setup\ReminderFactory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Symfony\Component\HttpFoundation\Response;
+use Tests\TestCase;
 
 class RemindersTest extends TestCase
 {
@@ -104,7 +106,7 @@ class RemindersTest extends TestCase
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addDay(),
-            'owner_id' => auth()->user()->id]);
+            'owner_id' => auth()->user()->id, ]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
@@ -122,7 +124,7 @@ class RemindersTest extends TestCase
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek()->addDay(),
-            'owner_id' => auth()->user()->id]);
+            'owner_id' => auth()->user()->id, ]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
@@ -140,7 +142,7 @@ class RemindersTest extends TestCase
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2),
-            'owner_id' => auth()->user()->id]);
+            'owner_id' => auth()->user()->id, ]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
@@ -158,7 +160,7 @@ class RemindersTest extends TestCase
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonths(3),
-            'owner_id' => auth()->user()->id]);
+            'owner_id' => auth()->user()->id, ]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
@@ -176,7 +178,7 @@ class RemindersTest extends TestCase
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addDay(),
-            'owner_id' => auth()->user()->id]);
+            'owner_id' => auth()->user()->id, ]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
@@ -197,7 +199,7 @@ class RemindersTest extends TestCase
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(),
-            'owner_id' => auth()->user()->id]);
+            'owner_id' => auth()->user()->id, ]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
@@ -218,7 +220,7 @@ class RemindersTest extends TestCase
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2),
-            'owner_id' => auth()->user()->id]);
+            'owner_id' => auth()->user()->id, ]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
@@ -239,7 +241,7 @@ class RemindersTest extends TestCase
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonths(3),
-            'owner_id' => auth()->user()->id]);
+            'owner_id' => auth()->user()->id, ]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
@@ -262,7 +264,7 @@ class RemindersTest extends TestCase
         factory(Reminder::class)->create(
             [
                 'notification_date' => now()->addMonths(3),
-                'owner_id' => auth()->user()->id
+                'owner_id' => auth()->user()->id,
             ]
         );
 
@@ -278,12 +280,25 @@ class RemindersTest extends TestCase
         factory(Reminder::class, 10)->create(
             [
                 'notification_date' => now()->addMonths(3),
-                'owner_id' => auth()->user()->id
+                'owner_id' => auth()->user()->id,
             ]
         );
 
         $this->get('expanded-reminders?period=later')
             ->assertViewIs('reminders.paginated')
             ->assertViewHas('reminders');
+    }
+
+    /** @test */
+    public function a_user_can_delete_a_reminder()
+    {
+        $user = factory(User::class)->create();
+        $this->signIn($user);
+
+        $reminder = ReminderFactory::withOwner($user)->create();
+        $this->assertDatabaseHas('reminders', $reminder->only('id'));
+
+        $this->delete("/reminders/$reminder->id")->assertStatus(Response::HTTP_OK);
+        $this->assertDatabaseMissing('reminders', $reminder->only('id'));
     }
 }

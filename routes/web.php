@@ -20,9 +20,18 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/expanded-reminders', 'ExpandedReminderListController@index');
 
-    Route::post('/reminders', 'RemindersController@store');
-    Route::patch('/reminders/{reminder}', 'RemindersController@update');
-    Route::get('/reminders', 'RemindersController@index');
+    /*
+    |--------------------------------------------------------------------------
+    | Families Routes
+    |--------------------------------------------------------------------------
+    |
+    */
+    Route::prefix('reminders')->name('reminders.')->group(function () {
+        Route::get('/', 'RemindersController@index')->name('index');
+        Route::post('/', 'RemindersController@store')->name('store');
+        Route::patch('/{reminder}', 'RemindersController@update')->name('update');
+        Route::middleware('reminder.is.valid')->delete('/{reminder}', 'RemindersController@delete')->name('destroy');
+    });
 
     Route::get('/invites', 'InvitesController@index');
 

@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Reminder;
-use Illuminate\Support\Arr;
-use Illuminate\Http\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\Response;
 
 class RemindersController extends Controller
 {
@@ -20,7 +21,7 @@ class RemindersController extends Controller
         $attributes = request()->validate([
             'title' => 'required|string|max:50',
             'description' => 'nullable|string|max:300',
-            'notification_date' => 'required|date|after:'.now(),
+            'notification_date' => 'required|date|after:' . now(),
             'guests' => 'sometimes|array',
         ]);
 
@@ -49,7 +50,7 @@ class RemindersController extends Controller
         $attributes = request()->validate([
             'title' => 'sometimes|required|string|max:50',
             'description' => 'sometimes|nullable|string|max:300',
-            'notification_date' => 'sometimes|required|date|after:'.now(),
+            'notification_date' => 'sometimes|required|date|after:' . now(),
             'guests' => 'sometimes|array',
         ]);
 
@@ -62,5 +63,30 @@ class RemindersController extends Controller
         }
 
         return response()->json('updated', Response::HTTP_OK);
+    }
+
+    /**
+     * Delete a reminder.
+     *
+     * @param Reminder $reminder
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function delete(Reminder $reminder)
+    {
+        $this->authorize('delete', $reminder);
+        try {
+            DB::beginTransaction();
+
+            $reminder->delete();
+
+            DB::commit();
+        } catch (\Exception $exception) {
+            DB::rollback();
+
+            return response()->json('There was an error deleting the reminder', Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return response()->json('deleted', Response::HTTP_OK);
     }
 }
