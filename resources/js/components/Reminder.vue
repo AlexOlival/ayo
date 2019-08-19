@@ -8,11 +8,6 @@
             <div class="flex mb-8">
                 <p class="text-grey-dark text-sm" v-text="reminder.notification_date"></p>
             </div>
-            <div class="flex">
-                <img class="h-6 w-6 rounded-full mr-3" src="https://cdn.flash.pt/images/2018-08/img_828x523$2018_08_22_11_45_38_153203_im_636786765242056305.png" alt="Avatar">
-                <img class="h-6 w-6 rounded-full mr-3" src="https://cdn.flash.pt/images/2018-08/img_828x523$2018_08_22_11_45_38_153203_im_636786765242056305.png" alt="Avatar">
-                <img class="h-6 w-6 rounded-full" src="https://cdn.flash.pt/images/2018-08/img_828x523$2018_08_22_11_45_38_153203_im_636786765242056305.png" alt="Avatar">
-            </div>
         </div>
     </div>
 </template>
@@ -24,8 +19,6 @@
                 required: true
             }
         },
-        methods: {
-
-        }
+        methods: {}
     }
 </script>

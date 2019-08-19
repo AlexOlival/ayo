@@ -9,7 +9,7 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function destroy(User $user)
+    public function delete(User $user)
     {
         return auth()->user()->is($user);
     }

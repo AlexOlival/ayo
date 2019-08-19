@@ -75,7 +75,7 @@ class UserTest extends TestCase
         $this->assertDatabaseHas('users', ['email' => $user->email]);
 
         $this->delete("/users/{$user->id}")
-            ->assertStatus(Response::HTTP_UNAUTHORIZED);
+            ->assertStatus(Response::HTTP_FORBIDDEN);
 
         $this->assertDatabaseHas('users', ['email' => $user->email]);
     }
