@@ -1,13 +1,13 @@
 <template>
     <div class="px-2 w-5/6 md:w-1/2 lg:w-1/4 cursor-pointer">
-        <div class="flex flex-row border-2 border-peachy-pink rounded-lg p-2 mb-4 hover:shadow-lg">
-            <div class="w-1/3 flex align-middle">
-                <img class="w-16" :src="invite.owner.avatar_path" alt="">
+        <div class="card flex flex-row p-2 mb-4 hover:shadow-lg">
+            <div class="w-1/3 flex items-center">
+                <img class="w-16 h-16 rounded-full" :src="invite.owner.avatar_path" alt="">
             </div>
             <div class="flex flex-col justify-between w-2/3">
                 <div class="items-start">
                     <p class="card-title" v-text="invite.title"></p>
-                    <p class="text-grey-dark">Guei has invited you</p>
+                    <p class="text-grey-dark">{{ invite.owner.username }}</p>
                     <time class="text-grey-dark text-xs"
                           :datetime="invite.pivot.created_at"
                           v-text="invite.pivot.human_readable_date"

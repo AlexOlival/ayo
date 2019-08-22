@@ -75,7 +75,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function reminders()
     {
-        return $this->hasMany(Reminder::class, 'owner_id')->with('guests');
+        return $this->hasMany(Reminder::class, 'owner_id')
+            ->with('guests')
+            ->with('owner');
     }
 
     /**

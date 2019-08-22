@@ -59,12 +59,10 @@
 }
 
 .card {
-  @apply .flex .flex-col .border-2 .border-peachy-pink .rounded-lg .p-4 .mb-4;
+  @apply .border-2 .border-peachy-pink .rounded-lg;
 }
 
 .card-title {
-  @apply .text-lg;
-  white-space: nowrap;
-  overflow: hidden;
+  @apply .text-lg .whitespace-no-wrap .overflow-hidden;
   text-overflow: ellipsis;
 }
