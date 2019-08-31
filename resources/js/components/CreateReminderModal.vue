@@ -13,32 +13,30 @@
                 Fields marked with an asterisk (*) are required.
             </div>
             <div>
-                <div class="flex flex-row justify-between">
+                <div class="flex flex-row justify-between mb-6">
                     <div class="w-full pr-2">
                         <div class="flex justify-between">
                             <label class="label" for="title">Title*</label>
-                            <span v-if="errors.hasOwnProperty('title')" v-text="errors.title[0]"
-                                class="text-sm text-peachy-pink"></span>
                         </div>
                         <div>
                             <input
-                                    class="input mb-4 mt-2 w-full"
+                                    class="input mt-2 w-full"
                                     :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('title') }"
                                     id="title"
                                     type="text"
                                     name="title"
                                     v-model="form.title">
                         </div>
+                        <span v-if="errors.hasOwnProperty('title')" v-text="errors.title[0]"
+                              class="text-sm text-peachy-pink mt-1"></span>
                     </div>
                     <div class="w-full pl-2">
                         <div class="flex justify-between">
                             <label class="label" for="notification_date">Date*</label>
-                            <span v-if="errors.hasOwnProperty('notification_date')" v-text="errors.notification_date[0]"
-                                class="text-sm text-peachy-pink"></span>
                         </div>
                         <div>
                             <flat-pickr
-                                    class="input mb-6 mt-2 w-full"
+                                    class="input mt-2 w-full"
                                     :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('notification_date') }"
                                     id="notification_date"
                                     name="notification_date"
@@ -47,6 +45,8 @@
                                     v-model="form.notification_date">
                             </flat-pickr>
                         </div>
+                        <span v-if="errors.hasOwnProperty('notification_date')" v-text="errors.notification_date[0]"
+                              class="text-sm text-peachy-pink mt-1"></span>
                     </div>
                 </div>
                 <div>
