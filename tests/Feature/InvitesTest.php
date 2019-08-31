@@ -241,4 +241,43 @@ class InvitesTest extends TestCase
             ]
         );
     }
+
+    /** @test */
+    public function a_user_can_not_see_their_paginated_invites_if_there_are_less_than_four()
+    {
+        $this->signIn();
+
+        $owner = factory(User::class)->create();
+
+        $guest = auth()->user();
+
+        $reminder = factory(Reminder::class)->create(['owner_id' => $owner->id]);
+
+        $reminder->inviteUsers([$guest->id]);
+
+        $this->get('expanded-invites')
+            ->assertRedirect('home');
+    }
+
+    /** @test */
+    public function a_user_can_see_their_paginated_reminders_if_there_are_more_than_four()
+    {
+        $this->withExceptionHandling();
+
+        $this->signIn();
+
+        $owner = factory(User::class)->create();
+
+        $guest = auth()->user();
+
+        $reminders = factory(Reminder::class, 10)->create(['owner_id' => $owner->id]);
+
+        $reminders->each(function($reminder) use ($guest) {
+            $reminder->inviteUsers([$guest->id]);
+        });
+
+        $this->get('expanded-invites')
+            ->assertViewIs('invites.paginated')
+            ->assertViewHas('invites');
+    }
 }
