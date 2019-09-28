@@ -51,24 +51,6 @@
                 </div>
                 <div>
                     <div class="flex justify-between">
-                        <label class="label" for="description">Description</label>
-                        <span v-if="errors.hasOwnProperty('description')" v-text="errors.description[0]"
-                                class="text-sm text-peachy-pink"></span>
-                    </div>
-
-                    <div>
-                        <textarea
-                                class="textarea mb-4 mt-2 w-full"
-                                :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('description') }"
-                                id="description"
-                                type="text"
-                                name="description"
-                                v-model="form.description">
-                        </textarea>
-                    </div>
-                </div>
-                <div>
-                    <div class="flex justify-between">
                         <label class="label" for="people">Invite people to be reminded</label>
                     </div>
                     <div>
@@ -87,12 +69,30 @@
                                 </div>
                             </template>
                             <template slot="option" slot-scope="user">
-                                <div class="flex flex-row items-center">
-                                    <img class="w-4 h-4 rounded-full" :src="user.avatar_path" alt="Avatar">
-                                    <span class="ml-2">{{ user.username }}</span>
+                                <div class="group flex flex-row items-center p-2 hover:bg-grey-lighter">
+                                    <img class="w-8 h-8 rounded-full" :src="user.avatar_path" alt="Avatar">
+                                    <span class="ml-4 text-peachy-pink group-hover:text-grey-dark">{{ user.username }}</span>
                                 </div>
                             </template>
                         </v-select>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between">
+                        <label class="label" for="description">Description</label>
+                        <span v-if="errors.hasOwnProperty('description')" v-text="errors.description[0]"
+                              class="text-sm text-peachy-pink"></span>
+                    </div>
+
+                    <div>
+                        <textarea
+                            class="textarea mb-4 mt-2 w-full"
+                            :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('description') }"
+                            id="description"
+                            type="text"
+                            name="description"
+                            v-model="form.description">
+                        </textarea>
                     </div>
                 </div>
             </div>
@@ -193,7 +193,17 @@
     }
 
     .v-select .vs__dropdown-option {
+        padding: 0;
         background: #fff;
-        color: #ff8a80;
+        /*color: #ff8a80;*/
     }
+
+    .v-select .vs__selected-options {
+        padding: 0.5em;
+    }
+
+    .v-select .vs__actions {
+        padding: 1em;
+    }
+
 </style>
