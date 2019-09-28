@@ -13,7 +13,6 @@ abstract class TestCase extends BaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        Carbon::setTestNow(now()->startOfMonth());
     }
 
     protected function signIn($user = null)

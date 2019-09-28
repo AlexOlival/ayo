@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Reminder;
+use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use \Symfony\Component\HttpFoundation\Response;
@@ -137,6 +138,8 @@ class RemindersTest extends TestCase
     /** @test */
     public function a_user_can_see_this_month_reminders()
     {
+        Carbon::setTestNow(now()->startOfMonth());
+
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2),
@@ -194,6 +197,8 @@ class RemindersTest extends TestCase
     /** @test */
     public function a_user_can_not_see_a_next_week_reminder_off_its_period()
     {
+        Carbon::setTestNow(now()->startOfMonth());
+
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(),
@@ -215,6 +220,8 @@ class RemindersTest extends TestCase
     /** @test */
     public function a_user_can_not_see_a_month_reminder_off_its_period()
     {
+        Carbon::setTestNow(now()->startOfMonth());
+
         $this->signIn();
 
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2),
