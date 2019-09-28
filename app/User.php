@@ -63,7 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeSearch(Builder $query, string $username)
     {
         return $query
-            ->select('id', 'username')
+            ->select('id', 'username', 'avatar_path')
             ->whereNotIn('id', [auth()->id()])
             ->where('username', 'LIKE', "{$username}%");
     }

@@ -86,6 +86,12 @@
                                     start typing a username...
                                 </div>
                             </template>
+                            <template slot="option" slot-scope="user">
+                                <div class="flex flex-row items-center">
+                                    <img class="w-4 h-4 rounded-full" :src="user.avatar_path" alt="Avatar">
+                                    <span class="ml-2">{{ user.username }}</span>
+                                </div>
+                            </template>
                         </v-select>
                     </div>
                 </div>
@@ -133,6 +139,7 @@
             },
             onSearch(search, loading) {
                 loading(true);
+                this.users = [];
                 this.search(loading, search, this);
             },
             search: _.debounce((loading, search, vm) => {
@@ -145,11 +152,12 @@
                 })
                     .then(response => {
                         vm.users = response.data;
+                        console.log(response.data())
                         loading(false);
                     })
                     .catch(() => {
                         loading(false);
-                    })
+                    });
             }, 350),
             clear(field) {
                 if (this.errors.hasOwnProperty(field)) Vue.delete(this.errors, field);
