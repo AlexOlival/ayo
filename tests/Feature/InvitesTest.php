@@ -280,4 +280,66 @@ class InvitesTest extends TestCase
             ->assertViewIs('invites.paginated')
             ->assertViewHas('invites');
     }
+
+    /** @test */
+    public function an_invite_can_be_accepted()
+    {
+        $guest = factory(User::class)->create(['username' => 'guest']);
+
+        $reminder = factory(Reminder::class)->create();
+        $reminder->inviteUsers([$guest->id]);
+
+        $reminder = $reminder->fresh();
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+
+        $this->signIn($guest);
+
+        $this->patch("/accept-invite/{$reminder->id}");
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::ACCEPTED,
+            ]
+        );
+    }
+
+    /** @test */
+    public function an_invite_can_be_refused()
+    {
+        $guest = factory(User::class)->create(['username' => 'guest']);
+
+        $reminder = factory(Reminder::class)->create();
+        $reminder->inviteUsers([$guest->id]);
+
+        $reminder = $reminder->fresh();
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+
+        $this->signIn($guest);
+
+        $this->patch("/refuse-invite/{$reminder->id}");
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::REFUSED,
+            ]
+        );
+    }
 }

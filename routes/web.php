@@ -26,6 +26,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/invites', 'InvitesController@index');
     Route::get('/expanded-invites', 'ExpandedInviteListController@index');
+    Route::patch('/accept-invite/{invite}', 'AcceptInviteController');
+    Route::patch('/refuse-invite/{invite}', 'RefuseInviteController');
 
     Route::get('/search-users', 'SearchUsersController');
 
