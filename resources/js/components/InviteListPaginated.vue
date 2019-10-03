@@ -17,6 +17,7 @@
 
 <script>
     import Invite from "./Invite";
+
     export default {
         components: {Invite},
         props: {
@@ -62,21 +63,4 @@
     .paginate-links .disabled a:hover {
         @apply .border-0;
     }
-
-    /*.paginate-links.items a {*/
-    /*    @apply .border-2 .border-white .text-peachy-pink .font-bold .p-3 .rounded-full .text-xl .cursor-pointer;*/
-    /*}*/
-
-    /*.paginate-links.items a:hover {*/
-    /*    @apply .border-peachy-pink;*/
-    /*}*/
-
-    /*.paginate-links.items .active a {*/
-    /*    @apply .text-white .font-bold .bg-peachy-pink .border-peachy-pink;*/
-    /*}*/
-
-    /*.paginate-links.items .disabled a {*/
-    /*    @apply .text-grey;*/
-    /*}*/
-
 </style>
