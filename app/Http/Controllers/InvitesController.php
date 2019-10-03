@@ -11,6 +11,10 @@ class InvitesController extends Controller
      */
     public function index()
     {
-        return auth()->user()->invites()->with('guests')->get();
+        $allInvites = auth()->user()->invites()->with('guests')->get();
+        $numberOfInvites = $allInvites->count();
+        $invites = $allInvites->take(4);
+
+        return compact('invites', 'numberOfInvites');
     }
 }

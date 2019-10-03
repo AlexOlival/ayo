@@ -1,15 +1,15 @@
 <template>
     <section>
-        <header class="flex justify-between px-10 items-center mb-2">
-            <h2 class="font-medium text-grey-dark text-lg">Invites</h2>
-            <a href="#"
+        <header class="flex justify-between px-5 items-center">
+            <h2 class="font-semibold inline text-grey-dark py-4">Invites</h2>
+            <a href="/expanded-invites"
                class="text-sm text-peachy-pink no-underline"
                v-if="numberOfInvites > 4"
             >
                 See all ({{ numberOfInvites }})
             </a>
         </header>
-        <section class="flex flex-wrap px-5 -mx-2 items-center">
+        <section class="flex flex-wrap px-5 items-center">
             <invite v-for="invite in invites" :key="invite.id" :invite="invite"></invite>
         </section>
     </section>
@@ -26,9 +26,12 @@
         mounted() {
             axios.get('/invites')
                 .then((response) => {
-                    this.invites = response.data;
-                    this.numberOfInvites = response.data.length;
-                });
+                    this.invites = response.data.invites;
+                    this.numberOfInvites = response.data.numberOfInvites;
+                })
+                .catch((error) => {
+                    console.log(error.response);
+                })
         },
     }
 </script>

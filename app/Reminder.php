@@ -74,7 +74,8 @@ class Reminder extends Model
     {
         return $this->belongsToMany(User::class, 'reminder_guests')
             ->wherePivot('status', ReminderStatus::PENDING)
-            ->withPivot('user_id', 'reminder_id', 'status');
+            ->withPivot('user_id', 'reminder_id', 'status')
+            ->withTimestamps();
     }
 
     /**

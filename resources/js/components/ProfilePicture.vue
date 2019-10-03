@@ -10,6 +10,8 @@
             </div>
         </div>
 
+        <span class="mt-2 text-xl font-light text-red" v-if="errors.hasOwnProperty('avatar')" v-text="errors.avatar[0]"></span>
+
         <form class="hidden" method="POST" enctype="multipart/form-data">
             <input type="file" id="avatarInput" name="avatar" accept="image/*" @change="onAvatarUploaded">
         </form>
@@ -38,7 +40,8 @@
 
         data() {
             return {
-                avatar: this.user.avatar_path
+                avatar: this.user.avatar_path,
+                errors: {}
             }
         },
 
@@ -58,7 +61,7 @@
 
                 reader.onload = e => {
                     this.avatar = e.target.result;
-                }
+                };
 
                 this.persist(avatar);
             },
@@ -68,7 +71,13 @@
 
                 data.append('avatar', avatar);
 
-                axios.post(`/users/${this.user.id}/avatars`, data);
+                axios.post(`/users/${this.user.id}/avatars`, data)
+                    .then(() => {
+                        this.errors = {}
+                    })
+                    .catch((errors) => {
+                        this.errors = errors.response.data.errors;
+                    });
             }
         }
     }

@@ -3,11 +3,11 @@
 }
 
 .button {
-  @apply .rounded-full;
+  @apply .rounded-full .px-8;
 }
 
 .button-pink {
-  @apply .bg-peachy-pink .text-white .font-bold .p-4;
+  @apply .bg-peachy-pink .text-white .font-bold;
 }
 
 .button-pink:hover {
@@ -19,7 +19,7 @@
 }
 
 .button-white {
-  @apply .bg-grey-lighter .font-bold .text-black .p-4;
+  @apply .bg-grey-lighter .font-bold .text-black;
 }
 
 .button-grey {
@@ -59,12 +59,10 @@
 }
 
 .card {
-  @apply .flex .flex-col .border-2 .border-peachy-pink .rounded-lg .p-4 .mb-4;
+  @apply .border-2 .border-peachy-pink .rounded-lg;
 }
 
 .card-title {
-  @apply .text-lg;
-  white-space: nowrap;
-  overflow: hidden;
+  @apply .text-lg .whitespace-no-wrap .overflow-hidden;
   text-overflow: ellipsis;
 }

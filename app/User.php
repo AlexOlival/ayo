@@ -63,7 +63,7 @@ class User extends Authenticatable implements MustVerifyEmail
     public function scopeSearch(Builder $query, string $username)
     {
         return $query
-            ->select('id', 'username')
+            ->select('id', 'username', 'avatar_path')
             ->whereNotIn('id', [auth()->id()])
             ->where('username', 'LIKE', "{$username}%");
     }
@@ -75,7 +75,9 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function reminders()
     {
-        return $this->hasMany(Reminder::class, 'owner_id')->with('guests');
+        return $this->hasMany(Reminder::class, 'owner_id')
+            ->with('guests')
+            ->with('owner');
     }
 
     /**
@@ -88,7 +90,9 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Reminder::class, 'reminder_guests')
             ->using(ReminderGuest::class)
             ->wherePivot('status', ReminderStatus::PENDING)
-            ->withPivot('user_id', 'reminder_id', 'status', 'created_at');
+            ->withPivot('user_id', 'reminder_id', 'status', 'created_at')
+            ->with('owner')
+            ->withTimestamps();
     }
 
     /**

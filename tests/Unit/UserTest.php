@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\User;
+use Illuminate\Http\Response;
 use Tests\TestCase;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -62,5 +63,20 @@ class UserTest extends TestCase
 
         $this->assertDatabaseMissing('users', ['email' => $user->email]);
         $this->assertFalse(auth()->check());
+    }
+
+    /** @test */
+    public function users_can_only_delete_their_own_account()
+    {
+        $user = factory(User::class)->create();
+
+        $this->signIn();
+
+        $this->assertDatabaseHas('users', ['email' => $user->email]);
+
+        $this->delete("/users/{$user->id}")
+            ->assertStatus(Response::HTTP_FORBIDDEN);
+
+        $this->assertDatabaseHas('users', ['email' => $user->email]);
     }
 }

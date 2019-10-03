@@ -4,6 +4,7 @@ npm-debug.log
 yarn-error.log
 .idea
 /.vscode
+.phpunit.result.cache
 
 # Laravel 4 specific
 bootstrap/compiled.php

@@ -14,7 +14,10 @@ class RemindersTableSeeder extends Seeder
     public function run()
     {
         factory(Reminder::class, 10)->create()->each(function ($reminder) {
-            $reminder->guests()->attach(User::all()->random(2), ['status' => 2]);
+            $reminder->guests()->attach(
+                User::all()->random(2),
+                ['status' => random_int(0, 2), 'created_at' => now(), 'updated_at' => now()]
+            );
         });
     }
 }

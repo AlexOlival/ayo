@@ -179,9 +179,9 @@ class InvitesTest extends TestCase
     {
         $this->signIn();
 
-        $owner = auth()->user();
+        $guest = auth()->user();
 
-        $guest = factory(User::class)->create();
+        $owner = factory(User::class)->create();
 
         $reminder = factory(Reminder::class)->create(['owner_id' => $owner->id]);
 
@@ -238,6 +238,107 @@ class InvitesTest extends TestCase
                 'reminder_id' => $reminder->id,
                 'user_id' => $guest->id,
                 'status' => ReminderStatus::PENDING,
+            ]
+        );
+    }
+
+    /** @test */
+    public function a_user_can_not_see_their_paginated_invites_if_there_are_less_than_four()
+    {
+        $this->signIn();
+
+        $owner = factory(User::class)->create();
+
+        $guest = auth()->user();
+
+        $reminder = factory(Reminder::class)->create(['owner_id' => $owner->id]);
+
+        $reminder->inviteUsers([$guest->id]);
+
+        $this->get('expanded-invites')
+            ->assertRedirect('home');
+    }
+
+    /** @test */
+    public function a_user_can_see_their_paginated_reminders_if_there_are_more_than_four()
+    {
+        $this->withExceptionHandling();
+
+        $this->signIn();
+
+        $owner = factory(User::class)->create();
+
+        $guest = auth()->user();
+
+        $reminders = factory(Reminder::class, 10)->create(['owner_id' => $owner->id]);
+
+        $reminders->each(function($reminder) use ($guest) {
+            $reminder->inviteUsers([$guest->id]);
+        });
+
+        $this->get('expanded-invites')
+            ->assertViewIs('invites.paginated')
+            ->assertViewHas('invites');
+    }
+
+    /** @test */
+    public function an_invite_can_be_accepted()
+    {
+        $guest = factory(User::class)->create(['username' => 'guest']);
+
+        $reminder = factory(Reminder::class)->create();
+        $reminder->inviteUsers([$guest->id]);
+
+        $reminder = $reminder->fresh();
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+
+        $this->signIn($guest);
+
+        $this->patch("/accept-invite/{$reminder->id}");
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::ACCEPTED,
+            ]
+        );
+    }
+
+    /** @test */
+    public function an_invite_can_be_refused()
+    {
+        $guest = factory(User::class)->create(['username' => 'guest']);
+
+        $reminder = factory(Reminder::class)->create();
+        $reminder->inviteUsers([$guest->id]);
+
+        $reminder = $reminder->fresh();
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+
+        $this->signIn($guest);
+
+        $this->patch("/refuse-invite/{$reminder->id}");
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::REFUSED,
             ]
         );
     }
