@@ -12,8 +12,8 @@
             </div>
 
             <div class="flex flex-row-reverse">
-                <button class="button button-pink w-1/4 mt-2" @click="$modal.hide('delete-user-modal')">No, go back.</button>
-                <button class="button button-red w-1/4 mt-2 mr-4" type="submit">Yes, delete my account.</button>
+                <button class="button button-pink w-1/4 mt-2" @click.prevent="$modal.hide('delete-user-modal')">No</button>
+                <button class="button button-red w-1/4 mt-2 mr-4" type="submit">Yes</button>
             </div>
         </form>
     </modal>
