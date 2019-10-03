@@ -25,7 +25,7 @@
                 type: String,
                 required: true,
                 validator: function (value) {
-                    return ['upcoming', 'nextWeek', 'month', 'later'].indexOf(value) !== -1
+                    return ['upcoming', 'nextWeek', 'later'].indexOf(value) !== -1
                 }
             },
             reminders: {
@@ -50,9 +50,6 @@
 
                     case 'nextWeek':
                         return 'Next Week';
-
-                    case 'month':
-                        return 'This Month';
 
                     case 'later':
                         return 'Later';

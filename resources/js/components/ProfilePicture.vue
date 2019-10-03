@@ -16,9 +16,7 @@
             <input type="file" id="avatarInput" name="avatar" accept="image/*" @change="onAvatarUploaded">
         </form>
 
-        <button class="button button-pink w-1/2 mt-6" @click="openUploadPrompt">
-            Upload a new photo
-        </button>
+        <button class="button button-pink w-1/2 mt-6" @click="openUploadPrompt">Upload photo</button>
     </div>
 </template>
 

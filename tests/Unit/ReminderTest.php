@@ -47,17 +47,6 @@ class ReminderTest extends TestCase
     }
 
     /** @test */
-    public function reminder_returns_later_this_month()
-    {
-        Carbon::setTestNow(now()->startOfMonth());
-
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2)])->first();
-        $results = Reminder::month()->get();
-
-        $this->assertTrue($results->contains($reminder));
-    }
-
-    /** @test */
     public function reminder_returns_much_later()
     {
         $reminder = factory(Reminder::class)->create(['notification_date' => now()->addMonths(2)])->first();

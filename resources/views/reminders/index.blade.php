@@ -10,12 +10,6 @@
     </reminder-list>
 @endif
 
-@if($monthReminderCount)
-    <reminder-list period="{{ \App\Constants\ReminderPeriod::MONTH }}"
-                   :reminders="{{ json_encode($monthReminders) }}" :reminder-count="{{ $monthReminderCount }}">
-    </reminder-list>
-@endif
-
 @if($laterReminderCount)
     <reminder-list period="{{ \App\Constants\ReminderPeriod::LATER }}"
                    :reminders="{{ json_encode($laterReminders) }}" :reminder-count="{{ $laterReminderCount }}">
