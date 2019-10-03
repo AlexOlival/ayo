@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class UsersController extends Controller
 {
@@ -27,11 +25,11 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('destroy');
-
-        $user->delete();
+        $this->authorize('delete', $user);
 
         auth()->logout();
+
+        $user->delete();
 
         return redirect(route('welcome'));
     }

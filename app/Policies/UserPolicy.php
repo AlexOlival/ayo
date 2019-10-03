@@ -9,8 +9,8 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
-    public function delete(User $user)
+    public function delete(User $user, User $model)
     {
-        return auth()->user()->is($user);
+        return $user->is($model);
     }
 }

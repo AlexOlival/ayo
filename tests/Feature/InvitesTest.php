@@ -179,9 +179,9 @@ class InvitesTest extends TestCase
     {
         $this->signIn();
 
-        $owner = auth()->user();
+        $guest = auth()->user();
 
-        $guest = factory(User::class)->create();
+        $owner = factory(User::class)->create();
 
         $reminder = factory(Reminder::class)->create(['owner_id' => $owner->id]);
 

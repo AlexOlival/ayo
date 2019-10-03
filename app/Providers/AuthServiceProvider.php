@@ -6,7 +6,6 @@ use App\User;
 use App\Reminder;
 use App\Policies\UserPolicy;
 use App\Policies\ReminderPolicy;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,8 +16,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        User::class => UserPolicy::class,
         Reminder::class => ReminderPolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -29,7 +28,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
     }
 }
