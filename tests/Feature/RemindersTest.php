@@ -136,26 +136,6 @@ class RemindersTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_see_this_month_reminders()
-    {
-        Carbon::setTestNow(now()->startOfMonth());
-
-        $this->signIn();
-
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2),
-            'owner_id' => auth()->user()->id]);
-
-        $result = $this->get('home')
-            ->assertStatus(Response::HTTP_OK);
-
-        $result->assertViewHas('monthReminders');
-        $result->assertViewHas('monthReminderCount');
-
-        $this->assertTrue($result->viewData('monthReminders')->contains($reminder));
-        $this->assertEquals(1, $result->viewData('monthReminderCount'));
-    }
-
-    /** @test */
     public function a_user_can_see_much_later_reminders()
     {
         $this->signIn();
@@ -187,9 +167,6 @@ class RemindersTest extends TestCase
         $this->assertFalse($result->viewData('nextWeekReminders')->contains($reminder));
         $this->assertEquals(0, $result->viewData('nextWeekReminderCount'));
 
-        $this->assertFalse($result->viewData('monthReminders')->contains($reminder));
-        $this->assertEquals(0, $result->viewData('monthReminderCount'));
-
         $this->assertFalse($result->viewData('laterReminders')->contains($reminder));
         $this->assertEquals(0, $result->viewData('laterReminderCount'));
     }
@@ -209,32 +186,6 @@ class RemindersTest extends TestCase
 
         $this->assertFalse($result->viewData('upcomingReminders')->contains($reminder));
         $this->assertEquals(0, $result->viewData('upcomingReminderCount'));
-
-        $this->assertFalse($result->viewData('monthReminders')->contains($reminder));
-        $this->assertEquals(0, $result->viewData('monthReminderCount'));
-
-        $this->assertFalse($result->viewData('laterReminders')->contains($reminder));
-        $this->assertEquals(0, $result->viewData('laterReminderCount'));
-    }
-
-    /** @test */
-    public function a_user_can_not_see_a_month_reminder_off_its_period()
-    {
-        Carbon::setTestNow(now()->startOfMonth());
-
-        $this->signIn();
-
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeeks(2),
-            'owner_id' => auth()->user()->id]);
-
-        $result = $this->get('home')
-            ->assertStatus(Response::HTTP_OK);
-
-        $this->assertFalse($result->viewData('upcomingReminders')->contains($reminder));
-        $this->assertEquals(0, $result->viewData('upcomingReminderCount'));
-
-        $this->assertFalse($result->viewData('nextWeekReminders')->contains($reminder));
-        $this->assertEquals(0, $result->viewData('nextWeekReminderCount'));
 
         $this->assertFalse($result->viewData('laterReminders')->contains($reminder));
         $this->assertEquals(0, $result->viewData('laterReminderCount'));
@@ -256,9 +207,6 @@ class RemindersTest extends TestCase
 
         $this->assertFalse($result->viewData('nextWeekReminders')->contains($reminder));
         $this->assertEquals(0, $result->viewData('nextWeekReminderCount'));
-
-        $this->assertFalse($result->viewData('monthReminders')->contains($reminder));
-        $this->assertEquals(0, $result->viewData('monthReminderCount'));
     }
 
     /** @test */

@@ -121,21 +121,6 @@ class Reminder extends Model
     }
 
     /**
-     * Get this month's reminders
-     *
-     * @param Builder $query
-     * @return Builder
-     */
-    public function scopeMonth(Builder $query)
-    {
-        $startDate = now()->addWeek()->endOfWeek();
-        $endDate = now()->endOfMonth();
-
-        return $query
-            ->whereBetween('notification_date', [$startDate, $endDate]);
-    }
-
-    /**
      * Get all other reminders
      *
      * @param Builder $query
@@ -143,7 +128,7 @@ class Reminder extends Model
      */
     public function scopeMuchLater(Builder $query)
     {
-        $startDate = now()->endOfMonth();
+        $startDate = now()->addWeek()->endOfWeek();
         $endDate = now()->addCenturies(5);
         return $query
             ->whereBetween('notification_date', [$startDate, $endDate]);

@@ -30,13 +30,7 @@ class Homepage implements Responsable
         $nextWeekReminderCount = $this->getRemindersCount($startOfNextWeek, $endOfNextWeek);
         $nextWeekReminders = $this->getRemindersFromRange($startOfNextWeek, $endOfNextWeek);
 
-        $startTime = now()->addWeek()->endOfWeek();
-        $endOfMonth = now()->endOfMonth();
-
-        $monthReminderCount = $this->getRemindersCount($startTime, $endOfMonth);
-        $monthReminders = $this->getRemindersFromRange($startTime, $endOfMonth);
-
-        $endOfMonth = now()->endOfMonth();
+        $endOfMonth = now()->addWeek()->endOfWeek();
         $endDate = now()->addCentury();
 
         $laterReminderCount = $this->getRemindersCount($endOfMonth, $endDate);
@@ -49,8 +43,6 @@ class Homepage implements Responsable
                 'upcomingReminderCount',
                 'nextWeekReminders',
                 'nextWeekReminderCount',
-                'monthReminders',
-                'monthReminderCount',
                 'laterReminders',
                 'laterReminderCount'
             )
