@@ -3,11 +3,11 @@
 }
 
 .button {
-  @apply .rounded-full .px-8;
+  @apply .rounded-full .px-8 .py-4;
 }
 
 .button-pink {
-  @apply .bg-peachy-pink .text-white .font-bold;
+  @apply .bg-peachy-pink .text-white .font-semibold;
 }
 
 .button-pink:hover {
@@ -59,10 +59,14 @@
 }
 
 .card {
-  @apply .border-2 .border-peachy-pink .rounded-lg;
+  @apply .border-4 .border-grey-lighter .rounded-lg;
 }
 
 .card-title {
   @apply .text-lg .whitespace-no-wrap .overflow-hidden;
   text-overflow: ellipsis;
+}
+
+.card:hover {
+  @apply .border-peachy-pink;
 }

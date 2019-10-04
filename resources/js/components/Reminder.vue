@@ -1,6 +1,6 @@
 <template>
     <div class="px-2 w-5/6 md:w-1/2 lg:w-1/4 cursor-pointer">
-        <div class="card flex flex-row p-2 mb-4 hover:shadow-lg">
+        <div class="card flex flex-row p-2 mb-4">
             <div class="w-1/3 flex align-middle">
                 <img class="w-16 h-16 rounded-full" :src="reminder.owner.avatar_path" alt="">
             </div>
