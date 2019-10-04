@@ -105,7 +105,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Reminder::class, 'reminder_guests')
             ->wherePivot('status', ReminderStatus::ACCEPTED)
             ->withPivot('user_id', 'reminder_id', 'status')
-            ->with('guests');
+            ->with('guests', 'owner');
     }
 
     /**
