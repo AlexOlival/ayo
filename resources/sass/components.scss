@@ -70,3 +70,8 @@
 .card:hover {
   @apply .border-peachy-pink;
 }
+
+.invite-title {
+    @apply .overflow-hidden .whitespace-no-wrap;
+    text-overflow: ellipsis;
+}

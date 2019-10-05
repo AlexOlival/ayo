@@ -9,7 +9,7 @@
                 See all ({{ reminderCount }})
             </a>
         </header>
-        <section class="flex flex-wrap px-5 items-center flex-col sm:flex-row md:flex-row lg:flex-row">
+        <section class="flex flex-wrap px-3 items-center flex-col sm:flex-row md:flex-row lg:flex-row">
             <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
         </section>
     </section>
@@ -17,6 +17,7 @@
 
 <script>
     import Reminder from "./Reminder";
+
     export default {
         components: {Reminder},
         props: {
@@ -28,7 +29,7 @@
                 }
             },
             reminders: {
-                type: Array,
+                type: Object,
                 required: true
             },
             reminderCount: {

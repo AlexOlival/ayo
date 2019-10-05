@@ -1,6 +1,6 @@
 <template>
     <div class="flex px-6 py-3 mb-4 w-5/6 md:w-1/2 lg:w-1/4 cursor-pointer justify-between invite-bg rounded-full">
-        <div class="flex flex-col justify-around">
+        <div class="flex flex-col justify-around invite-title">
             <p class="text-lg text-grey-dark font-medium tracking-normal mb-1" v-text="invite.title"></p>
             <p class="text-xs text-grey-dark">Invited by {{ invite.owner.username }}</p>
         </div>
@@ -30,7 +30,7 @@
                         window.location.reload();
                     })
                     .catch((error) => {
-                        console.log(error.response);
+                        console.error(error.response.data);
                     });
             },
             accept() {
@@ -39,7 +39,7 @@
                         window.location.reload();
                     })
                     .catch((error) => {
-                        console.log(error.data);
+                        console.error(error.response.data);
                     });
             }
         }
