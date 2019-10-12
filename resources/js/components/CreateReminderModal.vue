@@ -97,7 +97,7 @@
                 </div>
             </div>
             <div class="flex flex-row-reverse">
-                <button class="button button-pink w-1/3 mt-2" type="submit" :disabled="submitting">Create</button>
+                <button class="rounded-lg px-8 py-4 bg-peachy-pink text-white font-bold w-1/3 mt-2" type="submit" :disabled="submitting">Create</button>
             </div>
         </form>
     </modal>

@@ -57,7 +57,7 @@
             </div>
 
             <div class="flex flex-row-reverse">
-                <button class="button button-pink w-1/3 mt-2" type="submit" :disabled="loading">Login</button>
+                <button class="rounded-lg px-8 py-4 bg-peachy-pink text-white font-bold w-1/3 mt-2" type="submit" :disabled="loading">Login</button>
             </div>
         </form>
     </modal>
