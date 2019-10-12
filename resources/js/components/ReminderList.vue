@@ -29,7 +29,6 @@
                 }
             },
             reminders: {
-                type: Object,
                 required: true
             },
             reminderCount: {
