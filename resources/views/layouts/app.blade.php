@@ -26,9 +26,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<body class="{{ Route::currentRouteName() === 'welcome' ? 'homepage-background' : '' }}">
-    <div id="app">
-
+<body>
+    <div id="app" class="{{ Route::currentRouteName() === 'welcome' ? 'homepage-background' : '' }}">
         @includeWhen(Route::currentRouteName() !== 'welcome', 'partials.navbar')
 
         <div class="flex flex-row justify-center w-screen">
@@ -36,7 +35,6 @@
                 @yield('content')
             </main>
         </div>
-
     </div>
 </body>
 
