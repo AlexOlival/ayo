@@ -2,7 +2,7 @@
     <div class="container mx-auto flex flex-row items-center justify-between p-5">
         <div class="mt-1">
             <a href="{{ route('home') }}">
-                <img class="w-16 text-black" src="/img/ayo-04.svg" alt="Ayo">
+                <img class="w-16 text-black" src="/img/ayo-black.svg" alt="Ayo">
             </a>
         </div>
 

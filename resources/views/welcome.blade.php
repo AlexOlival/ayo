@@ -3,7 +3,7 @@
 @section('content')
     <div class="flex flex-row py-8 px-8 md:py-16 md:px-16 h-screen justify-center md:justify-start">
         <div class="flex flex-col justify-center max-w-xs overflow-hidden px-8 lg:ml-32">
-            <img class="w-24 self-center" src="/img/ayo-04.svg" alt="Ayo">
+            <img class="w-24 self-center" src="/img/ayo-white.svg" alt="Ayo">
             <div class="py-4">
                 <div class="tracking-normal leading-normal text-white text-md text-center">
                     <p>Ayo helps you organize your time with mindful reminders. It's a breeze.</p>
