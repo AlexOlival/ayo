@@ -40,7 +40,11 @@
                                     :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('notification_date') }"
                                     id="notification_date"
                                     name="notification_date"
-                                    :config="{ enableTime: true, minDate: new Date() }"
+                                    :config="{
+                                        enableTime: true,
+                                        minDate: new Date(),
+                                        defaultMinute: Math.ceil((new Date()).getMinutes() / 5) * 5
+                                    }"
                                     @on-change="clear('notification_date')"
                                     v-model="form.notification_date">
                             </flat-pickr>
