@@ -9,9 +9,9 @@
                 See all ({{ numberOfInvites }})
             </a>
         </header>
-        <section class="flex flex-wrap px-5 items-center">
-            <invite v-for="invite in invites" :key="invite.id" :invite="invite"></invite>
-        </section>
+            <section class="flex flex-wrap -mx-3 px-5 flex-col sm:flex-row md:flex-row lg:flex-row">
+                <invite v-for="invite in invites" :key="invite.id" :invite="invite"></invite>
+            </section>
     </section>
 </template>
 

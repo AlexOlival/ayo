@@ -15,7 +15,7 @@ class RefuseInviteController extends Controller
      */
     public function __invoke(Reminder $reminder)
     {
-        $invite = auth()->user()->invites->where('reminder_id', $reminder->id)->first()->pivot;
+        $invite = auth()->user()->invites()->where('reminder_id', $reminder->id)->first()->pivot;
 
         $invite->update(['status' => ReminderStatus::REFUSED]);
     }

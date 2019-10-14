@@ -284,6 +284,8 @@ class InvitesTest extends TestCase
     /** @test */
     public function an_invite_can_be_accepted()
     {
+        $this->withoutExceptionHandling();
+
         $guest = factory(User::class)->create(['username' => 'guest']);
 
         $reminder = factory(Reminder::class)->create();
