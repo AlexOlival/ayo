@@ -21,8 +21,8 @@ class Homepage implements Responsable
         $remindersWhereGuest = $request->user()->guestReminders;
         $this->reminders = $remindersOwned->merge($remindersWhereGuest);
 
-        $upcomingReminderCount = $this->getRemindersCount(now(), now()->addDays(5));
-        $upcomingReminders = $this->getRemindersFromRange(now(), now()->addDays(5));
+        $upcomingReminderCount = $this->getRemindersCount(now(), now()->addDays(3));
+        $upcomingReminders = $this->getRemindersFromRange(now(), now()->addDays(3));
 
         $fiveDaysFromNow = now()->addDays(5);
         $tenDaysAfter = now()->addDays(15);

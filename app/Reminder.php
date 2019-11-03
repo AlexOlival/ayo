@@ -99,7 +99,7 @@ class Reminder extends Model
     public function scopeUpcoming(Builder $query)
     {
         $now = now();
-        $inThreeDays = now()->addDays(5);
+        $inThreeDays = now()->addDays(3);
 
         return $query
             ->whereBetween('notification_date', [$now, $inThreeDays]);

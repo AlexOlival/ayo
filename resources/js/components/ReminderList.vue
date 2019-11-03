@@ -43,7 +43,7 @@
             getPeriodName(period) {
                 switch (period) {
                     case 'upcoming':
-                        return 'Upcoming 5 days';
+                        return 'Upcoming 3 days';
 
                     case 'tenDaysAfter':
                         return '10 days after that';
