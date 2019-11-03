@@ -21,28 +21,28 @@ class Homepage implements Responsable
         $remindersWhereGuest = $request->user()->guestReminders;
         $this->reminders = $remindersOwned->merge($remindersWhereGuest);
 
-        $upcomingReminderCount = $this->getRemindersCount(now(), now()->endOfWeek());
-        $upcomingReminders = $this->getRemindersFromRange(now(), now()->endOfWeek());
+        $upcomingReminderCount = $this->getRemindersCount(now(), now()->addDays(5));
+        $upcomingReminders = $this->getRemindersFromRange(now(), now()->addDays(5));
 
-        $startOfNextWeek = now()->addWeek()->startOfWeek();
-        $endOfNextWeek = now()->addWeek()->endOfWeek();
+        $fiveDaysFromNow = now()->addDays(5);
+        $tenDaysAfter = now()->addDays(15);
 
-        $nextWeekReminderCount = $this->getRemindersCount($startOfNextWeek, $endOfNextWeek);
-        $nextWeekReminders = $this->getRemindersFromRange($startOfNextWeek, $endOfNextWeek);
+        $tenDaysAfterReminderCount = $this->getRemindersCount($fiveDaysFromNow, $tenDaysAfter);
+        $tenDaysAfterReminders = $this->getRemindersFromRange($fiveDaysFromNow, $tenDaysAfter);
 
-        $endOfMonth = now()->addWeek()->endOfWeek();
+        $startDate = now()->addDays(15);
         $endDate = now()->addCentury();
 
-        $laterReminderCount = $this->getRemindersCount($endOfMonth, $endDate);
-        $laterReminders = $this->getRemindersFromRange($endOfMonth, $endDate);
+        $laterReminderCount = $this->getRemindersCount($startDate, $endDate);
+        $laterReminders = $this->getRemindersFromRange($startDate, $endDate);
 
         return view(
             'home',
             compact(
                 'upcomingReminders',
                 'upcomingReminderCount',
-                'nextWeekReminders',
-                'nextWeekReminderCount',
+                'tenDaysAfterReminders',
+                'tenDaysAfterReminderCount',
                 'laterReminders',
                 'laterReminderCount'
             )

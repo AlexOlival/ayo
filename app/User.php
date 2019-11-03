@@ -122,9 +122,9 @@ class User extends Authenticatable implements MustVerifyEmail
                 return $this->reminders()->upcoming()->get()
                     ->merge($this->guestReminders()->upcoming()->get());
 
-            case ReminderPeriod::NEXT_WEEK:
-                return $this->reminders()->nextWeek()->get()
-                    ->merge($this->guestReminders()->nextWeek()->get());
+            case ReminderPeriod::TEN_DAYS_AFTER:
+                return $this->reminders()->tenDaysAfter()->get()
+                    ->merge($this->guestReminders()->tenDaysAfter()->get());
 
             case ReminderPeriod::LATER:
                 return $this->reminders()->muchLater()->get()

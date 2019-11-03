@@ -118,21 +118,21 @@ class RemindersTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_see_next_week_reminders()
+    public function a_user_can_see_ten_days_after_reminders()
     {
         $this->signIn();
 
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek()->addDay(),
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addDays(7),
             'owner_id' => auth()->user()->id]);
 
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $result->assertViewHas('nextWeekReminders');
-        $result->assertViewHas('nextWeekReminderCount');
+        $result->assertViewHas('tenDaysAfterReminders');
+        $result->assertViewHas('tenDaysAfterReminderCount');
 
-        $this->assertTrue($result->viewData('nextWeekReminders')->contains($reminder));
-        $this->assertEquals(1, $result->viewData('nextWeekReminderCount'));
+        $this->assertTrue($result->viewData('tenDaysAfterReminders')->contains($reminder));
+        $this->assertEquals(1, $result->viewData('tenDaysAfterReminderCount'));
     }
 
     /** @test */
@@ -164,15 +164,15 @@ class RemindersTest extends TestCase
         $result = $this->get('home')
             ->assertStatus(Response::HTTP_OK);
 
-        $this->assertFalse($result->viewData('nextWeekReminders')->contains($reminder));
-        $this->assertEquals(0, $result->viewData('nextWeekReminderCount'));
+        $this->assertFalse($result->viewData('tenDaysAfterReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('tenDaysAfterReminderCount'));
 
         $this->assertFalse($result->viewData('laterReminders')->contains($reminder));
         $this->assertEquals(0, $result->viewData('laterReminderCount'));
     }
 
     /** @test */
-    public function a_user_can_not_see_a_next_week_reminder_off_its_period()
+    public function a_user_can_not_see_a_ten_day_after_reminder_off_its_period()
     {
         Carbon::setTestNow(now()->startOfMonth());
 
@@ -205,8 +205,8 @@ class RemindersTest extends TestCase
         $this->assertFalse($result->viewData('upcomingReminders')->contains($reminder));
         $this->assertEquals(0, $result->viewData('upcomingReminderCount'));
 
-        $this->assertFalse($result->viewData('nextWeekReminders')->contains($reminder));
-        $this->assertEquals(0, $result->viewData('nextWeekReminderCount'));
+        $this->assertFalse($result->viewData('tenDaysAfterReminders')->contains($reminder));
+        $this->assertEquals(0, $result->viewData('tenDaysAfterReminderCount'));
     }
 
     /** @test */

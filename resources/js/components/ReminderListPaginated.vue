@@ -25,7 +25,7 @@
                 type: String,
                 required: true,
                 validator: function (value) {
-                    return ['upcoming', 'nextWeek', 'later'].indexOf(value) !== -1
+                    return ['upcoming', 'tenDaysAfter', 'later'].indexOf(value) !== -1
                 }
             },
             reminders: {
@@ -46,10 +46,10 @@
             getPeriodName(period) {
                 switch (period) {
                     case 'upcoming':
-                        return 'Upcoming';
+                        return 'Upcoming 5 days';
 
-                    case 'nextWeek':
-                        return 'Next Week';
+                    case 'tenDaysAfter':
+                        return '10 days after that';
 
                     case 'later':
                         return 'Later';

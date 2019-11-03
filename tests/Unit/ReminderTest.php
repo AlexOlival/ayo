@@ -4,7 +4,6 @@ namespace Tests\Unit;
 
 use App\User;
 use App\Reminder;
-use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -38,10 +37,10 @@ class ReminderTest extends TestCase
     }
 
     /** @test */
-    public function reminder_returns_next_week()
+    public function reminder_returns_ten_days_after()
     {
-        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addWeek(1)])->first();
-        $results = Reminder::nextWeek()->get();
+        $reminder = factory(Reminder::class)->create(['notification_date' => now()->addDays(10)])->first();
+        $results = Reminder::tenDaysAfter()->get();
 
         $this->assertTrue($results->contains($reminder));
     }
