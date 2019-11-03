@@ -24,13 +24,13 @@ class Homepage implements Responsable
         $upcomingReminderCount = $this->getRemindersCount(now(), now()->addDays(3));
         $upcomingReminders = $this->getRemindersFromRange(now(), now()->addDays(3));
 
-        $fiveDaysFromNow = now()->addDays(5);
-        $tenDaysAfter = now()->addDays(15);
+        $fiveDaysFromNow = now()->addDays(3);
+        $tenDaysAfter = now()->addDays(13);
 
         $tenDaysAfterReminderCount = $this->getRemindersCount($fiveDaysFromNow, $tenDaysAfter);
         $tenDaysAfterReminders = $this->getRemindersFromRange($fiveDaysFromNow, $tenDaysAfter);
 
-        $startDate = now()->addDays(15);
+        $startDate = now()->addDays(13);
         $endDate = now()->addCentury();
 
         $laterReminderCount = $this->getRemindersCount($startDate, $endDate);

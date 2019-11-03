@@ -113,8 +113,8 @@ class Reminder extends Model
      */
     public function scopeTenDaysAfter(Builder $query)
     {
-        $fiveDaysFromNow = now()->addDays(5);
-        $tenDaysAfter = now()->addDays(15);
+        $fiveDaysFromNow = now()->addDays(3);
+        $tenDaysAfter = now()->addDays(13);
 
         return $query
             ->whereBetween('notification_date', [$fiveDaysFromNow, $tenDaysAfter]);
@@ -128,7 +128,7 @@ class Reminder extends Model
      */
     public function scopeMuchLater(Builder $query)
     {
-        $startDate = now()->addDays(15);
+        $startDate = now()->addDays(13);
         $endDate = now()->addCenturies(5);
         return $query
             ->whereBetween('notification_date', [$startDate, $endDate]);
