@@ -23,9 +23,15 @@
                     <span class="text-grey-dark text-xl mb-2">Description</span>
                     <span class="bg-grey-lighter rounded-xl p-2">{{ reminder.description }}</span>
                 </div>
-                <div class="flex justify-end">
-                    <button class="text-base text-grey-dark underline mr-2 p-6" >DELETE</button>
-                    <button class="text-base text-grey-dark underline p-6">EDIT</button>
+                <div class="flex justify-end pb-6 mt-2">
+                    <div class="flex items-center" @click="window.alert('edit')">
+                        <img class="cursor-pointer h-4 mr-1" src="/img/delete.svg"/>
+                        <a class="text-sm font-semibold text-grey-dark underline mr-8 cursor-pointer">DELETE</a>
+                    </div>
+                    <div class="flex items-center" @click="window.alert('edit')">
+                        <img class="cursor-pointer h-4 mr-1" src="/img/pencil.svg"/>
+                        <a class="text-sm font-semibold text-grey-dark underline cursor-pointer">EDIT</a>
+                    </div>
                 </div>
             </div>
         </div>
