@@ -4,9 +4,9 @@
     </reminder-list>
 @endif
 
-@if($nextWeekReminderCount)
-    <reminder-list period="{{ \App\Constants\ReminderPeriod::NEXT_WEEK }}"
-                   :reminders="{{ json_encode($nextWeekReminders) }}" :reminder-count="{{ $nextWeekReminderCount }}">
+@if($tenDaysAfterReminderCount)
+    <reminder-list period="{{ \App\Constants\ReminderPeriod::TEN_DAYS_AFTER }}"
+                   :reminders="{{ json_encode($tenDaysAfterReminders) }}" :reminder-count="{{ $tenDaysAfterReminderCount }}">
     </reminder-list>
 @endif
 
