@@ -344,4 +344,38 @@ class InvitesTest extends TestCase
             ]
         );
     }
+
+    /** @test */
+    public function invites_are_deleted_when_a_reminder_is_deleted()
+    {
+        $this->signIn();
+
+        $owner = auth()->user();
+
+        $guest = factory(User::class)->create();
+
+        $reminder = factory(Reminder::class)->create(['owner_id' => $owner->id]);
+
+        $reminder->inviteUsers([$guest->id]);
+
+        $this->assertDatabaseHas(
+            'reminder_guests',
+            [
+                'reminder_id' => $reminder->id,
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+
+        $this->deleteJson("reminders/{$reminder->id}");
+
+        $this->assertDatabaseMissing(
+            'reminder_guests',
+            [
+                'reminder_id' => $reminder->id,
+                'user_id' => $guest->id,
+                'status' => ReminderStatus::PENDING,
+            ]
+        );
+    }
 }

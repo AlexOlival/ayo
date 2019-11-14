@@ -19,10 +19,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::post('/reminders', 'RemindersController@store');
-    Route::patch('/reminders/{reminder}', 'RemindersController@update');
     Route::get('/reminders', 'RemindersController@index');
     Route::get('/expanded-reminders', 'ExpandedReminderListController@index');
+    Route::post('/reminders', 'RemindersController@store');
+    Route::patch('/reminders/{reminder}', 'RemindersController@update');
+    Route::delete('/reminders/{reminder}', 'RemindersController@destroy');
 
     Route::get('/invites', 'InvitesController@index');
     Route::get('/expanded-invites', 'ExpandedInviteListController@index');

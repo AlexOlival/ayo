@@ -23,14 +23,24 @@
                     <span class="text-grey-dark text-xl mb-2">Description</span>
                     <span class="bg-grey-lighter rounded-xl p-2">{{ reminder.description }}</span>
                 </div>
-                <div class="flex justify-end pb-6 mt-2">
-                    <div class="flex items-center" @click="window.alert('edit')">
+                <div v-if="!showDeletePrompt" class="flex justify-end pb-6 mt-2">
+                    <div class="flex items-center" @click="showDeletePrompt = true">
                         <img class="cursor-pointer h-4 mr-1" src="/img/delete.svg"/>
                         <a class="text-sm font-semibold text-grey-dark underline mr-8 cursor-pointer">DELETE</a>
                     </div>
                     <div class="flex items-center" @click="window.alert('edit')">
                         <img class="cursor-pointer h-4 mr-1" src="/img/pencil.svg"/>
                         <a class="text-sm font-semibold text-grey-dark underline cursor-pointer">EDIT</a>
+                    </div>
+                </div>
+                <div v-else class=" pb-6 mt-2">
+                    <p class="text-grey-dark text-2xl">Are you sure you want delete the reminder?</p>
+                    <p class="text-grey">This action is irreversible mein negger!</p>
+                    <div class="flex justify-around mt-4">
+                        <button class="rounded-full bg-grey-lighter text-black text-xl font-medium px-4 py-2"
+                                @click.prevent="deleteReminder()">Yes</button>
+                        <button class="rounded-full bg-peachy-pink text-white text-xl font-medium px-4 py-2"
+                                @click="showDeletePrompt = false">No</button>
                     </div>
                 </div>
             </div>
@@ -42,12 +52,23 @@
     export default {
         data() {
             return {
-                reminder: null
+                reminder: null,
+                showDeletePrompt: false
             }
         },
         methods: {
             beforeOpen(event) {
                 this.reminder = event.params.reminder;
+            },
+
+            deleteReminder() {
+                axios.delete('/reminders/' + this.reminder.id)
+                    .then(() => {
+                        window.location.reload();
+                    })
+                    .catch((error) => {
+                        console.error(error.response.data);
+                    });
             }
         }
     }
