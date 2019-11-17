@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col items-center">
-        <div class="group h-48 w-48 sm:h-96 sm:w-96 rounded-full border-4 sm:border-8 border-peachy-pink relative overflow-hidden cursor-pointer"
+        <div class="group h-32 w-32 sm:h-32 sm:w-32 rounded-full border-4 sm:border-4 border-peachy-pink relative overflow-hidden cursor-pointer"
              @click="openUploadPrompt">
             <img v-if="!isDefaultAvatar" class="h-full w-full absolute z-10 group-hover:opacity-25" :src="avatar" alt="Avatar">
             <div class="h-full w-full absolute bg-peachy-pink z-0"></div>
@@ -15,20 +15,11 @@
         <form class="hidden" method="POST" enctype="multipart/form-data">
             <input type="file" id="avatarInput" name="avatar" accept="image/*" @change="onAvatarUploaded">
         </form>
-
-        <button class="rounded-lg px-8 py-4 bg-peachy-pink text-white font-bold w-1/2 mt-6" @click="openUploadPrompt">Upload photo</button>
     </div>
 </template>
 
 <script>
     export default {
-        props: {
-            user: {
-                type: Object,
-                required: true
-            }
-        },
-
         computed: {
             isDefaultAvatar() {
                 let test = this.avatar.split('/');
@@ -38,7 +29,7 @@
 
         data() {
             return {
-                avatar: this.user.avatar_path,
+                avatar: window.user.avatar_path,
                 errors: {}
             }
         },

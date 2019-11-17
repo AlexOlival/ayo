@@ -49,7 +49,7 @@
                         return 'Upcoming 3 days';
 
                     case 'tenDaysAfter':
-                        return '10 days after that';
+                        return 'In a while';
 
                     case 'later':
                         return 'Later';
