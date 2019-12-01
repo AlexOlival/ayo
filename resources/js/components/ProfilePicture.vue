@@ -1,12 +1,17 @@
 <template>
     <div class="flex flex-col items-center">
-        <div class="group h-32 w-32 sm:h-32 sm:w-32 rounded-full border-4 sm:border-4 border-peachy-pink relative overflow-hidden cursor-pointer"
+        <div class="h-32 w-32 sm:h-32 sm:w-32 rounded-full border-4 sm:border-4 border-peachy-pink relative cursor-pointer"
              @click="openUploadPrompt">
-            <img v-if="!isDefaultAvatar" class="h-full w-full absolute z-10 group-hover:opacity-25" :src="avatar" alt="Avatar">
-            <div class="h-full w-full absolute bg-peachy-pink z-0"></div>
-            <div class="h-full w-full flex flex-col justify-center items-center absolute z-20" :class="!isDefaultAvatar ? 'invisible group-hover:visible' : ''">
-                <img class="h-10 w-10 sm:h-16 sm:w-16" src="/img/ic-add-photo.svg" alt="">
-                <p class="text-sm text-center sm:text-2xl text-white font-bold">Upload a new profile photo</p>
+            <div class="ml-20 w-10 h-10 bg-peachy-pink absolute flex justify-end rounded">
+                <img class="h-4 w-4" src="/img/pencil-white.svg">
+            </div>
+            <img v-if="!hasNoAvatar" class="h-full w-full absolute" :src="avatar" alt="Avatar">
+            <div v-else>
+                <div class="h-full w-full absolute bg-peachy-pink rounded-full"></div>
+                <div class="h-full w-full flex flex-col justify-center items-center absolute">
+                    <p class="text-xs text-center text-white">Upload a new profile photo</p>
+                    <p class="text-2xs text-center text-white">(max: 200px x 200px)</p>
+                </div>
             </div>
         </div>
 
@@ -21,9 +26,11 @@
 <script>
     export default {
         computed: {
-            isDefaultAvatar() {
-                let test = this.avatar.split('/');
-                return test[test.length - 1] === 'default.svg';
+            hasNoAvatar() {
+                // let test = this.avatar.split('/');
+                // return test[test.length - 1] === 'default.svg';
+
+                return true
             }
         },
 
