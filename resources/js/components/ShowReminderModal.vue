@@ -57,7 +57,7 @@
     export default {
         data() {
             return {
-                reminder: null,
+                reminder: {},
                 showDeletePrompt: false
             }
         },
