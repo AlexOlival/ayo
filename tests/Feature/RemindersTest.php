@@ -255,10 +255,39 @@ class RemindersTest extends TestCase
             $this->assertDatabaseHas('reminders', ['id' => $reminder->id]);
         });
 
-        $this->delete("/users/{$user->id}");
+        $this->deleteJson("/users/{$user->id}");
 
         $reminders->each(function ($reminder) {
             $this->assertDatabaseMissing('reminders', ['id' => $reminder->id]);
         });
+    }
+
+    /** @test */
+    public function only_authenticated_users_can_delete_reminders()
+    {
+        $reminder = factory(Reminder::class)->create();
+
+        $this->deleteJson("reminders/{$reminder->id}")->assertStatus(Response::HTTP_UNAUTHORIZED);
+
+        $this->assertDatabaseHas('reminders', ['id' => $reminder->id]);
+    }
+
+    /** @test */
+    public function only_the_owner_can_delete_a_reminder()
+    {
+        $this->signIn();
+
+        $owner = auth()->user();
+
+        $ownedReminder = factory(Reminder::class)->create(['owner_id' => $owner->id]);
+        $notOwnedReminder = factory(Reminder::class)->create();
+
+        $this->deleteJson("reminders/{$ownedReminder->id}");
+
+        $this->assertDatabaseMissing('reminders', ['id' => $ownedReminder->id]);
+
+        $this->deleteJson("reminders/{$notOwnedReminder->id}");
+
+        $this->assertDatabaseHas('reminders', ['id' => $notOwnedReminder->id]);
     }
 }
