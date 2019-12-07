@@ -10,16 +10,6 @@
                 <p class="text-md text-grey-dark" v-text="user.email"></p>
             </div>
         </div>
-        <div class="flex justify-end pb-6 mt-2 mr-6">
-            <div class="flex items-center" @click="deleteUser()">
-                <img class="cursor-pointer h-4 mr-1" src="/img/delete.svg"/>
-                <a class="text-sm font-semibold text-grey-dark underline mr-8 cursor-pointer">DELETE</a>
-            </div>
-            <div class="flex items-center">
-                <img class="cursor-pointer h-4 mr-1" src="/img/pencil.svg"/>
-                <a class="text-sm font-semibold text-grey-dark underline cursor-pointer">EDIT</a>
-            </div>
-        </div>
     </modal>
 </template>
 
@@ -31,11 +21,6 @@
         data() {
             return {
                 user: window.user
-            }
-        },
-        methods: {
-            deleteUser() {
-                alert('Delete user event handler');
             }
         }
     }
