@@ -63,4 +63,13 @@ class RemindersController extends Controller
 
         return response()->json('updated', Response::HTTP_OK);
     }
+
+    public function destroy(Reminder $reminder)
+    {
+        $this->authorize('delete', $reminder);
+
+        $reminder->delete();
+
+        return response()->json('deleted', Response::HTTP_OK);
+    }
 }

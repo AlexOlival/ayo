@@ -14,4 +14,9 @@ class ReminderPolicy
     {
         return $user->is($reminder->owner);
     }
+
+    public function delete(User $user, Reminder $reminder)
+    {
+        return $user->is($reminder->owner);
+    }
 }
