@@ -1,12 +1,16 @@
 <template>
     <div class="flex flex-col items-center">
-        <div class="group h-48 w-48 sm:h-96 sm:w-96 rounded-full border-4 sm:border-8 border-peachy-pink relative overflow-hidden cursor-pointer"
+        <div class="h-32 w-32 sm:h-32 sm:w-32 rounded-full relative cursor-pointer flex justify-end"
              @click="openUploadPrompt">
-            <img v-if="!isDefaultAvatar" class="h-full w-full absolute z-10 group-hover:opacity-25" :src="avatar" alt="Avatar">
-            <div class="h-full w-full absolute bg-peachy-pink z-0"></div>
-            <div class="h-full w-full flex flex-col justify-center items-center absolute z-20" :class="!isDefaultAvatar ? 'invisible group-hover:visible' : ''">
-                <img class="h-10 w-10 sm:h-16 sm:w-16" src="/img/ic-add-photo.svg" alt="">
-                <p class="text-sm text-center sm:text-2xl text-white font-bold">Upload a new profile photo</p>
+            <img v-if="!hasNoAvatar" class="h-full w-full absolute rounded-full border-4 sm:border-4 border-peachy-pink z-10" :src="avatar" alt="Avatar">
+            <div class="h-full w-full bg-peachy-pink rounded-full z-10" v-else>
+                <div class="h-full w-full flex flex-col justify-center items-center">
+                    <p class="text-xs text-center text-white">Upload a new profile photo</p>
+                    <p class="text-2xs text-center text-white">(max: 200px x 200px)</p>
+                </div>
+            </div>
+            <div class="h-16 w-16 bg-peachy-pink absolute flex justify-end rounded-lg p-1 z-0">
+                <img class="h-4 w-4" src="/img/pencil-white.svg">
             </div>
         </div>
 
@@ -15,22 +19,13 @@
         <form class="hidden" method="POST" enctype="multipart/form-data">
             <input type="file" id="avatarInput" name="avatar" accept="image/*" @change="onAvatarUploaded">
         </form>
-
-        <button class="rounded-lg px-8 py-4 bg-peachy-pink text-white font-bold w-1/2 mt-6" @click="openUploadPrompt">Upload photo</button>
     </div>
 </template>
 
 <script>
     export default {
-        props: {
-            user: {
-                type: Object,
-                required: true
-            }
-        },
-
         computed: {
-            isDefaultAvatar() {
+            hasNoAvatar() {
                 let test = this.avatar.split('/');
                 return test[test.length - 1] === 'default.svg';
             }
@@ -38,7 +33,8 @@
 
         data() {
             return {
-                avatar: this.user.avatar_path,
+                user: window.user,
+                avatar: window.user.avatar_path,
                 errors: {}
             }
         },

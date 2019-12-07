@@ -20,6 +20,9 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script>
+        window.user = @json(auth()->user());
+    </script>
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Work+Sans:400,600" rel="stylesheet">

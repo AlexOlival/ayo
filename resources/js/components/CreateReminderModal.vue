@@ -156,7 +156,6 @@
                 })
                     .then(response => {
                         vm.users = response.data;
-                        console.log(response.data())
                         loading(false);
                     })
                     .catch(() => {

@@ -31,8 +31,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/refuse-invite/{reminder}', 'RefuseInviteController');
 
     Route::get('/search-users', 'SearchUsersController');
-
-    Route::get('/profile', 'UsersController@show')->name('profile.show');
+    
     Route::post('/users/{user}/avatars', 'UserAvatarsController@store')->name('avatar.store');
     Route::delete('/users/{user}', 'UsersController@destroy')->name('user.destroy');
 });
