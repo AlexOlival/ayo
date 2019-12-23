@@ -18,7 +18,7 @@
                         <div class="flex mb-4" v-if="reminder.guests.length !== 0">
                             <div class="flex bg-grey-lighter rounded-full w-36 items-center p-1 mr-2"
                                  v-for="guest in reminder.guests" :key="guest.id">
-                                <img class="h-10 w-10" :src="guest.avatar_path" alt="Avatar">
+                                <img class="h-8 w-8 rounded-full mr-2" :src="guest.avatar_path" alt="Avatar">
                                 <span class="truncate" v-text="guest.username"></span>
                             </div>
                         </div>

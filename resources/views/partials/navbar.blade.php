@@ -7,7 +7,7 @@
         </div>
 
         <div class="flex flex-row items-center">
-            <a class="no-underline" href="{{ route('profile.show') }}">
+            <a class="no-underline" href="#" @click="$modal.show('user-profile-modal')">
                 <div class="flex flex-row items-center cursor-pointer mr-3">
                     <img class="h-8 w-8 rounded-full" src="{{ auth()->user()->avatar_path }}" alt="Avatar">
                     <p class="ml-2 text-black">{{ auth()->user()->username }}</p>
@@ -23,3 +23,5 @@
         </div>
     </div>
 </nav>
+
+@include('modals.user-profile-modal')
