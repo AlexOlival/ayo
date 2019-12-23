@@ -14,7 +14,8 @@
             </div>
         </div>
 
-        <span class="mt-2 text-xl font-light text-red" v-if="errors.hasOwnProperty('avatar')" v-text="errors.avatar[0]"></span>
+        <span class="mt-2 text-xl font-light text-red" v-if="errors.hasOwnProperty('avatar')"
+              v-text="errors.avatar[0]"/>
 
         <form class="hidden" method="POST" enctype="multipart/form-data">
             <input type="file" id="avatarInput" name="avatar" accept="image/*" @change="onAvatarUploaded">
@@ -27,10 +28,10 @@
         computed: {
             hasNoAvatar() {
                 let test = this.avatar.split('/');
+
                 return test[test.length - 1] === 'default.svg';
             }
         },
-
         data() {
             return {
                 user: window.user,
@@ -38,7 +39,6 @@
                 errors: {}
             }
         },
-
         methods: {
             openUploadPrompt() {
                 document.getElementById('avatarInput').click();
@@ -48,18 +48,15 @@
                 if (! e.target.files.length) return;
 
                 let avatar = e.target.files[0];
-
                 let reader = new FileReader();
 
                 reader.readAsDataURL(avatar);
-
                 reader.onload = e => {
                     this.avatar = e.target.result;
                 };
 
                 this.persist(avatar);
             },
-
             persist(avatar) {
                 let data = new FormData();
 

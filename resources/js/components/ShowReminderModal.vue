@@ -27,7 +27,7 @@
                         <span class="text-grey-dark text-xl mb-2">Description</span>
                         <span class="bg-grey-lighter rounded-xl p-2">{{ reminder.description }}</span>
                     </div>
-                    <div class="flex justify-end pb-6 mt-2">
+                    <div class="flex justify-end pb-6 mt-2" v-if="isOwner">
                         <div class="flex items-center" @click="showDeletePrompt = true">
                             <img class="cursor-pointer h-4 mr-1" src="/img/delete.svg"/>
                             <a class="text-sm font-semibold text-grey-dark underline mr-8 cursor-pointer">DELETE</a>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div>
-                <div v-show="showDeletePrompt && !showEditForm" class="">
+                <div v-show="showDeletePrompt && !showEditForm">
                     <p class="text-4xl text-black font-bold mb-4">Delete reminder</p>
                     <p class="text-xl text-grey">Are you sure you want delete the reminder?</p>
                     <div class="flex justify-end mt-12">
@@ -49,8 +49,13 @@
                     </div>
                 </div>
                 <div v-show="showEditForm">
-                    <reminder-form title="Edit reminder" :reminder="reminder" :errors="errors"
-                                   @closeEdit="showEditForm = false" @editReminder="editReminder"></reminder-form>
+                    <reminder-form
+                        title="Edit reminder"
+                        :reminder="reminder"
+                        :errors="errors"
+                        @closeEdit="showEditForm = false"
+                        @editReminder="editReminder"
+                    />
                 </div>
             </div>
         </div>
@@ -58,7 +63,6 @@
 </template>
 
 <script>
-
     import ReminderForm from "./ReminderForm";
 
     export default {
@@ -71,6 +75,13 @@
                 showEditForm: false
             }
         },
+        computed: {
+            isOwner() {
+                if (!this.reminder) return true;
+
+                return this.reminder.owner_id === window.user.id;
+            }
+        },
         methods: {
             beforeOpen(event) {
                 this.reminder = event.params.reminder;
@@ -78,21 +89,13 @@
             editReminder(reminder) {
                 reminder.notification_date += ':00';
                 axios.patch('/reminders/' + this.reminder.id, reminder)
-                    .then(() => {
-                        window.location.reload();
-                    })
-                    .catch((error) => {
-                        console.error(error.response.data);
-                    });
+                    .then(() => window.location.reload())
+                    .catch(error => console.error(error.response.data));
             },
             deleteReminder() {
                 axios.delete('/reminders/' + this.reminder.id)
-                    .then(() => {
-                        window.location.reload();
-                    })
-                    .catch((error) => {
-                        console.error(error.response.data);
-                    });
+                    .then(() => window.location.reload())
+                    .catch(error => console.error(error.response.data));
             },
             clear() {
                 this.showEditForm = false;

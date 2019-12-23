@@ -27,7 +27,7 @@
                         v-model="form.title">
                 </div>
                 <span v-if="errors.hasOwnProperty('title')" v-text="errors.title[0]"
-                      class="text-sm text-peachy-pink mt-1"></span>
+                      class="text-sm text-peachy-pink mt-1"/>
             </div>
             <div class="w-full pl-2">
                 <div class="flex justify-between">
@@ -49,7 +49,7 @@
                     </flat-pickr>
                 </div>
                 <span v-if="errors.hasOwnProperty('notification_date')" v-text="errors.notification_date[0]"
-                      class="text-sm text-peachy-pink mt-1"></span>
+                      class="text-sm text-peachy-pink mt-1"/>
             </div>
         </div>
         <div>
@@ -84,7 +84,7 @@
             <div class="flex justify-between">
                 <label class="label" for="description">Description</label>
                 <span v-if="errors.hasOwnProperty('description')" v-text="errors.description[0]"
-                      class="text-sm text-peachy-pink"></span>
+                      class="text-sm text-peachy-pink"/>
             </div>
 
             <div>
@@ -112,7 +112,6 @@
 </template>
 
 <script>
-
     import flatPickr from 'vue-flatpickr-component';
     import 'flatpickr/dist/flatpickr.css';
 

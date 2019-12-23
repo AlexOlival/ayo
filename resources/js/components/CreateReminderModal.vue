@@ -4,9 +4,14 @@
             <img class="p-2 cursor-pointer" src="/img/ic-close.svg" @click="$modal.hide('create-reminder-modal')"/>
         </div>
 
-        <reminder-form class="p-6" title="Create a reminder" subtitle="Fields marked with an asterisk (*) are required."
-                       :errors="errors" :reminder="reminderToCreate" @createReminder="create"></reminder-form>
-
+        <reminder-form
+            class="p-6"
+            title="Create a reminder"
+            subtitle="Fields marked with an asterisk (*) are required."
+            :errors="errors"
+            :reminder="reminderToCreate"
+            @createReminder="create"
+        />
     </modal>
 </template>
 
