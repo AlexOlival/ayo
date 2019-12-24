@@ -24,10 +24,10 @@ class RemindersController extends Controller
             'guests' => 'sometimes|array',
         ]);
 
-        $reminder = auth()->user()->reminders()->create(array_except($attributes, 'guests'));
+        $reminder = auth()->user()->reminders()->create(Arr::except($attributes, 'guests'));
 
         if (request()->has('guests')) {
-            $guestUserIds = array_values(request()->get('guests'));
+            $guestUserIds = array_values(request('guests'));
 
             $reminder->inviteUsers($guestUserIds);
         }
@@ -56,7 +56,7 @@ class RemindersController extends Controller
         $reminder->update(Arr::except($attributes, 'guests'));
 
         if (request()->has('guests')) {
-            $guestUserIds = array_values(request()->get('guests'));
+            $guestUserIds = array_values(request('guests'));
 
             $reminder->inviteUsers($guestUserIds);
         }
