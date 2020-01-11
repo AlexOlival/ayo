@@ -7306,9 +7306,9 @@ html {
 
 .homepage-background {
   background-image: linear-gradient(180deg, rgba(255, 138, 128, .05) 5%, #ff8a80 100%), url("../img/background-03.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
   background-position: right;
+  background-size: cover;
+  background-repeat: no-repeat;
   font-family: "Work Sans", sans-serif;
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, .2);
 }

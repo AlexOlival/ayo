@@ -13,7 +13,7 @@ class Homepage implements Responsable
      * Create an HTTP response that represents the object.
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function toResponse($request)
     {

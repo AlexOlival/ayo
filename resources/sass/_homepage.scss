@@ -1,6 +1,8 @@
 .homepage-background {
     background-image: linear-gradient(180deg, rgba(255, 138, 128, 0.05) 5%, rgba(255, 138, 128, 1) 100%), url('../img/background-03.jpg');
-    @apply .bg-no-repeat .bg-cover .bg-right;
+    background-position: right;
+    background-size: cover;
+    background-repeat: no-repeat;
     font-family: "Work Sans", sans-serif;
     box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
 }
