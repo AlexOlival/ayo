@@ -4,11 +4,3 @@
     font-family: "Work Sans", sans-serif;
     box-shadow: inset 0 0 0 1000px rgba(0,0,0,.2);
 }
-
-.homepage-card {
-    @apply .flex .flex-col .justify-center .h-full .bg-white .rounded-lg .shadow .w-1/4 .py-20 .px-16;
-}
-
-.homepage-card-text {
-    @apply .text-base .tracking-normal .leading-normal .text-grey-dark;
-}

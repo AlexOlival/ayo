@@ -10,13 +10,18 @@
             </a>
         </header>
             <section class="flex flex-wrap -mx-3 px-5 flex-col sm:flex-row md:flex-row lg:flex-row">
-                <invite v-for="invite in invites" :key="invite.id" :invite="invite"></invite>
+                <invite v-for="invite in invites" :key="invite.id" :invite="invite"/>
             </section>
     </section>
 </template>
 
 <script>
+    import Invite from "./Invite";
+
     export default {
+        components: {
+            Invite
+        },
         data() {
             return {
                 invites: null,
@@ -29,9 +34,7 @@
                     this.invites = response.data.invites;
                     this.numberOfInvites = response.data.numberOfInvites;
                 })
-                .catch((error) => {
-                    console.log(error.response);
-                })
+                .catch(error => console.log(error.response))
         },
     }
 </script>

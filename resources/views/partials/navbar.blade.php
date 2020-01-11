@@ -17,7 +17,11 @@
             <form method="POST" action="/logout" id="logout-form">
                 @csrf
                 <div class="flex items-center cursor-pointer">
-                    <button class="button button-grey" type="submit">Logout</button>
+                    <button
+                        class="rounded-full bg-grey-lighter font-light text-black px-4 py-2 ml-2 focus:outline-none hover:bg-grey"
+                        type="submit">
+                        Logout
+                    </button>
                 </div>
             </form>
         </div>

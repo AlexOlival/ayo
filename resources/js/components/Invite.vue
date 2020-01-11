@@ -31,18 +31,14 @@
                     .then(() => {
                         window.location.reload();
                     })
-                    .catch((error) => {
-                        console.error(error.response.data);
-                    });
+                    .catch(error => console.error(error.response.data));
             },
             accept() {
                 axios.patch('/accept-invite/' + this.invite.id)
                     .then(() => {
                         window.location.reload();
                     })
-                    .catch((error) => {
-                        console.error(error.response.data);
-                    });
+                    .catch(error => console.error(error.response.data));
             }
         }
     }

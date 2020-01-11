@@ -9,9 +9,9 @@
             :list="inviteList"
             :per="8"
         >
-            <invite v-for="invite in paginated('items')" :key="invite.id" :invite="invite"></invite>
+            <invite v-for="invite in paginated('items')" :key="invite.id" :invite="invite"/>
         </paginate>
-        <paginate-links class="flex justify-center" for="items" :show-step-links="true"></paginate-links>
+        <paginate-links class="flex justify-center" for="items" :show-step-links="true"/>
     </section>
 </template>
 
@@ -19,7 +19,9 @@
     import Invite from "./Invite";
 
     export default {
-        components: {Invite},
+        components: {
+            Invite
+        },
         props: {
             invites: {
                 type: Array,
