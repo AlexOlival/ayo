@@ -1945,14 +1945,14 @@ __webpack_require__.r(__webpack_exports__);
       axios.patch('/refuse-invite/' + this.invite.id).then(function () {
         window.location.reload();
       })["catch"](function (error) {
-        console.error(error.response.data);
+        return console.error(error.response.data);
       });
     },
     accept: function accept() {
       axios.patch('/accept-invite/' + this.invite.id).then(function () {
         window.location.reload();
       })["catch"](function (error) {
-        console.error(error.response.data);
+        return console.error(error.response.data);
       });
     }
   }
@@ -1969,6 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Invite__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Invite */ "./resources/js/components/Invite.vue");
 //
 //
 //
@@ -1986,7 +1987,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Invite: _Invite__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   data: function data() {
     return {
       invites: null,
@@ -2000,7 +2005,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.invites = response.data.invites;
       _this.numberOfInvites = response.data.numberOfInvites;
     })["catch"](function (error) {
-      console.log(error.response);
+      return console.log(error.response);
     });
   }
 });
@@ -2129,6 +2134,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2147,7 +2154,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.post('/login', this.form).then(function () {
-        location.assign('/home');
+        return location.assign('/home');
       })["catch"](function (errors) {
         _this.loading = false;
         _this.errors = errors.response.data.errors;
@@ -2233,9 +2240,9 @@ __webpack_require__.r(__webpack_exports__);
       var data = new FormData();
       data.append('avatar', avatar);
       axios.post("/users/".concat(this.user.id, "/avatars"), data).then(function () {
-        _this2.errors = {};
+        return _this2.errors = {};
       })["catch"](function (errors) {
-        _this2.errors = errors.response.data.errors;
+        return _this2.errors = errors.response.data.errors;
       });
     }
   }
@@ -2375,7 +2382,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.loading = true;
       axios.post('/register', this.form).then(function () {
-        _this.registered = true;
+        return _this.registered = true;
       })["catch"](function (errors) {
         _this.loading = false;
         _this.errors = errors.response.data.errors;
@@ -2421,8 +2428,7 @@ __webpack_require__.r(__webpack_exports__);
     reminder: {
       required: true
     }
-  },
-  methods: {}
+  }
 });
 
 /***/ }),
@@ -2590,7 +2596,7 @@ __webpack_require__.r(__webpack_exports__);
         console.log(response.data());
         loading(false);
       })["catch"](function () {
-        loading(false);
+        return loading(false);
       });
     }, 350),
     clear: function clear(field) {
@@ -2686,6 +2692,11 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Reminder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Reminder */ "./resources/js/components/Reminder.vue");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -26912,7 +26923,7 @@ var render = function() {
       _c("div", { staticClass: "flex justify-end" }, [
         _c("img", {
           staticClass: "p-2 cursor-pointer",
-          attrs: { src: "/img/ic-close.svg" },
+          attrs: { src: "/img/ic-close.svg", alt: "Close" },
           on: {
             click: function($event) {
               return _vm.$modal.hide("login-modal")
@@ -26949,9 +26960,14 @@ var render = function() {
           _vm._v(" "),
           _c("div", [
             _c("div", { staticClass: "flex justify-between" }, [
-              _c("label", { staticClass: "label", attrs: { for: "email" } }, [
-                _vm._v("E-mail")
-              ]),
+              _c(
+                "label",
+                {
+                  staticClass: "font-semibold text-sm text-grey-dark",
+                  attrs: { for: "email" }
+                },
+                [_vm._v("E-mail")]
+              ),
               _vm._v(" "),
               _vm.errors.hasOwnProperty("email")
                 ? _c("span", {
@@ -26971,7 +26987,8 @@ var render = function() {
                     expression: "form.email"
                   }
                 ],
-                staticClass: "input mb-4 mt-2 w-full",
+                staticClass:
+                  "bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full",
                 class: {
                   "border-2 border-peachy-pink": _vm.errors.hasOwnProperty(
                     "email"
@@ -26995,7 +27012,10 @@ var render = function() {
             _c("div", { staticClass: "flex justify-between" }, [
               _c(
                 "label",
-                { staticClass: "label", attrs: { for: "password" } },
+                {
+                  staticClass: "font-semibold text-sm text-grey-dark",
+                  attrs: { for: "password" }
+                },
                 [_vm._v("Password")]
               ),
               _vm._v(" "),
@@ -27017,7 +27037,8 @@ var render = function() {
                     expression: "form.password"
                   }
                 ],
-                staticClass: "input mb-6 mt-2 w-full",
+                staticClass:
+                  "bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-6 mt-2 w-full",
                 class: {
                   "border-2 border-peachy-pink": _vm.errors.hasOwnProperty(
                     "password"
@@ -27038,9 +27059,14 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "flex flex-row align-items-center" }, [
-            _c("label", { staticClass: "label", attrs: { for: "remember" } }, [
-              _vm._v("Remember Me")
-            ]),
+            _c(
+              "label",
+              {
+                staticClass: "font-semibold text-sm text-grey-dark",
+                attrs: { for: "remember" }
+              },
+              [_vm._v("Remember Me")]
+            ),
             _vm._v(" "),
             _c("div", { staticClass: "ml-1" }, [
               _c("input", {
@@ -27210,7 +27236,7 @@ var staticRenderFns = [
       [
         _c("img", {
           staticClass: "h-4 w-4",
-          attrs: { src: "/img/pencil-white.svg" }
+          attrs: { src: "/img/pencil-white.svg", alt: "Change Avatar" }
         })
       ]
     )
@@ -27251,7 +27277,7 @@ var render = function() {
       _c("div", { staticClass: "flex justify-end" }, [
         _c("img", {
           staticClass: "p-2 cursor-pointer",
-          attrs: { src: "/img/ic-close.svg" },
+          attrs: { src: "/img/ic-close.svg", alt: "Close" },
           on: {
             click: function($event) {
               return _vm.$modal.hide("register-modal")
@@ -27298,7 +27324,10 @@ var render = function() {
                   _c("div", { staticClass: "flex justify-between" }, [
                     _c(
                       "label",
-                      { staticClass: "label", attrs: { for: "username" } },
+                      {
+                        staticClass: "font-semibold text-sm text-grey-dark",
+                        attrs: { for: "username" }
+                      },
                       [_vm._v("Username")]
                     ),
                     _vm._v(" "),
@@ -27322,7 +27351,8 @@ var render = function() {
                           expression: "form.username"
                         }
                       ],
-                      staticClass: "input mb-4 mt-2 w-full",
+                      staticClass:
+                        "bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full",
                       class: {
                         "border-2 border-peachy-pink": _vm.errors.hasOwnProperty(
                           "username"
@@ -27351,7 +27381,10 @@ var render = function() {
                   _c("div", { staticClass: "flex justify-between" }, [
                     _c(
                       "label",
-                      { staticClass: "label", attrs: { for: "email" } },
+                      {
+                        staticClass: "font-semibold text-sm text-grey-dark",
+                        attrs: { for: "email" }
+                      },
                       [_vm._v("E-mail")]
                     ),
                     _vm._v(" "),
@@ -27373,7 +27406,8 @@ var render = function() {
                           expression: "form.email"
                         }
                       ],
-                      staticClass: "input mb-4 mt-2 w-full",
+                      staticClass:
+                        "bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full",
                       class: {
                         "border-2 border-peachy-pink": _vm.errors.hasOwnProperty(
                           "email"
@@ -27397,7 +27431,10 @@ var render = function() {
                   _c("div", { staticClass: "flex justify-between" }, [
                     _c(
                       "label",
-                      { staticClass: "label", attrs: { for: "password" } },
+                      {
+                        staticClass: "font-semibold text-sm text-grey-dark",
+                        attrs: { for: "password" }
+                      },
                       [_vm._v("Password")]
                     ),
                     _vm._v(" "),
@@ -27421,7 +27458,8 @@ var render = function() {
                           expression: "form.password"
                         }
                       ],
-                      staticClass: "input mb-4 mt-2 w-full",
+                      staticClass:
+                        "bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full",
                       class: {
                         "border-2 border-peachy-pink": _vm.errors.hasOwnProperty(
                           "password"
@@ -27449,7 +27487,7 @@ var render = function() {
                   _c(
                     "label",
                     {
-                      staticClass: "label",
+                      staticClass: "font-semibold text-sm text-grey-dark",
                       attrs: { for: "password_confirmation" }
                     },
                     [_vm._v("Password Confirmation")]
@@ -27465,7 +27503,8 @@ var render = function() {
                           expression: "form.password_confirmation"
                         }
                       ],
-                      staticClass: "input mb-4 mt-2 w-full",
+                      staticClass:
+                        "bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full",
                       attrs: {
                         id: "password_confirmation",
                         type: "password",
@@ -27556,37 +27595,47 @@ var render = function() {
     "div",
     { staticClass: "px-2 w-5/6 md:w-1/2 lg:w-1/4 cursor-pointer" },
     [
-      _c("div", { staticClass: "card flex flex-row p-2 mb-4" }, [
-        _c("div", { staticClass: "w-1/3 flex align-middle" }, [
-          _c("img", {
-            staticClass: "w-16 h-16 rounded-full",
-            attrs: { src: _vm.reminder.owner.avatar_path, alt: "" }
-          })
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "flex flex-col w-2/3" }, [
-          _c("div", { staticClass: "flex justify-between items-start" }, [
-            _c("p", {
-              staticClass: "card-title",
-              domProps: { textContent: _vm._s(_vm.reminder.title) }
-            }),
-            _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass:
+            "border-4 border-grey-lighter rounded-lg flex flex-row p-2 mb-4 hover:border-peachy-pink"
+        },
+        [
+          _c("div", { staticClass: "w-1/3 flex align-middle" }, [
             _c("img", {
-              staticClass: "w-6",
-              attrs: { src: "favicon.ico", alt: "Ayo logo" }
+              staticClass: "w-16 h-16 rounded-full",
+              attrs: {
+                src: _vm.reminder.owner.avatar_path,
+                alt: _vm.reminder.owner.username
+              }
             })
           ]),
           _vm._v(" "),
-          _c("p", {
-            staticClass: "text-black text-sm",
-            domProps: { textContent: _vm._s(_vm.reminder.notification_date) }
-          }),
-          _vm._v(" "),
-          _c("p", { staticClass: "text-grey-dark mt-4" }, [
-            _vm._v(_vm._s(_vm.reminder.owner.username))
+          _c("div", { staticClass: "flex flex-col w-2/3" }, [
+            _c("div", { staticClass: "flex justify-between items-start" }, [
+              _c("p", {
+                staticClass: "text-lg whitespace-no-wrap truncate",
+                domProps: { textContent: _vm._s(_vm.reminder.title) }
+              }),
+              _vm._v(" "),
+              _c("img", {
+                staticClass: "w-6",
+                attrs: { src: "favicon.ico", alt: "Ayo logo" }
+              })
+            ]),
+            _vm._v(" "),
+            _c("p", {
+              staticClass: "text-black text-sm",
+              domProps: { textContent: _vm._s(_vm.reminder.notification_date) }
+            }),
+            _vm._v(" "),
+            _c("p", { staticClass: "text-grey-dark mt-4" }, [
+              _vm._v(_vm._s(_vm.reminder.owner.username))
+            ])
           ])
-        ])
-      ])
+        ]
+      )
     ]
   )
 }
@@ -27654,7 +27703,8 @@ var render = function() {
                   expression: "form.title"
                 }
               ],
-              staticClass: "input mt-2 w-full",
+              staticClass:
+                "bg-grey-lighter rounded-lg focus:outline-none focus:border-grey focus:border-2 p-2 mt-2 w-full",
               class: {
                 "border-2 border-peachy-pink": _vm.errors.hasOwnProperty(
                   "title"
@@ -27688,7 +27738,8 @@ var render = function() {
             "div",
             [
               _c("flat-pickr", {
-                staticClass: "input mt-2 w-full",
+                staticClass:
+                  "bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mt-2 w-full",
                 class: {
                   "border-2 border-peachy-pink": _vm.errors.hasOwnProperty(
                     "notification_date"
@@ -27809,9 +27860,14 @@ var render = function() {
       _vm._v(" "),
       _c("div", [
         _c("div", { staticClass: "flex justify-between" }, [
-          _c("label", { staticClass: "label", attrs: { for: "description" } }, [
-            _vm._v("Description")
-          ]),
+          _c(
+            "label",
+            {
+              staticClass: "font-semibold text-sm text-grey-dark",
+              attrs: { for: "description" }
+            },
+            [_vm._v("Description")]
+          ),
           _vm._v(" "),
           _vm.errors.hasOwnProperty("description")
             ? _c("span", {
@@ -27831,7 +27887,8 @@ var render = function() {
                 expression: "form.description"
               }
             ],
-            staticClass: "textarea mb-4 mt-2 w-full",
+            staticClass:
+              "bg-grey-lighter rounded-xl p-2 resize-none min-h-48 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full",
             class: {
               "border-2 border-peachy-pink": _vm.errors.hasOwnProperty(
                 "description"
@@ -27908,9 +27965,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "flex justify-between" }, [
-      _c("label", { staticClass: "label", attrs: { for: "title" } }, [
-        _vm._v("Title*")
-      ])
+      _c(
+        "label",
+        {
+          staticClass: "font-semibold text-sm text-grey-dark",
+          attrs: { for: "title" }
+        },
+        [_vm._v("Title*")]
+      )
     ])
   },
   function() {
@@ -27920,7 +27982,10 @@ var staticRenderFns = [
     return _c("div", { staticClass: "flex justify-between" }, [
       _c(
         "label",
-        { staticClass: "label", attrs: { for: "notification_date" } },
+        {
+          staticClass: "font-semibold text-sm text-grey-dark",
+          attrs: { for: "notification_date" }
+        },
         [_vm._v("Date*")]
       )
     ])
@@ -27930,9 +27995,14 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "flex justify-between" }, [
-      _c("label", { staticClass: "label", attrs: { for: "people" } }, [
-        _vm._v("Invite people to be reminded")
-      ])
+      _c(
+        "label",
+        {
+          staticClass: "font-semibold text-sm text-grey-dark",
+          attrs: { for: "people" }
+        },
+        [_vm._v("Invite people to be reminded")]
+      )
     ])
   }
 ]
@@ -28101,7 +28171,7 @@ var render = function() {
             _c("div", { staticClass: "flex justify-end" }, [
               _c("img", {
                 staticClass: "pr-8 pt-8 cursor-pointer",
-                attrs: { src: "/img/ic-close.svg" },
+                attrs: { src: "/img/ic-close.svg", alt: "Close" },
                 on: {
                   click: function($event) {
                     return _vm.$modal.hide("show-reminder-modal")
@@ -28203,7 +28273,7 @@ var render = function() {
                     : _vm._e(),
                   _vm._v(" "),
                   _vm.isOwner
-                    ? _c("div", { staticClass: "flex justify-end pb-6 mt-2" }, [
+                    ? _c("div", { staticClass: "flex justify-end mt-2" }, [
                         _c(
                           "div",
                           {
@@ -28217,7 +28287,7 @@ var render = function() {
                           [
                             _c("img", {
                               staticClass: "cursor-pointer h-4 mr-1",
-                              attrs: { src: "/img/delete.svg" }
+                              attrs: { src: "/img/delete.svg", alt: "Delete" }
                             }),
                             _vm._v(" "),
                             _c(
@@ -28244,7 +28314,7 @@ var render = function() {
                           [
                             _c("img", {
                               staticClass: "cursor-pointer h-4 mr-1",
-                              attrs: { src: "/img/pencil.svg" }
+                              attrs: { src: "/img/pencil.svg", alt: "Edit" }
                             }),
                             _vm._v(" "),
                             _c(

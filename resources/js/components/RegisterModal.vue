@@ -1,7 +1,7 @@
 <template>
     <modal :classes="'rounded-lg bg-white max-w-1/2'" height="auto" :adaptive="true" name="register-modal">
         <div class="flex justify-end">
-            <img class="p-2 cursor-pointer" src="/img/ic-close.svg" @click="$modal.hide('register-modal')"/>
+            <img class="p-2 cursor-pointer" src="/img/ic-close.svg" @click="$modal.hide('register-modal')" alt="Close"/>
         </div>
         <transition name="slide">
             <form
@@ -19,12 +19,12 @@
 
                 <div>
                     <div class="flex justify-between">
-                        <label class="label" for="username">Username</label>
-                        <span v-if="errors.hasOwnProperty('username')" v-text="errors.username[0]" class="text-sm text-peachy-pink"></span>
+                        <label class="font-semibold text-sm text-grey-dark" for="username">Username</label>
+                        <span v-if="errors.hasOwnProperty('username')" v-text="errors.username[0]" class="text-sm text-peachy-pink"/>
                     </div>
                     <div>
                         <input
-                                class="input mb-4 mt-2 w-full"
+                                class="bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full"
                                 :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('username') }"
                                 id="username"
                                 type="text"
@@ -37,12 +37,12 @@
 
                 <div>
                     <div class="flex justify-between">
-                        <label class="label" for="email">E-mail</label>
-                        <span v-if="errors.hasOwnProperty('email')" v-text="errors.email[0]" class="text-sm text-peachy-pink"></span>
+                        <label class="font-semibold text-sm text-grey-dark" for="email">E-mail</label>
+                        <span v-if="errors.hasOwnProperty('email')" v-text="errors.email[0]" class="text-sm text-peachy-pink"/>
                     </div>
                     <div>
                         <input
-                                class="input mb-4 mt-2 w-full"
+                                class="bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full"
                                 :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('email') }"
                                 id="email"
                                 type="email"
@@ -54,12 +54,12 @@
 
                 <div>
                     <div class="flex justify-between">
-                        <label class="label" for="password">Password</label>
-                        <span v-if="errors.hasOwnProperty('password')" v-text="errors.password[0]" class="text-sm text-peachy-pink"></span>
+                        <label class="font-semibold text-sm text-grey-dark" for="password">Password</label>
+                        <span v-if="errors.hasOwnProperty('password')" v-text="errors.password[0]" class="text-sm text-peachy-pink"/>
                     </div>
                     <div>
                         <input
-                                class="input mb-4 mt-2 w-full"
+                                class="bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full"
                                 :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('password') }"
                                 id="password"
                                 type="password"
@@ -70,10 +70,10 @@
                 </div>
 
                 <div>
-                    <label class="label" for="password_confirmation">Password Confirmation</label>
+                    <label class="font-semibold text-sm text-grey-dark" for="password_confirmation">Password Confirmation</label>
                     <div>
                         <input
-                                class="input mb-4 mt-2 w-full"
+                                class="bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full"
                                 id="password_confirmation"
                                 type="password"
                                 name="password_confirmation"
@@ -111,28 +111,23 @@
                 registered: false
             };
         },
-
         computed: {
             submitDisabled() {
                 return this.loading || Object.keys(this.errors).length > 0;
             }
         },
-
         methods: {
             register() {
                 this.loading = true;
 
                 axios
                     .post('/register', this.form)
-                    .then(() => {
-                        this.registered = true;
-                    })
+                    .then(() => this.registered = true)
                     .catch((errors) => {
                         this.loading = false;
                         this.errors = errors.response.data.errors;
                     });
             },
-
             clear(field) {
                 if (this.errors.hasOwnProperty(field)) Vue.delete(this.errors, field);
             }

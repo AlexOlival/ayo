@@ -10,7 +10,7 @@
             </a>
         </header>
         <section class="flex flex-wrap px-3 items-center flex-col sm:flex-row md:flex-row lg:flex-row">
-            <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
+            <reminder v-for="reminder in reminders" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"/>
         </section>
     </section>
 </template>
@@ -19,7 +19,9 @@
     import Reminder from "./Reminder";
 
     export default {
-        components: {Reminder},
+        components: {
+            Reminder
+        },
         props: {
             period: {
                 type: String,

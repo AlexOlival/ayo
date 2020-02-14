@@ -9,9 +9,14 @@
             :list="reminderList"
             :per="8"
         >
-            <reminder v-for="reminder in paginated('items')" :key="reminder.id" :reminder="reminder" @click.native="openDetailModal(reminder)"></reminder>
+            <reminder
+                v-for="reminder in paginated('items')"
+                :key="reminder.id"
+                :reminder="reminder"
+                @click.native="openDetailModal(reminder)"
+            />
         </paginate>
-        <paginate-links class="flex justify-center" for="items" :show-step-links="true"></paginate-links>
+        <paginate-links class="flex justify-center" for="items" :show-step-links="true"/>
     </section>
 </template>
 
@@ -19,7 +24,9 @@
     import Reminder from "./Reminder";
 
     export default {
-        components: {Reminder},
+        components: {
+            Reminder
+        },
         props: {
             period: {
                 type: String,
@@ -62,6 +69,7 @@
         }
     }
 </script>
+
 <style>
     ul {
         list-style-type: none;

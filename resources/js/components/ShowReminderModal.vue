@@ -4,7 +4,7 @@
         <div v-if="reminder">
             <div class="flex justify-end">
                 <img class="pr-8 pt-8 cursor-pointer" src="/img/ic-close.svg"
-                     @click="$modal.hide('show-reminder-modal')"/>
+                     @click="$modal.hide('show-reminder-modal')" alt="Close"/>
             </div>
             <div class="flex flex-col p-6">
                 <div v-show="!showDeletePrompt && !showEditForm">
@@ -19,7 +19,7 @@
                             <div class="flex bg-grey-lighter rounded-full w-36 items-center p-1 mr-2"
                                  v-for="guest in reminder.guests" :key="guest.id">
                                 <img class="h-8 w-8 rounded-full mr-2" :src="guest.avatar_path" alt="Avatar">
-                                <span class="truncate" v-text="guest.username"></span>
+                                <span class="truncate" v-text="guest.username"/>
                             </div>
                         </div>
                     </div>
@@ -27,13 +27,13 @@
                         <span class="text-grey-dark text-xl mb-2">Description</span>
                         <span class="bg-grey-lighter rounded-xl p-2">{{ reminder.description }}</span>
                     </div>
-                    <div class="flex justify-end pb-6 mt-2" v-if="isOwner">
+                    <div class="flex justify-end mt-2" v-if="isOwner">
                         <div class="flex items-center" @click="showDeletePrompt = true">
-                            <img class="cursor-pointer h-4 mr-1" src="/img/delete.svg"/>
+                            <img class="cursor-pointer h-4 mr-1" src="/img/delete.svg" alt="Delete"/>
                             <a class="text-sm font-semibold text-grey-dark underline mr-8 cursor-pointer">DELETE</a>
                         </div>
                         <div class="flex items-center" @click="showEditForm = true">
-                            <img class="cursor-pointer h-4 mr-1" src="/img/pencil.svg"/>
+                            <img class="cursor-pointer h-4 mr-1" src="/img/pencil.svg" alt="Edit"/>
                             <a class="text-sm font-semibold text-grey-dark underline cursor-pointer">EDIT</a>
                         </div>
                     </div>
@@ -66,7 +66,9 @@
     import ReminderForm from "./ReminderForm";
 
     export default {
-        components: {ReminderForm},
+        components: {
+            ReminderForm
+        },
         data() {
             return {
                 reminder: null,

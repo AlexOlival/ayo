@@ -15,11 +15,11 @@
         <div class="flex flex-row justify-between mb-6">
             <div class="w-full pr-2">
                 <div class="flex justify-between">
-                    <label class="label" for="title">Title*</label>
+                    <label class="font-semibold text-sm text-grey-dark" for="title">Title*</label>
                 </div>
                 <div>
                     <input
-                        class="input mt-2 w-full"
+                        class="bg-grey-lighter rounded-lg focus:outline-none focus:border-grey focus:border-2 p-2 mt-2 w-full"
                         :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('title') }"
                         id="title"
                         type="text"
@@ -31,11 +31,11 @@
             </div>
             <div class="w-full pl-2">
                 <div class="flex justify-between">
-                    <label class="label" for="notification_date">Date*</label>
+                    <label class="font-semibold text-sm text-grey-dark" for="notification_date">Date*</label>
                 </div>
                 <div>
                     <flat-pickr
-                        class="input mt-2 w-full"
+                        class="bg-grey-lighter rounded-lg p-2 focus:outline-none focus:border-grey focus:border-2 mt-2 w-full"
                         :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('notification_date') }"
                         id="notification_date"
                         name="notification_date"
@@ -54,7 +54,7 @@
         </div>
         <div>
             <div class="flex justify-between">
-                <label class="label" for="people">Invite people to be reminded</label>
+                <label class="font-semibold text-sm text-grey-dark" for="people">Invite people to be reminded</label>
             </div>
             <div>
                 <v-select class="mb-4 mt-2 w-full"
@@ -82,14 +82,14 @@
         </div>
         <div>
             <div class="flex justify-between">
-                <label class="label" for="description">Description</label>
+                <label class="font-semibold text-sm text-grey-dark" for="description">Description</label>
                 <span v-if="errors.hasOwnProperty('description')" v-text="errors.description[0]"
                       class="text-sm text-peachy-pink"/>
             </div>
 
             <div>
                 <textarea
-                    class="textarea mb-4 mt-2 w-full"
+                    class="bg-grey-lighter rounded-xl p-2 resize-none min-h-48 focus:outline-none focus:border-grey focus:border-2 mb-4 mt-2 w-full"
                     :class="{ 'border-2 border-peachy-pink' : errors.hasOwnProperty('description') }"
                     id="description"
                     type="text"
@@ -116,7 +116,9 @@
     import 'flatpickr/dist/flatpickr.css';
 
     export default {
-        components: {flatPickr},
+        components: {
+            flatPickr
+        },
         props: ['title', 'subtitle', 'errors', 'reminder'],
         data() {
             return {
@@ -150,9 +152,7 @@
                         console.log(response.data());
                         loading(false);
                     })
-                    .catch(() => {
-                        loading(false);
-                    });
+                    .catch(() => loading(false));
             }, 350),
             clear(field) {
                 if (this.errors.hasOwnProperty(field)) Vue.delete(this.errors, field);
@@ -200,5 +200,4 @@
     .v-select .vs__actions {
         padding: 1em;
     }
-
 </style>

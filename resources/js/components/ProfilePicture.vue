@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="h-16 w-16 bg-peachy-pink absolute flex justify-end rounded-lg p-1 z-0">
-                <img class="h-4 w-4" src="/img/pencil-white.svg">
+                <img class="h-4 w-4" src="/img/pencil-white.svg" alt="Change Avatar">
             </div>
         </div>
 
@@ -63,12 +63,8 @@
                 data.append('avatar', avatar);
 
                 axios.post(`/users/${this.user.id}/avatars`, data)
-                    .then(() => {
-                        this.errors = {}
-                    })
-                    .catch((errors) => {
-                        this.errors = errors.response.data.errors;
-                    });
+                    .then(() => this.errors = {})
+                    .catch(errors => this.errors = errors.response.data.errors);
             }
         }
     }
